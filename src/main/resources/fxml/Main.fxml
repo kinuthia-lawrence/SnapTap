@@ -58,29 +58,33 @@
 
     <!-- Center: TabPane with Dashboard, Keyboard Map, Add Hotkey -->
     <center>
-        <TabPane fx:id="mainTabPane">
-            <!-- Dashboard Tab -->
-            <Tab text="Dashboard">
-                <VBox spacing="10" styleClass="content-pane">
+        <VBox spacing="10" styleClass="center-container">
+            <!-- Custom tab bar -->
+            <HBox fx:id="tabBar" spacing="2" alignment="CENTER_LEFT" styleClass="custom-tab-bar">
+                <Button fx:id="dashboardTab" text="Dashboard" styleClass="tab-button, selected-tab" onAction="#switchTab"/>
+                <Button fx:id="keyboardMapTab" text="Keyboard Map" styleClass="tab-button" onAction="#switchTab"/>
+                <Button fx:id="addHotkeyTab" text="Add Hotkey" styleClass="tab-button" onAction="#switchTab"/>
+            </HBox>
+
+            <!-- Content area with margin -->
+            <StackPane fx:id="contentArea" styleClass="content-area" VBox.vgrow="ALWAYS">
+                <!-- Dashboard Content -->
+                <VBox fx:id="dashboardContent" spacing="10" styleClass="content-pane">
                     <TextField fx:id="searchField" promptText="Search for hotkeys..."/>
-                    <ScrollPane fitToWidth="true">
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
                         <VBox fx:id="hotkeyCardContainer" spacing="10"/>
                     </ScrollPane>
                 </VBox>
-            </Tab>
 
-            <!-- Keyboard Map Tab -->
-            <Tab text="Keyboard Map">
-                <ScrollPane fitToWidth="true" fitToHeight="true">
+                <!-- Keyboard Map Content -->
+                <ScrollPane fx:id="keyboardMapContent" fitToWidth="true" fitToHeight="true" visible="false">
                     <GridPane fx:id="keyboardGrid" hgap="5" vgap="5" styleClass="content-pane">
                         <!-- Keys populated dynamically -->
                     </GridPane>
                 </ScrollPane>
-            </Tab>
 
-            <!-- Add Hotkey Tab -->
-            <Tab text="Add Hotkey">
-                <GridPane hgap="10" vgap="10" styleClass="content-pane">
+                <!-- Add Hotkey Content -->
+                <GridPane fx:id="addHotkeyContent" hgap="10" vgap="10" styleClass="content-pane" visible="false">
                     <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     <TextField fx:id="nameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
@@ -112,7 +116,7 @@
 
                     <Button fx:id="saveHotkeyBtn" text="Save" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
                 </GridPane>
-            </Tab>
-        </TabPane>
+            </StackPane>
+        </VBox>
     </center>
 </BorderPane>

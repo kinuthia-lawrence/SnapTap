@@ -4,12 +4,12 @@ import com.larrykin.snaptap.enums.ActionType;
 import com.larrykin.snaptap.models.Hotkey;
 import com.larrykin.snaptap.services.HotkeyManager;
 import com.larrykin.snaptap.services.ProfileManager;
-import com.larrykin.snaptap.utils.ThemeManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,8 +49,18 @@ public class MainController implements Initializable {
 
     @FXML
     private TextField searchField;
-
-
+    @FXML
+    private Button dashboardTab;
+    @FXML
+    private Button keyboardMapTab;
+    @FXML
+    private Button addHotkeyTab;
+    @FXML
+    private VBox dashboardContent;
+    @FXML
+    private ScrollPane keyboardMapContent;
+    @FXML
+    private GridPane addHotkeyContent;
 
 
     private HotkeyManager hotkeyManager;
@@ -66,6 +76,34 @@ public class MainController implements Initializable {
 
         // TODO: Initialize other controls
         setupUIBindings();
+    }
+
+    @FXML
+    private void switchTab(ActionEvent event) {
+        // Get the clicked button
+        Button clickedButton = (Button) event.getSource();
+
+        // Remove selected class from all buttons
+        dashboardTab.getStyleClass().remove("selected-tab");
+        keyboardMapTab.getStyleClass().remove("selected-tab");
+        addHotkeyTab.getStyleClass().remove("selected-tab");
+
+        // Add selected class to clicked button
+        clickedButton.getStyleClass().add("selected-tab");
+
+        // Hide all content panes
+        dashboardContent.setVisible(false);
+        keyboardMapContent.setVisible(false);
+        addHotkeyContent.setVisible(false);
+
+        // Show the appropriate content based on which button was clicked
+        if (clickedButton == dashboardTab) {
+            dashboardContent.setVisible(true);
+        } else if (clickedButton == keyboardMapTab) {
+            keyboardMapContent.setVisible(true);
+        } else if (clickedButton == addHotkeyTab) {
+            addHotkeyContent.setVisible(true);
+        }
     }
 
     private void setupUIBindings() {
