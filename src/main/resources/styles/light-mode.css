@@ -1,12 +1,91 @@
-body {
-    background-color: #FF0000;
-    color: #a9b7c6;
+/* Light Mode */
+.root {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: #333333;
 }
 
 .button {
     -fx-alignment: center;
     -fx-background-color: #e6e6e6;
-     -fx-font-weight: bold;
+    -fx-font-weight: bold;
     -fx-border-color: transparent;
-     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
+    -fx-text-fill: #333333;
+}
+
+/* Title bar styles */
+.title-bar {
+    -fx-padding: 10;
+}
+
+.app-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* Status panel styles */
+.status-panel {
+    -fx-padding: 10;
+    -fx-background-color: #e9ecef;
+}
+
+.status-panel-title {
+    -fx-text-fill: #333333;
+    -fx-font-size: 16px;
+}
+
+.status-label {
+    -fx-text-fill: #333333;
+}
+
+.status-active {
+    -fx-text-fill: #198754;
+}
+
+.status-hint {
+    -fx-text-fill: #6c757d;
+}
+
+/* Content styles */
+.content-pane {
+    -fx-padding: 10;
+}
+
+/* Window controls */
+.window-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.window-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.stop-button {
+    -fx-background-color: #dc3545;
+}
+
+/* Window bar styles */
+.window-bar {
+    -fx-padding: 5 10;
+    -fx-background-color: #1a1a1a; /* Dark theme */
+}
+
+.window-title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.close-button:hover {
+    -fx-background-color: #e81123;
+}
+.window-bar {
+    -fx-padding: 5 10;
+    -fx-background-color: #e6e6e6; /* Light theme */
+}
+
+.window-title {
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
 }
