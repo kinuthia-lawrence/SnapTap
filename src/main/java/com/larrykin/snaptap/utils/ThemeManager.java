@@ -44,6 +44,11 @@ public class ThemeManager {
     public static void applyTheme(Scene scene, boolean isDarkMode) {
         if (scene == null) return;
 
+        // Remove all theme stylesheets first
+        scene.getStylesheets().removeIf(stylesheet ->
+                stylesheet.contains(LIGHT_MODE) || stylesheet.contains(DARK_MODE));
+
+        // Add the appropriate theme stylesheet
         if (isDarkMode) {
             scene.getStylesheets().add(Objects.requireNonNull(ThemeManager.class.getResource(DARK_MODE)).toExternalForm());
         } else {

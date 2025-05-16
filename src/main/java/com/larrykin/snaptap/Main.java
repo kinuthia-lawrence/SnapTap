@@ -37,6 +37,9 @@ public class Main extends Application {
         // Get the window bar (first row)
         HBox windowBar = (HBox) topContainer.getChildren().get(0);
 
+        // Check the current theme
+        boolean isDarkMode = ThemeManager.loadThemeState();
+
         // Create app icon and title
         HBox titleBox = new HBox(10);
         titleBox.setAlignment(Pos.CENTER_LEFT);
@@ -57,6 +60,9 @@ public class Main extends Application {
         // Load the image using input stream to avoid path issues
         try {
             appIcon.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/images/logo.png")));
+            // Set color based on theme
+            appIcon.setStyle(isDarkMode ? "-fx-fill: white;" :
+                    "-fx-fill: black; ");
             // Add icon to container
             iconContainer.getChildren().add(appIcon);
         } catch (Exception e) {
@@ -70,47 +76,93 @@ public class Main extends Application {
         titleBox.getChildren().addAll(iconContainer, appTitle);
         windowBar.getChildren().add(0, titleBox);
 
-        // Create window control buttons
-        Button themeButton = new Button();
-        themeButton.setGraphic(new FontIcon("fas-adjust"));
-        themeButton.setTooltip(new Tooltip("Toggle Theme"));
-        themeButton.getStyleClass().add("window-button");
-        themeButton.setOnAction(e -> ThemeManager.toggleTheme(stage.getScene()));
+        // Set icon color based on theme
+        javafx.scene.paint.Color iconColor = isDarkMode ?
+                javafx.scene.paint.Color.WHITE :
+                javafx.scene.paint.Color.BLACK;
 
+        // Create window control buttons
+        FontIcon helpIcon = new FontIcon("fas-question-circle");
+        helpIcon.setIconColor(iconColor);
         Button helpButton = new Button();
-        helpButton.setGraphic(new FontIcon("fas-question-circle"));
+        helpButton.setGraphic(helpIcon);
         helpButton.setTooltip(new Tooltip("Help"));
         helpButton.getStyleClass().add("window-button");
         helpButton.setOnAction(e -> showHelpDialog());
 
+        // Theme button with icon based on current theme
+        FontIcon themeIcon = new FontIcon(isDarkMode ? "fas-sun" : "fas-moon");
+        themeIcon.setIconColor(iconColor);
+        Button themeButton = new Button();
+        themeButton.setGraphic(themeIcon);
+        themeButton.setTooltip(new Tooltip("Toggle Theme"));
+        themeButton.getStyleClass().add("window-button");
         Button minimizeButton = new Button();
-        minimizeButton.setGraphic(new FontIcon("fas-minus"));
+        Button maximizeButton = new Button();
+        Button closeButton = new Button();
+        themeButton.setOnAction(e -> {
+            boolean newTheme = !ThemeManager.loadThemeState();
+            ThemeManager.toggleTheme(stage.getScene());
+
+            // Update icon color for all icons
+            javafx.scene.paint.Color newIconColor = newTheme ?
+                    javafx.scene.paint.Color.WHITE :
+                    javafx.scene.paint.Color.BLACK;
+
+            // Update theme icon after toggle
+            FontIcon newThemeIcon = new FontIcon(newTheme ? "fas-sun" : "fas-moon");
+            newThemeIcon.setIconColor(newIconColor);
+            ((FontIcon) helpButton.getGraphic()).setIconColor(newIconColor);
+            themeButton.setGraphic(newThemeIcon);
+
+            // Update other icons
+            ((FontIcon) minimizeButton.getGraphic()).setIconColor(newIconColor);
+            ((FontIcon) maximizeButton.getGraphic()).setIconColor(newIconColor);
+            ((FontIcon) closeButton.getGraphic()).setIconColor(newIconColor);
+
+            // Update app icon color
+            appIcon.setStyle(newTheme ? "-fx-fill: white;" :
+                    "-fx-fill: black; ");
+        });
+
+        FontIcon minusIcon = new FontIcon("fas-minus");
+        minusIcon.setIconColor(iconColor);
+//        Button minimizeButton = new Button();
+        minimizeButton.setGraphic(minusIcon);
         minimizeButton.setTooltip(new Tooltip("Minimize"));
         minimizeButton.getStyleClass().add("window-button");
         minimizeButton.setOnAction(e -> stage.setIconified(true));
 
-        Button maximizeButton = new Button();
-        maximizeButton.setGraphic(new FontIcon("fas-expand"));
+        FontIcon maximizeIcon = new FontIcon("fas-expand");
+        maximizeIcon.setIconColor(iconColor);
+//        Button maximizeButton = new Button();
+        maximizeButton.setGraphic(maximizeIcon);
         maximizeButton.setTooltip(new Tooltip("Maximize"));
         maximizeButton.getStyleClass().add("window-button");
         maximizeButton.setOnAction(e -> {
             if (stage.isMaximized()) {
                 stage.setMaximized(false);
-                maximizeButton.setGraphic(new FontIcon("fas-expand"));
+                FontIcon expandIcon = new FontIcon("fas-expand");
+                expandIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
+                maximizeButton.setGraphic(expandIcon);
             } else {
                 stage.setMaximized(true);
-                maximizeButton.setGraphic(new FontIcon("fas-compress"));
+                FontIcon compressIcon = new FontIcon("fas-compress");
+                compressIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
+                maximizeButton.setGraphic(compressIcon);
             }
         });
 
-        Button closeButton = new Button();
-        closeButton.setGraphic(new FontIcon("fas-times"));
+        FontIcon closeIcon = new FontIcon("fas-times");
+        closeIcon.setIconColor(iconColor);
+//        Button closeButton = new Button();
+        closeButton.setGraphic(closeIcon);
         closeButton.setTooltip(new Tooltip("Close"));
         closeButton.getStyleClass().addAll("window-button", "close-button");
         closeButton.setOnAction(e -> Platform.exit());
 
         // Add window controls to the window bar
-        windowBar.getChildren().addAll(themeButton, helpButton, minimizeButton, maximizeButton, closeButton);
+        windowBar.getChildren().addAll(helpButton, themeButton, minimizeButton, maximizeButton, closeButton);
 
         // Make the window draggable from the window bar
         windowBar.setOnMousePressed(event -> {
@@ -123,10 +175,9 @@ public class Main extends Application {
         });
 
         // Create scene
-        Scene scene = new Scene(root, 1200, 600);
+        Scene scene = new Scene(root, 1200, 700);
 
         // Apply theme
-        boolean isDarkMode = ThemeManager.loadThemeState();
         ThemeManager.applyTheme(scene, isDarkMode);
 
         stage.setTitle("SnapTap");
@@ -140,11 +191,44 @@ public class Main extends Application {
     }
 
     private void showHelpDialog() {
+        boolean isDarkMode = ThemeManager.loadThemeState();
+        String backgroundColor = isDarkMode ? "#212529" : "#F9FAFB";
+        String textColor = isDarkMode ? "#ffffff" : "#333333";
+
         Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
-        helpAlert.setTitle("SnapTap Help");
-        helpAlert.setHeaderText("SnapTap Keyboard Shortcut Manager");
-        helpAlert.setContentText("This application allows you to create and manage custom keyboard shortcuts.\n\n" +
-                "For more information, visit the documentation website.");
+        helpAlert.setTitle("About SnapTap");
+        helpAlert.setHeaderText("About SnapTap");
+        helpAlert.setContentText("SnapTap is a hotkey manager that allows you to assign custom keyboard shortcuts " +
+                "to perform various actions such as launching websites, opening applications, and executing files or folders.\n\n" +
+                "How to use:\n" +
+                "1. Create a new hotkey from the \"Add Hotkey\" tab\n" +
+                "2. Define your key combination (e.g., Ctrl+G)\n" +
+                "3. Select the action type (website, application, file)\n" +
+                "4. Enter the action details\n" +
+                "5. Save your hotkey\n\n" +
+                "SnapTap will listen for your hotkeys in the background");
+
+        // Apply theme-consistent styling to dialog pane
+        helpAlert.getDialogPane().setStyle(
+                "-fx-background-color: " + backgroundColor + ";"
+        );
+
+        // Style the dialog content properly
+        helpAlert.getDialogPane().lookupAll(".content").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 14px;"));
+
+        // Style header text
+        helpAlert.getDialogPane().lookupAll(".header-panel .label").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 16px; -fx-font-weight: bold;"));
+
+        // Style content text
+        helpAlert.getDialogPane().lookupAll(".content-panel .label").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 14px;"));
+
+        // Style buttons
+        helpAlert.getDialogPane().lookupAll(".button").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + ";"));
+
         helpAlert.showAndWait();
     }
 

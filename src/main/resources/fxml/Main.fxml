@@ -6,7 +6,7 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.larrykin.snaptap.controllers.MainController" styleClass="root">
     <!-- Top: Title, Profile selector, Add profile -->
     <top>
-        <VBox spacing="5">
+        <VBox>
             <!-- First row: App icon and window controls -->
             <HBox fx:id="windowBar" spacing="15" alignment="CENTER_LEFT" styleClass="window-bar">
                 <!-- Logo and title added programmatically -->

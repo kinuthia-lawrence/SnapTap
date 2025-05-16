@@ -36,20 +36,29 @@
 .window-bar {
     -fx-padding: 10;
     -fx-background-color: #1a1a1a;
+    -fx-border-color: transparent transparent #2F3845 transparent;
+    -fx-border-width: 0 0 1px 0;
 }
 
 .window-title {
+-fx-font-size: 16px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
 .window-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+    -fx-alignment: center;
+    -fx-padding: 10 15;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-background-color: #1F2937;
+    -fx-border-color: #34647F;
+    -fx-border-width: 0.5px;
+
 }
 
 .window-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-color: #2A9D8F;
 }
 
 .close-button:hover {
@@ -58,13 +67,13 @@
 
 /* Title bar - second row */
 .title-bar {
-    -fx-padding: 10;
+     -fx-padding: 20 15 20 40;
      -fx-background-color: #212529;
      -fx-text-fill: white;
 }
 
 .app-title {
-    -fx-font-size: 18px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
