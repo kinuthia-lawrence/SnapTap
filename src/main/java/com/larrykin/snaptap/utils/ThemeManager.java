@@ -12,6 +12,7 @@ public class ThemeManager {
     private static final String LIGHT_MODE = "/styles/light-mode.css";
     private static final String DARK_MODE = "/styles/dark-mode.css";
 
+
     private static final Logger log = LoggerFactory.getLogger(ThemeManager.class);
 
 
@@ -44,13 +45,9 @@ public class ThemeManager {
         if (scene == null) return;
 
         if (isDarkMode) {
-            scene.getRoot().getStyleClass().add("dark-theme");
-            scene.getRoot().getStyleClass().remove("light-theme");
-            scene.getRoot().setStyle("-fx-background-color: #212529;");
+            scene.getStylesheets().add(Objects.requireNonNull(ThemeManager.class.getResource(DARK_MODE)).toExternalForm());
         } else {
-            scene.getRoot().getStyleClass().add("light-theme");
-            scene.getRoot().getStyleClass().remove("dark-theme");
-            scene.getRoot().setStyle("-fx-background-color: #f8f9fa;");
+            scene.getStylesheets().add(Objects.requireNonNull(ThemeManager.class.getResource(LIGHT_MODE)).toExternalForm());
         }
     }
 

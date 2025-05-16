@@ -1,16 +1,15 @@
-/*----------------general-------------*/
+/*----------------------------------------------*/
+/* Dark Mode - Main Application Styles         */
+/*----------------------------------------------*/
 /**
- * Dark Mode CSS
- * This CSS file is designed to provide a dark mode theme for a web application.
- * It includes styles for various HTML elements, including the body, headings, paragraphs, and links.
- * The color scheme is based on a dark background with light text for better readability in low-light environments.
- 212529 -background main color
- 1F2937 - main card color
- 2A9D8F - button color
- 335D76 - button on hover
- BF3234 - stop button
- 44799A - run in bg btn, used btns
-*/
+ * Color Scheme:
+ * #212529 - Background main color
+ * #1F2937 - Main card color
+ * #2A9D8F - Button color
+ * #335D76 - Button on hover
+ * #BF3234 - Stop button
+ * #44799A - Run in bg btn, used btns
+ */
 
 .root {
     -fx-background-color: #212529;
@@ -26,9 +25,42 @@
     -fx-text-fill: white;
 }
 
-/* Title bar styles */
+.stop-button {
+    -fx-background-color: #BF3234;
+}
+
+/*----------------------------------------------*/
+/* Top Section - Window Controls & Title Bar    */
+/*----------------------------------------------*/
+/* Window bar - first row */
+.window-bar {
+    -fx-padding: 10;
+    -fx-background-color: #1a1a1a;
+}
+
+.window-title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.window-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.window-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.close-button:hover {
+    -fx-background-color: #e81123;
+}
+
+/* Title bar - second row */
 .title-bar {
     -fx-padding: 10;
+     -fx-background-color: #212529;
+     -fx-text-fill: white;
 }
 
 .app-title {
@@ -37,10 +69,13 @@
     -fx-text-fill: white;
 }
 
-/* Status panel styles */
+/*----------------------------------------------*/
+/* Left Section - Status Panel                  */
+/*----------------------------------------------*/
 .status-panel {
     -fx-padding: 10;
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: #212529;
+    -fx-text-fill: white;
 }
 
 .status-panel-title {
@@ -60,38 +95,16 @@
     -fx-text-fill: #aaaaaa;
 }
 
-/* Content styles */
-.content-pane {
+/*----------------------------------------------*/
+/* Center Section - Tab Controls & Content      */
+/*----------------------------------------------*/
+.center-container {
     -fx-padding: 10;
-}
-
-/* Window controls */
-.window-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-.window-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-}
-
-.stop-button {
-    -fx-background-color: #BF3234;
-}
-/* Window bar styles */
-.window-bar {
-    -fx-padding: 5 10;
-    -fx-background-color: #1a1a1a; /* Dark theme */
-}
-
-.window-title {
+    -fx-background-color: #212529;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
 }
 
-.close-button:hover {
-    -fx-background-color: #e81123;
-}
+/* Custom tabs */
 .custom-tab-bar {
     -fx-padding: 5 10 0 10;
 }
@@ -113,6 +126,7 @@
     -fx-text-fill: white;
 }
 
+/* Content area */
 .content-area {
     -fx-padding: 10;
     -fx-border-radius: 5;
@@ -121,6 +135,6 @@
     -fx-border-color: rgba(128, 128, 128, 0.3);
 }
 
-.center-container {
+.content-pane {
     -fx-padding: 10;
 }

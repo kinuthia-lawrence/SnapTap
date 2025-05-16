@@ -1,123 +1,130 @@
-/* Light Mode */
-.root {
-    -fx-background-color: #f8f9fa;
-    -fx-text-fill: #333333;
-}
+/*----------------------------------------------*/
+    /* Light Mode - Main Application Styles         */
+    /*----------------------------------------------*/
+    .root {
+        -fx-background-color: #ffffff;
+        -fx-text-fill: #212529;
+    }
 
-.button {
-    -fx-alignment: center;
-    -fx-background-color: #e6e6e6;
-    -fx-font-weight: bold;
-    -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
-    -fx-text-fill: #333333;
-}
+    .button {
+        -fx-alignment: center;
+        -fx-background-color: #e6e6e6;
+        -fx-font-weight: bold;
+        -fx-border-color: transparent;
+        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
+        -fx-text-fill: #333333;
+    }
 
-/* Title bar styles */
-.title-bar {
-    -fx-padding: 10;
-}
+    .stop-button {
+        -fx-background-color: #dc3545;
+    }
 
-.app-title {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-}
+    /*----------------------------------------------*/
+    /* Top Section - Window Controls & Title Bar    */
+    /*----------------------------------------------*/
+    /* Window bar - first row */
+    .window-bar {
+        -fx-padding: 10;
+        -fx-background-color: #ffffff;
+    }
 
-/* Status panel styles */
-.status-panel {
-    -fx-padding: 10;
-    -fx-background-color: #e9ecef;
-}
+    .window-title {
+        -fx-text-fill: #333333;
+        -fx-font-weight: bold;
+    }
 
-.status-panel-title {
-    -fx-text-fill: #333333;
-    -fx-font-size: 16px;
-}
+    .window-button {
+        -fx-background-color: transparent;
+        -fx-border-color: transparent;
+    }
 
-.status-label {
-    -fx-text-fill: #333333;
-}
+    .window-button:hover {
+        -fx-background-color: rgba(0, 0, 0, 0.1);
+    }
 
-.status-active {
-    -fx-text-fill: #198754;
-}
+    .close-button:hover {
+        -fx-background-color: #e81123;
+    }
 
-.status-hint {
-    -fx-text-fill: #6c757d;
-}
+    /* Title bar - second row */
+    .title-bar {
+        -fx-padding: 10;
+        -fx-background-color: #F9FAFB;
+        -fx-text-fill: #212529;
+    }
 
-/* Content styles */
-.content-pane {
-    -fx-padding: 10;
-}
+    .app-title {
+        -fx-font-size: 18px;
+        -fx-font-weight: bold;
+        -fx-text-fill: #333333;
+    }
 
-/* Window controls */
-.window-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
+    /*----------------------------------------------*/
+    /* Left Section - Status Panel                  */
+    /*----------------------------------------------*/
+    .status-panel {
+        -fx-padding: 10;
+        -fx-background-color: #F9FAFB;
+        -fx-text-fill: #212529;
+    }
 
-.window-button:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.1);
-}
+    .status-panel-title {
+        -fx-text-fill: #333333;
+        -fx-font-size: 16px;
+    }
 
-.stop-button {
-    -fx-background-color: #dc3545;
-}
+    .status-label {
+        -fx-text-fill: #333333;
+    }
 
-/* Window bar styles */
-.window-bar {
-    -fx-padding: 5 10;
-    -fx-background-color: #1a1a1a; /* Dark theme */
-}
+    .status-active {
+        -fx-text-fill: #198754;
+    }
 
-.window-title {
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-}
+    .status-hint {
+        -fx-text-fill: #6c757d;
+    }
 
-.close-button:hover {
-    -fx-background-color: #e81123;
-}
-.window-bar {
-    -fx-padding: 5 10;
-    -fx-background-color: #e6e6e6; /* Light theme */
-}
+    /*----------------------------------------------*/
+    /* Center Section - Tab Controls & Content      */
+    /*----------------------------------------------*/
+    .center-container {
+        -fx-padding: 10;
+        -fx-background-color: #F9FAFB;
+        -fx-text-fill: #212529;
+    }
 
-.window-title {
-    -fx-text-fill: #333333;
-    -fx-font-weight: bold;
-}
-.custom-tab-bar {
-    -fx-padding: 5 10 0 10;
-}
+    /* Custom tabs */
+    .custom-tab-bar {
+        -fx-padding: 5 10 0 10;
+    }
 
-.tab-button {
-    -fx-background-radius: 5 5 0 0;
-    -fx-background-color: transparent;
-    -fx-border-width: 1 1 0 1;
-    -fx-border-color: transparent;
-    -fx-padding: 8 15;
-}
+    .tab-button {
+        -fx-background-radius: 5 5 0 0;
+        -fx-background-color: transparent;
+        -fx-border-width: 1 1 0 1;
+        -fx-border-color: transparent;
+        -fx-padding: 8 15;
+    }
 
-.tab-button:hover {
-    -fx-background-color: rgba(128, 128, 128, 0.1);
-}
+    .tab-button:hover {
+        -fx-background-color: rgba(128, 128, 128, 0.1);
+    }
 
-.selected-tab {
-    -fx-background-color: #2A9D8F;
-    -fx-text-fill: white;
-}
+    .selected-tab {
+        -fx-background-color: #2A9D8F;
+        -fx-text-fill: white;
+    }
 
-.content-area {
-    -fx-padding: 10;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-border-width: 1;
-    -fx-border-color: rgba(128, 128, 128, 0.3);
-}
+    /* Content area */
+    .content-area {
+        -fx-padding: 10;
+        -fx-border-radius: 5;
+        -fx-background-radius: 5;
+        -fx-border-width: 1;
+        -fx-border-color: rgba(128, 128, 128, 0.3);
+    }
 
-.center-container {
-    -fx-padding: 10;
-}
+    .content-pane {
+        -fx-padding: 10;
+    }

@@ -38,20 +38,20 @@ public class Main extends Application {
         HBox windowBar = (HBox) topContainer.getChildren().get(0);
 
         // Create app icon and title
-        HBox titleBox = new HBox(5);
+        HBox titleBox = new HBox(10);
         titleBox.setAlignment(Pos.CENTER_LEFT);
 
         // Create an icon container with background
         StackPane iconContainer = new StackPane();
-        iconContainer.setStyle("-fx-background-color: #2A9D8F; -fx-background-radius: 3;");
-        iconContainer.setPrefSize(24, 24);
-        iconContainer.setMinSize(24, 24);
-        iconContainer.setMaxSize(24, 24);
+        iconContainer.setStyle("-fx-background-color: #1F2937; -fx-background-radius: 3; ");
+        iconContainer.setPrefSize(36, 36);
+        iconContainer.setMinSize(36, 36);
+        iconContainer.setMaxSize(36, 36);
 
         // Add app icon
         ImageView appIcon = new ImageView();
-        appIcon.setFitHeight(18);
-        appIcon.setFitWidth(18);
+        appIcon.setFitHeight(32);
+        appIcon.setFitWidth(32);
         appIcon.setPreserveRatio(true);
 
         // Load the image using input stream to avoid path issues

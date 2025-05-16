@@ -3,18 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.larrykin.snaptap.controllers.MainController" styleClass="root">
     <!-- Top: Title, Profile selector, Add profile -->
     <top>
-        <VBox>
+        <VBox spacing="5">
             <!-- First row: App icon and window controls -->
-            <HBox fx:id="windowBar" spacing="10" alignment="CENTER_LEFT" styleClass="window-bar">
-                <!-- Logo and title will be added programmatically -->
+            <HBox fx:id="windowBar" spacing="15" alignment="CENTER_LEFT" styleClass="window-bar">
+                <!-- Logo and title added programmatically -->
                 <Pane HBox.hgrow="ALWAYS"/>
-                <!-- Window controls will be added in Main.java -->
+                <!-- Window controls added in Main.java -->
             </HBox>
 
             <!-- Second row: Navigation controls -->
@@ -60,7 +57,7 @@
     <center>
         <VBox spacing="10" styleClass="center-container">
             <!-- Custom tab bar -->
-            <HBox fx:id="tabBar" spacing="2" alignment="CENTER_LEFT" styleClass="custom-tab-bar">
+            <HBox fx:id="tabBar" spacing="0" alignment="CENTER_LEFT" styleClass="custom-tab-bar">
                 <Button fx:id="dashboardTab" text="Dashboard" styleClass="tab-button, selected-tab" onAction="#switchTab"/>
                 <Button fx:id="keyboardMapTab" text="Keyboard Map" styleClass="tab-button" onAction="#switchTab"/>
                 <Button fx:id="addHotkeyTab" text="Add Hotkey" styleClass="tab-button" onAction="#switchTab"/>
