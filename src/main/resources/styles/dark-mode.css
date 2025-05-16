@@ -4,18 +4,23 @@
  * This CSS file is designed to provide a dark mode theme for a web application.
  * It includes styles for various HTML elements, including the body, headings, paragraphs, and links.
  * The color scheme is based on a dark background with light text for better readability in low-light environments.
-
  212529 -background main color
  1F2937 - main card color
  2A9D8F - button color
  335D76 - button on hover
  BF3234 - stop button
  44799A - run in bg btn, used btns
-
-
-
 */
+
 body {
     background-color: #212529;
-    color: #a9b7c6;
+    color: #ffffff;
+}
+
+.button {
+    -fx-alignment: center;
+    -fx-background-color: #FF0000;
+     -fx-font-weight: bold;
+    -fx-border-color: transparent;
+     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
 }
