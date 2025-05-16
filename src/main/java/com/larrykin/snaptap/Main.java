@@ -2,12 +2,15 @@ package com.larrykin.snaptap;
 
 import com.larrykin.snaptap.controllers.DashboardController;
 import com.larrykin.snaptap.utils.ThemeManager;
+import com.larrykin.snaptap.utils.TrayManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private TrayManager trayManager;
+
     /**
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,
@@ -23,18 +26,26 @@ public class Main extends Application {
      *              primary stages.
      * @throws Exception if something goes wrong
      */
+
     @Override
-    public void start(Stage stage
-    ) throws Exception {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(DashboardController.class.getResource("/fxml/Dashboard.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        // Set the background color directly on the root node
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         scene.getRoot().setStyle("-fx-background-color: #212529;");
+
         boolean isDarkMode = ThemeManager.loadThemeState();
         ThemeManager.applyTheme(scene, isDarkMode);
-        stage.setTitle("Hello!");
+
+        stage.setTitle("SnapTap - Hotkey Manager");
         stage.setScene(scene);
         stage.show();
+
+        // Initialize system tray
+        trayManager = new TrayManager(stage);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     /**
