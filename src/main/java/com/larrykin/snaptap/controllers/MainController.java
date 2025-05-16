@@ -15,8 +15,8 @@ package com.larrykin.snaptap.controllers;
     import java.util.ResourceBundle;
     import java.util.UUID;
 
-    public class DashboardController implements Initializable {
-        private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
+    public class MainController implements Initializable {
+        private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
         @FXML
         private Label welcomeText;

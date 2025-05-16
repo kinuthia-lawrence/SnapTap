@@ -5,6 +5,7 @@ module com.larrykin.snaptap {
     requires org.kordamp.ikonli.javafx;
     requires org.slf4j;
     requires java.desktop;
+    requires java.prefs;
 
     opens com.larrykin.snaptap to javafx.fxml;
     opens com.larrykin.snaptap.controllers to javafx.fxml;

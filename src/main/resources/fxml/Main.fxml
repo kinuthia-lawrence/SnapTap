@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.larrykin.snaptap.controllers.MainController">
+    <!-- Top: Title, Profile selector, Add profile -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+            <Label text="SnapTap" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <ComboBox fx:id="profileCombo" promptText="Select Profile" prefWidth="150" />
+            <Button fx:id="addProfileBtn" text="+">
+                <tooltip>
+                    <Tooltip text="Add Profile" />
+                </tooltip>
+            </Button>
+        </HBox>
+    </top>
+
+    <!-- Left: System Status Panel -->
+    <left>
+        <VBox fx:id="statusBox" spacing="10" style="-fx-padding: 10; -fx-background-color: #2b2b2b;" prefWidth="200">
+            <Label text="System Status" style="-fx-text-fill: white; -fx-font-size: 16px;" />
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Run in background" style="-fx-text-fill: white;" />
+                <ToggleButton fx:id="runToggle" />
+            </HBox>
+
+            <GridPane hgap="5" vgap="5">
+                <Label text="Status:" style="-fx-text-fill: white;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="statusLabel" text="Running" style="-fx-text-fill: #00ff00;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Uptime:" style="-fx-text-fill: white;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="uptimeLabel" text="00:00:00" style="-fx-text-fill: white;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Active hotkeys:" style="-fx-text-fill: white;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="activeHotkeysLabel" text="0/0" style="-fx-text-fill: white;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Button fx:id="stopServiceBtn" text="Stop Service" maxWidth="Infinity" />
+            <Label text="Try: Ctrl+G" style="-fx-text-fill: #aaaaaa;" />
+        </VBox>
+    </left>
+
+    <!-- Center: TabPane with Dashboard, Keyboard Map, Add Hotkey -->
+    <center>
+        <TabPane fx:id="mainTabPane">
+            <!-- Dashboard Tab -->
+            <Tab text="Dashboard">
+                <VBox spacing="10" style="-fx-padding: 10;">
+                    <TextField fx:id="searchField" promptText="Search for hotkeys..." />
+                    <ScrollPane fitToWidth="true">
+                        <VBox fx:id="hotkeyCardContainer" spacing="10" />
+                    </ScrollPane>
+                </VBox>
+            </Tab>
+
+            <!-- Keyboard Map Tab -->
+            <Tab text="Keyboard Map">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <GridPane fx:id="keyboardGrid" hgap="5" vgap="5" style="-fx-padding: 10;">
+                        <!-- Keys populated dynamically -->
+                    </GridPane>
+                </ScrollPane>
+            </Tab>
+
+            <!-- Add Hotkey Tab -->
+            <Tab text="Add Hotkey">
+                <GridPane hgap="10" vgap="10" style="-fx-padding: 10;">
+                    <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                    <TextField fx:id="nameField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                    <Label text="Modifiers:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                    <TextField fx:id="modifierField" promptText="e.g. CTRL+ALT+W" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                    <Label text="Key:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                    <ComboBox fx:id="keyCombo" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="150">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <!-- A-Z, 0-9, F1-F12 -->
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+
+                    <Label text="Action Type:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                    <ComboBox fx:id="actionTypeCombo" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Website" />
+                                <String fx:value="Application" />
+                                <String fx:value="File/Folder" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+
+                    <Label text="Action:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                    <TextField fx:id="actionField" GridPane.rowIndex="4" GridPane.columnIndex="1" promptText="URL, path, or application name" />
+
+                    <Button fx:id="saveHotkeyBtn" text="Save" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+                </GridPane>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

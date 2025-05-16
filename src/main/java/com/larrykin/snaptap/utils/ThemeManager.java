@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class ThemeManager {
 
@@ -14,23 +15,62 @@ public class ThemeManager {
     private static final Logger log = LoggerFactory.getLogger(ThemeManager.class);
 
 
-    // Apply the theme to the scene
+    /**
+     * Toggles between light and dark theme
+     *
+     * @param scene The scene to apply the theme to
+     */
+    public static void toggleTheme(Scene scene) {
+        // Get current theme state
+        boolean isDarkMode = loadThemeState();
+
+        // Toggle the theme
+        isDarkMode = !isDarkMode;
+
+        // Apply the new theme
+        applyTheme(scene, isDarkMode);
+
+        // Save the new theme state
+        saveThemeState(isDarkMode);
+    }
+
+    /**
+     * Applies the specified theme to the scene
+     *
+     * @param scene      The scene to apply the theme to
+     * @param isDarkMode True for dark mode, false for light mode
+     */
     public static void applyTheme(Scene scene, boolean isDarkMode) {
-        scene.getStylesheets().clear();
+        if (scene == null) return;
+
         if (isDarkMode) {
-            scene.getStylesheets().add(Objects.requireNonNull(ThemeManager.class.getResource(DARK_MODE)).toExternalForm());
-            log.info("Dark-mode applied");
+            scene.getRoot().getStyleClass().add("dark-theme");
+            scene.getRoot().getStyleClass().remove("light-theme");
+            scene.getRoot().setStyle("-fx-background-color: #212529;");
         } else {
-            scene.getStylesheets().add(Objects.requireNonNull(ThemeManager.class.getResource(LIGHT_MODE)).toExternalForm());
-            log.info( "light-mode applied");
+            scene.getRoot().getStyleClass().add("light-theme");
+            scene.getRoot().getStyleClass().remove("dark-theme");
+            scene.getRoot().setStyle("-fx-background-color: #f8f9fa;");
         }
     }
 
-    public static boolean loadThemeState() {
-        return true;
+    /**
+     * Saves the current theme state to preferences
+     *
+     * @param isDarkMode True for dark mode, false for light mode
+     */
+    private static void saveThemeState(boolean isDarkMode) {
+        Preferences prefs = Preferences.userNodeForPackage(ThemeManager.class);
+        prefs.putBoolean("darkMode", isDarkMode);
     }
 
-    public static void updateThemeState(boolean isDarkMode) {
-        //TODO: Update Themestate
+    /**
+     * Loads the saved theme state from preferences
+     *
+     * @return True if dark mode is enabled, false otherwise
+     */
+    public static boolean loadThemeState() {
+        Preferences prefs = Preferences.userNodeForPackage(ThemeManager.class);
+        return prefs.getBoolean("darkMode", true); // Default to dark mode
     }
 }
