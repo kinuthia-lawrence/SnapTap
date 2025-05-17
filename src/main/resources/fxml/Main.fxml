@@ -126,46 +126,44 @@
                 <Button fx:id="addHotkeyTab" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button" text="Add Hotkey" textAlignment="CENTER" HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <!-- Content area with margin -->
-            <StackPane fx:id="contentArea" styleClass="content-area" VBox.vgrow="ALWAYS">
-                <!-- Dashboard Content -->
-                <VBox fx:id="dashboardContent" spacing="10" styleClass="content-pane">
-                    <TextField fx:id="searchField" minHeight="40.0" promptText="Search for hotkeys..."/>
-                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
-                        <VBox fx:id="hotkeyCardContainer" spacing="10" styleClass="v-box"/>
-                    </ScrollPane>
-                </VBox>
+            <!-- Wrap the content area in a ScrollPane -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+                <!-- Content area with margin -->
+                <StackPane fx:id="contentArea" styleClass="content-area">
+                    <!-- Dashboard Content -->
+                    <VBox fx:id="dashboardContent" spacing="10" styleClass="content-pane">
+                        <TextField fx:id="searchField" minHeight="40.0" promptText="Search for hotkeys..."/>
+                        <!-- Remove the nested scroll pane since the entire content is now scrollable -->
+                        <VBox fx:id="hotkeyCardContainer" spacing="10" styleClass="v-box" VBox.vgrow="ALWAYS"/>
+                    </VBox>
 
-                <!-- Keyboard Map Content -->
-                <ScrollPane fx:id="keyboardMapContent" fitToHeight="true" fitToWidth="true" visible="false">
-                    <GridPane fx:id="keyboardGrid1" hgap="5" styleClass="shared-gridPane" vgap="5">
+                    <!-- Keyboard Map Content -->
+                    <GridPane fx:id="keyboardGrid1" hgap="5" styleClass="shared-gridPane" vgap="5" visible="false">
                         <!-- Keys populated dynamically -->
                     </GridPane>
-                </ScrollPane>
 
-                <!-- Add Hotkey Content -->
-                <VBox fx:id="addHotkeyContent" spacing="15" styleClass="shared-gridPane" visible="false">
-                    <!-- Hotkey Name -->
-                    <VBox spacing="5">
-                        <Label text="Hotkey Name"/>
-                        <TextField fx:id="nameField" promptText="e.g., Open Google"/>
-                    </VBox>
+                    <!-- Add Hotkey Content -->
+                    <VBox fx:id="addHotkeyContent" spacing="15" styleClass="shared-gridPane" visible="false">
+                        <!-- Hotkey Name -->
+                        <VBox spacing="5">
+                            <Label text="Hotkey Name"/>
+                            <TextField fx:id="nameField" promptText="e.g., Open Google"/>
+                        </VBox>
 
-                    <!-- Modifier Keys -->
-                    <VBox spacing="5">
-                        <Label text="Modifier Keys"/>
-                        <HBox spacing="10">
-                            <ToggleButton text="Ctrl"/>
-                            <ToggleButton text="Alt"/>
-                            <ToggleButton text="Shift"/>
-                            <ToggleButton text="Win"/>
-                        </HBox>
-                    </VBox>
+                        <!-- Modifier Keys -->
+                        <VBox spacing="5">
+                            <Label text="Modifier Keys"/>
+                            <HBox spacing="10">
+                                <ToggleButton text="Ctrl"/>
+                                <ToggleButton text="Alt"/>
+                                <ToggleButton text="Shift"/>
+                                <ToggleButton text="Win"/>
+                            </HBox>
+                        </VBox>
 
-                    <!-- Key Selection -->
-                    <VBox spacing="5">
-                        <Label text="Key:"/>
-                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                        <!-- Key Selection -->
+                        <VBox spacing="5">
+                            <Label text="Key:"/>
                             <GridPane fx:id="keyboardGrid" hgap="5" vgap="5" alignment="CENTER">
                                 <!-- Function keys row -->
                                 <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="12">
@@ -185,6 +183,7 @@
 
                                 <!-- Number row -->
                                 <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="12">
+                                    <!-- Number keys -->
                                     <ToggleButton styleClass="keyboard-key" text="1" prefWidth="45" prefHeight="40"/>
                                     <ToggleButton styleClass="keyboard-key" text="2" prefWidth="45" prefHeight="40"/>
                                     <ToggleButton styleClass="keyboard-key" text="3" prefWidth="45" prefHeight="40"/>
@@ -197,6 +196,8 @@
                                     <ToggleButton styleClass="keyboard-key" text="0" prefWidth="45" prefHeight="40"/>
                                 </HBox>
 
+                                <!-- Rest of keyboard content -->
+                                <!-- QWERTY, ASDF, ZXCV rows kept the same -->
                                 <!-- QWERTY row -->
                                 <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="12">
                                     <ToggleButton styleClass="keyboard-key" text="Q" prefWidth="45" prefHeight="40"/>
@@ -238,36 +239,36 @@
                                 <!-- Hidden ComboBox to maintain compatibility with existing code -->
                                 <ComboBox fx:id="keyCombo" visible="false" prefWidth="300" GridPane.rowIndex="5"/>
                             </GridPane>
-                        </ScrollPane>
-                    </VBox>
+                        </VBox>
 
-                    <!-- Action Type -->
-                    <VBox spacing="5">
-                        <Label text="Action Type"/>
-                        <ComboBox fx:id="actionTypeCombo" prefWidth="300">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Website"/>
-                                    <String fx:value="Application"/>
-                                    <String fx:value="File or Folder"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                    </VBox>
+                        <!-- Action Type -->
+                        <VBox spacing="5">
+                            <Label text="Action Type"/>
+                            <ComboBox fx:id="actionTypeCombo" prefWidth="300">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Website"/>
+                                        <String fx:value="Application"/>
+                                        <String fx:value="File or Folder"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
 
-                    <!-- Action -->
-                    <VBox spacing="5">
-                        <Label text="Action"/>
-                        <TextField fx:id="actionField" promptText="/path/to/file/or/folder"/>
-                    </VBox>
+                        <!-- Action -->
+                        <VBox spacing="5">
+                            <Label text="Action"/>
+                            <TextField fx:id="actionField" promptText="/path/to/file/or/folder"/>
+                        </VBox>
 
-                    <HBox alignment="CENTER">
-                        <Label text="Hotkey: Ctrl+Alt+Shift+Win+X" style="-fx-text-fill: #00ffcc;"/>
-                        <Pane HBox.hgrow="ALWAYS"/>
-                        <Button fx:id="saveHotkeyBtn" text="Add Hotkey"/>
-                    </HBox>
-                </VBox>
-            </StackPane>
+                        <HBox alignment="CENTER">
+                            <Label text="Hotkey: Ctrl+Alt+Shift+Win+X" style="-fx-text-fill: #00ffcc;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="saveHotkeyBtn" text="Add Hotkey"/>
+                        </HBox>
+                    </VBox>
+                </StackPane>
+            </ScrollPane>
         </VBox>
     </center>
 </BorderPane>

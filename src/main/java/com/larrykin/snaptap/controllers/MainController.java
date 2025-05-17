@@ -61,6 +61,8 @@ public class MainController implements Initializable {
     private ScrollPane keyboardMapContent;
     @FXML
     private VBox addHotkeyContent;
+    @FXML
+    private GridPane keyboardGrid1;
 
 
     private HotkeyManager hotkeyManager;
@@ -79,33 +81,34 @@ public class MainController implements Initializable {
         setupUIBindings();
     }
 
-    @FXML
-    private void switchTab(ActionEvent event) {
-        // Get the clicked button
-        Button clickedButton = (Button) event.getSource();
 
-        // Remove selected class from all buttons
-        dashboardTab.getStyleClass().remove("selected-tab");
-        keyboardMapTab.getStyleClass().remove("selected-tab");
-        addHotkeyTab.getStyleClass().remove("selected-tab");
+  @FXML
+  private void switchTab(ActionEvent event) {
+      // Get the clicked button
+      Button clickedButton = (Button) event.getSource();
 
-        // Add selected class to clicked button
-        clickedButton.getStyleClass().add("selected-tab");
+      // Remove selected class from all buttons
+      dashboardTab.getStyleClass().remove("selected-tab");
+      keyboardMapTab.getStyleClass().remove("selected-tab");
+      addHotkeyTab.getStyleClass().remove("selected-tab");
 
-        // Hide all content panes
-        dashboardContent.setVisible(false);
-        keyboardMapContent.setVisible(false);
-        addHotkeyContent.setVisible(false);
+      // Add selected class to clicked button
+      clickedButton.getStyleClass().add("selected-tab");
 
-        // Show the appropriate content based on which button was clicked
-        if (clickedButton == dashboardTab) {
-            dashboardContent.setVisible(true);
-        } else if (clickedButton == keyboardMapTab) {
-            keyboardMapContent.setVisible(true);
-        } else if (clickedButton == addHotkeyTab) {
-            addHotkeyContent.setVisible(true);
-        }
-    }
+      // Hide all content panes
+      dashboardContent.setVisible(false);
+      keyboardGrid1.setVisible(false); // Updated reference
+      addHotkeyContent.setVisible(false);
+
+      // Show the appropriate content based on which button was clicked
+      if (clickedButton == dashboardTab) {
+          dashboardContent.setVisible(true);
+      } else if (clickedButton == keyboardMapTab) {
+          keyboardGrid1.setVisible(true); // Updated reference
+      } else if (clickedButton == addHotkeyTab) {
+          addHotkeyContent.setVisible(true);
+      }
+  }
 
     private void setupUIBindings() {
         // Bind profile selector

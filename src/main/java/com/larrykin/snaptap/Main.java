@@ -184,12 +184,13 @@ public class Main extends Application {
         stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.setMaximized(true); // Set maximized state on startup
+        addResizeListener(root, stage);
+/*        stage.setMaximized(true); // Set maximized state on startup
 
         // Update maximize button icon to show compress instead of expand
         FontIcon compressIcon = new FontIcon("fas-compress");
         compressIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
-        maximizeButton.setGraphic(compressIcon);
+        maximizeButton.setGraphic(compressIcon);*/
 
         stage.show();
 
@@ -241,5 +242,118 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void addResizeListener(BorderPane root, Stage stage) {
+        final int RESIZE_MARGIN = 5;
+        final boolean[] dragging = {false};
+        final String[] currentEdge = {""};
+
+        root.setOnMouseMoved(event -> {
+            double mouseX = event.getSceneX();
+            double mouseY = event.getSceneY();
+            double width = stage.getWidth();
+            double height = stage.getHeight();
+
+            // Set cursor based on position
+            if (mouseX < RESIZE_MARGIN && mouseY < RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.NW_RESIZE);
+            } else if (mouseX < RESIZE_MARGIN && mouseY > height - RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.SW_RESIZE);
+            } else if (mouseX > width - RESIZE_MARGIN && mouseY < RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.NE_RESIZE);
+            } else if (mouseX > width - RESIZE_MARGIN && mouseY > height - RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.SE_RESIZE);
+            } else if (mouseX < RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.W_RESIZE);
+            } else if (mouseX > width - RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.E_RESIZE);
+            } else if (mouseY < RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.N_RESIZE);
+            } else if (mouseY > height - RESIZE_MARGIN) {
+                root.setCursor(javafx.scene.Cursor.S_RESIZE);
+            } else {
+                root.setCursor(javafx.scene.Cursor.DEFAULT);
+            }
+        });
+
+        root.setOnMousePressed(event -> {
+            double mouseX = event.getSceneX();
+            double mouseY = event.getSceneY();
+            double width = stage.getWidth();
+            double height = stage.getHeight();
+
+            if (mouseX < RESIZE_MARGIN) {
+                if (mouseY < RESIZE_MARGIN) {
+                    currentEdge[0] = "NW";
+                } else if (mouseY > height - RESIZE_MARGIN) {
+                    currentEdge[0] = "SW";
+                } else {
+                    currentEdge[0] = "W";
+                }
+                dragging[0] = true;
+            } else if (mouseX > width - RESIZE_MARGIN) {
+                if (mouseY < RESIZE_MARGIN) {
+                    currentEdge[0] = "NE";
+                } else if (mouseY > height - RESIZE_MARGIN) {
+                    currentEdge[0] = "SE";
+                } else {
+                    currentEdge[0] = "E";
+                }
+                dragging[0] = true;
+            } else if (mouseY < RESIZE_MARGIN) {
+                currentEdge[0] = "N";
+                dragging[0] = true;
+            } else if (mouseY > height - RESIZE_MARGIN) {
+                currentEdge[0] = "S";
+                dragging[0] = true;
+            }
+        });
+
+        root.setOnMouseDragged(event -> {
+            if (!dragging[0]) return;
+
+            double mouseX = event.getScreenX();
+            double mouseY = event.getScreenY();
+            double startX = stage.getX();
+            double startY = stage.getY();
+            double width = stage.getWidth();
+            double height = stage.getHeight();
+
+            // Apply resize based on drag direction
+            switch (currentEdge[0]) {
+                case "N" -> {
+                    double newHeight = height - (mouseY - startY);
+                    if (newHeight > stage.getMinHeight()) {
+                        stage.setY(mouseY);
+                        stage.setHeight(newHeight);
+                    }
+                }
+                case "S" -> stage.setHeight(mouseY - startY);
+                case "E" -> stage.setWidth(mouseX - startX);
+                case "W" -> {
+                    double newWidth = width - (mouseX - startX);
+                    if (newWidth > stage.getMinWidth()) {
+                        stage.setX(mouseX);
+                        stage.setWidth(newWidth);
+                    }
+                }
+                case "NW" -> {
+                    double newWidth = width - (mouseX - startX);
+                    double newHeight = height - (mouseY - startY);
+                    if (newWidth > stage.getMinWidth()) {
+                        stage.setX(mouseX);
+                        stage.setWidth(newWidth);
+                    }
+                    if (newHeight > stage.getMinHeight()) {
+                        stage.setY(mouseY);
+                        stage.setHeight(newHeight);
+                    }
+                }
+                // Other cases for NE, SE, SW handle similarly
+            }
+        });
+
+        root.setOnMouseReleased(event -> dragging[0] = false);
     }
 }
