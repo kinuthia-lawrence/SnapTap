@@ -138,9 +138,137 @@
                     </VBox>
 
                     <!-- Keyboard Map Content -->
-                    <GridPane fx:id="keyboardGrid1" hgap="5" styleClass="shared-gridPane" vgap="5" visible="false">
-                        <!-- Keys populated dynamically -->
-                    </GridPane>
+                    <VBox fx:id="keyboardMapContent" spacing="20" alignment="CENTER" styleClass="shared-gridPane" visible="false">
+                        <!-- Header -->
+                        <VBox spacing="10" alignment="CENTER">
+                            <Label text="Keyboard Heatmap" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                            <Label text="This visualization shows which keys are used in your configured hotkeys. Highlighted keys indicate usage, with brighter highlights showing more frequent use."
+                                   wrapText="true" maxWidth="800" alignment="CENTER"/>
+                        </VBox>
+
+                        <!-- Keyboard Layout -->
+                        <GridPane fx:id="keyboardGrid1" hgap="5" vgap="10" alignment="CENTER">
+                            <!-- Function key row -->
+                            <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="1">
+                                <Button styleClass="keyboard-key" text="Esc" prefWidth="45" prefHeight="40"/>
+                                <Pane prefWidth="30"/>
+                                <Button styleClass="keyboard-key" text="F1" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F2" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F3" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F4" prefWidth="45" prefHeight="40"/>
+                                <Pane prefWidth="15"/>
+                                <Button styleClass="keyboard-key" text="F5" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F6" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F7" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F8" prefWidth="45" prefHeight="40"/>
+                                <Pane prefWidth="15"/>
+                                <Button styleClass="keyboard-key" text="F9" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F10" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F11" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F12" prefWidth="45" prefHeight="40"/>
+                            </HBox>
+
+                            <!-- Number row -->
+                            <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                <Button styleClass="keyboard-key" text="`" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="1" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="2" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="3" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="4" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="5" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="6" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="7" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="8" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="9" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="0" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="-" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="=" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Backspace" prefWidth="95" prefHeight="40"/>
+                            </HBox>
+
+                            <!-- QWERTY row -->
+                            <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                                <Button styleClass="keyboard-key" text="Tab" prefWidth="70" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Q" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="W" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="E" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="R" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="T" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Y" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="U" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="I" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="O" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="P" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="[" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="]" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" prefWidth="70" prefHeight="40">
+                                    <text><![CDATA[\]]></text>
+                                </Button>
+                            </HBox>
+
+                            <!-- ASDF row -->
+                            <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0">
+                                <Button styleClass="keyboard-key" text="Caps" prefWidth="80" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="A" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="S" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="D" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="F" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="G" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="H" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="J" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="K" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="L" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text=";" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="'" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Enter" prefWidth="95" prefHeight="40"/>
+                            </HBox>
+
+                            <!-- ZXCV row -->
+                            <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="4" GridPane.columnIndex="0">
+                                <Button styleClass="keyboard-key" text="Shift" prefWidth="105" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Z" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="X" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="C" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="V" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="B" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="N" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="M" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="," prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="." prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="/" prefWidth="45" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Shift" prefWidth="105" prefHeight="40"/>
+                            </HBox>
+
+                            <!-- Space bar row -->
+                            <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="5" GridPane.columnIndex="0">
+                                <Button styleClass="keyboard-key" text="Ctrl" prefWidth="65" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Win" prefWidth="65" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Alt" prefWidth="65" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Space" prefWidth="275" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Alt" prefWidth="65" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Menu" prefWidth="65" prefHeight="40"/>
+                                <Button styleClass="keyboard-key" text="Ctrl" prefWidth="65" prefHeight="40"/>
+                            </HBox>
+                        </GridPane>
+
+                        <!-- Legend -->
+                        <HBox spacing="20" alignment="CENTER">
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="Legend:" style="-fx-font-weight: bold"/>
+                                <HBox spacing="10" alignment="CENTER">
+                                    <Button styleClass="keyboard-key" text="Key" prefWidth="60" prefHeight="30"/>
+                                    <Label text="Unused"/>
+                                    <Button styleClass="keyboard-key, used-key" text="Key" prefWidth="60" prefHeight="30"/>
+                                    <Label text="Used"/>
+                                    <Button styleClass="keyboard-key, frequently-used-key" text="Key" prefWidth="60" prefHeight="30"/>
+                                    <Label text="Frequently Used"/>
+                                </HBox>
+                            </VBox>
+                        </HBox>
+
+                        <Label text="Try pressing Ctrl+G to trigger the &quot;Open Google&quot; hotkey. You'll see the usage count increase on the keyboard visualization."
+                               wrapText="true" maxWidth="800" alignment="CENTER" style="-fx-font-style: italic"/>
+                    </VBox>
 
                     <!-- Add Hotkey Content -->
                     <VBox fx:id="addHotkeyContent" spacing="15" styleClass="shared-gridPane" visible="false">

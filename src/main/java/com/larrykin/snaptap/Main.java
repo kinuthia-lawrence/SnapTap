@@ -184,6 +184,8 @@ public class Main extends Application {
         stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
+        stage.setMinWidth(920);
+        stage.setMinHeight(520);
         addResizeListener(root, stage);
 /*        stage.setMaximized(true); // Set maximized state on startup
 

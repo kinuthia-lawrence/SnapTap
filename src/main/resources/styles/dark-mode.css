@@ -290,3 +290,11 @@
     -fx-background-color: #2A9D8F;
 }
 
+.used-key {
+    -fx-background-color: #2A9D8F; /* Used key color */
+}
+
+.frequently-used-key {
+    -fx-background-color: #E76F51; /* Frequently used key color */
+}
+
