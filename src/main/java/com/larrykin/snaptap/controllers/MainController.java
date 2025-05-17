@@ -5,11 +5,13 @@ import com.larrykin.snaptap.models.Hotkey;
 import com.larrykin.snaptap.models.Profile;
 import com.larrykin.snaptap.services.HotkeyManager;
 import com.larrykin.snaptap.services.ProfileManager;
+import com.larrykin.snaptap.utils.ThemeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -82,6 +84,113 @@ public class MainController implements Initializable {
         loadHotkeysFromCurrentProfile();
 
         runToggle.setText(" ");
+        addProfileBtn.setOnAction(e -> showAddProfileDialog());
+    }
+
+
+   private void showAddProfileDialog() {
+        // Create a custom dialog
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Add New Profile");
+        dialog.setHeaderText("Add New Profile");
+
+        // Get the DialogPane and set preferred size
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.setPrefSize(450, 250);
+
+        // Create content
+        GridPane grid = new GridPane();
+        grid.setHgap(15);
+        grid.setVgap(15);
+        grid.setPadding(new Insets(30, 25, 20, 25));
+        grid.setMaxWidth(Double.MAX_VALUE);
+
+        TextField profileName = new TextField();
+        profileName.setPrefHeight(40);
+        profileName.setPromptText("e.g., Gaming, Office, Coding");
+
+        Label nameLabel = new Label("Profile Name:");
+        nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+        grid.add(nameLabel, 0, 0);
+        grid.add(profileName, 0, 1);
+        GridPane.setColumnSpan(profileName, 2);
+        GridPane.setFillWidth(profileName, true);
+
+        // Set content
+        dialogPane.setContent(grid);
+
+        // Style the dialog according to current theme
+        boolean isDarkMode = ThemeManager.loadThemeState();
+        String backgroundColor = isDarkMode ? "#212529" : "#F9FAFB";
+        String secondaryBgColor = isDarkMode ? "#383e46" : "#FFFFFF";
+        String textColor = isDarkMode ? "#ffffff" : "#333333";
+        String borderColor = isDarkMode ? "#5D6A76" : "#E0E0E0";
+
+        // Apply style to dialog
+        dialogPane.setStyle(
+                "-fx-background-color: " + backgroundColor + ";"
+        );
+
+        // Style dialog header
+        dialogPane.lookupAll(".header-panel").forEach(node ->
+                node.setStyle("-fx-background-color: " + secondaryBgColor + ";" +
+                             "-fx-border-color: " + borderColor + ";" +
+                             "-fx-border-width: 0 0 1 0;"));
+
+        dialogPane.lookupAll(".header-panel .label").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 18px; -fx-font-weight: bold;"));
+
+        // Style text field
+        profileName.setStyle(
+                "-fx-background-color: " + secondaryBgColor + ";" +
+                "-fx-text-fill: " + textColor + ";" +
+                "-fx-border-color: " + borderColor + ";" +
+                "-fx-border-radius: 4px;"
+        );
+
+        // Style content text including labels
+        dialogPane.lookupAll(".content .label").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + ";"));
+
+        // Style buttons
+        dialogPane.lookupAll(".button").forEach(node -> {
+            String buttonStyle = "-fx-background-color: " + (isDarkMode ? "#4A555E" : "#F0F2F4") + ";" +
+                               "-fx-text-fill: " + textColor + ";" +
+                               "-fx-background-radius: 5px;";
+            node.setStyle(buttonStyle);
+        });
+
+        // Add buttons
+        ButtonType createButtonType = new ButtonType("Create Profile", ButtonBar.ButtonData.OK_DONE);
+        dialogPane.getButtonTypes().addAll(createButtonType, ButtonType.CANCEL);
+
+        // Style create button specially
+        Button createButton = (Button) dialogPane.lookupButton(createButtonType);
+        createButton.setStyle(
+                "-fx-background-color: #2A9D8F;" +
+                "-fx-text-fill: white;" +
+                "-fx-font-weight: bold;" +
+                "-fx-background-radius: 5px;" +
+                "-fx-padding: 10px 20px;"
+        );
+
+        // Set result converter
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == createButtonType) {
+                return profileName.getText();
+            }
+            return null;
+        });
+
+        // Show dialog and handle result
+        dialog.showAndWait().ifPresent(name -> {
+            if (!name.trim().isEmpty()) {
+                Profile newProfile = profileManager.createProfile(name.trim());
+                profileCombo.getItems().add(newProfile.getName());
+                profileCombo.setValue(newProfile.getName());
+            }
+        });
     }
 
     @FXML
