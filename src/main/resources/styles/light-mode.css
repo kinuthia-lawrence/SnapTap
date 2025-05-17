@@ -309,12 +309,22 @@
   -fx-border-color: #8D8D8D;
 }
 
+.keyboard-key {
+    -fx-background-color: transparent;
+    -fx-text-fill: #383e46;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #A7BED1;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+}
+
 .used-key {
-    -fx-background-color: #2A9D8F; /* Used key color */
+    -fx-background-color: #2A9D8F;
 }
 
 .frequently-used-key {
-    -fx-background-color: #E76F51; /* Frequently used key color */
+    -fx-background-color: #44799A;
 }
 
 .card-title {

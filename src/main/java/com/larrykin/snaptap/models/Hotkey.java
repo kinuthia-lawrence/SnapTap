@@ -11,6 +11,7 @@ public class Hotkey implements Serializable {
     private ActionType actionType;
     private String actionData;
     private boolean enabled;
+    private int usageCount;
 
     // default constructor required for deserialization
     public Hotkey() {
@@ -74,5 +75,19 @@ public class Hotkey implements Serializable {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+
+
+    public int getUsageCount() {
+        return usageCount;
+    }
+
+    public void setUsageCount(int usageCount) {
+        this.usageCount = usageCount;
+    }
+
+    public void incrementUsageCount() {
+        this.usageCount++;
     }
 }

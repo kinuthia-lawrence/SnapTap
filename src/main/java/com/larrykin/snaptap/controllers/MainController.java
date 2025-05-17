@@ -207,6 +207,7 @@ public class MainController implements Initializable {
     private void switchTab(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
 
+
         dashboardTab.getStyleClass().remove("selected-tab");
         keyboardMapTab.getStyleClass().remove("selected-tab");
         addHotkeyTab.getStyleClass().remove("selected-tab");
@@ -221,6 +222,7 @@ public class MainController implements Initializable {
             dashboardContent.setVisible(true);
         } else if (clickedButton == keyboardMapTab) {
             keyboardMapContent.setVisible(true);
+            updateKeyboardHeatmap();
         } else if (clickedButton == addHotkeyTab) {
             addHotkeyContent.setVisible(true);
         }
@@ -379,6 +381,8 @@ public class MainController implements Initializable {
             hotkeyCardContainer.getChildren().add(noProfileLabel);
             logger.warn("No active profile found when trying to load hotkeys");
         }
+
+        updateKeyboardHeatmap();
     }
 
     private VBox createHotkeyCard(Hotkey hotkey) {
@@ -482,5 +486,41 @@ public class MainController implements Initializable {
                         hotkeyCardContainer.getChildren().add(card);
                     });
         }
+    }
+    private void updateKeyboardHeatmap() {
+        // Find all keyboard keys in the keyboardMapContent
+        if (keyboardMapContent != null) {
+            // Find all GridPanes that contain keyboard layout
+            keyboardMapContent.lookupAll(".keyboard-key").forEach(node -> {
+                if (node instanceof Button keyButton) {
+                    String keyName = keyButton.getText();
+
+                    // First remove any existing usage styling
+                    keyButton.getStyleClass().remove("used-key");
+                    keyButton.getStyleClass().remove("frequently-used-key");
+
+                    // Check usage count and apply appropriate style
+                    int keyUsageCount = getKeyUsageCount(keyName);
+                    if (keyUsageCount > 3) {
+                        keyButton.getStyleClass().add("frequently-used-key");
+                    } else if (keyUsageCount > 0) {
+                        keyButton.getStyleClass().add("used-key");
+                    }
+                }
+            });
+        }
+    }
+
+    private int getKeyUsageCount(String keyName) {
+        int count = 0;
+        Profile activeProfile = profileManager.getActiveProfile();
+        if (activeProfile != null) {
+            for (Hotkey hotkey : activeProfile.getHotkeys()) {
+                if (hotkey.getKeyCombo().contains(keyName) && hotkey.getUsageCount() > 0) {
+                    count += hotkey.getUsageCount();
+                }
+            }
+        }
+        return count;
     }
 }

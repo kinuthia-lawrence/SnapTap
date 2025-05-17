@@ -350,18 +350,14 @@
 }
 
 /* Button styles inside the shared-gridPane */
-.shared-gridPane .button {
-    -fx-text-fill: white;
-    -fx-background-color: #4A555E;
-}
 
 .keyboard-key {
-    -fx-background-color: #383e46;
     -fx-text-fill: white;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-    -fx-border-color: #5D6A76;
     -fx-border-width: 1;
+    -fx-background-color: #212529;
+    -fx-border-color: #5D6A76;
     -fx-font-weight: bold;
 }
 
@@ -374,12 +370,13 @@
 }
 
 .used-key {
-    -fx-background-color: #2A9D8F; /* Used key color */
+    -fx-background-color: #2A9D8F;
 }
 
 .frequently-used-key {
-    -fx-background-color: #E76F51; /* Frequently used key color */
+    -fx-background-color: #44799A;
 }
+
 
 
 .card-title {
