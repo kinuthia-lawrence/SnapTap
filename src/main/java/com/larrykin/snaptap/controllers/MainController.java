@@ -419,10 +419,11 @@ public class MainController implements Initializable {
             profileManager.updateHotkey(profileManager.getActiveProfile().getId(), hotkey);
         });
 
-        Button deleteButton = new Button();
-        deleteButton.getStyleClass().add("delete-button");
-        FontIcon deleteIcon = new FontIcon("fas-trash");
-        deleteButton.setGraphic(deleteIcon);
+       Button deleteButton = new Button();
+       deleteButton.getStyleClass().add("delete-button");
+       FontIcon deleteIcon = new FontIcon("fas-trash");
+       deleteIcon.setIconColor(javafx.scene.paint.Color.RED); // Set icon color to red
+       deleteButton.setGraphic(deleteIcon);
         deleteButton.setOnAction(e -> {
             Profile profile = profileManager.getActiveProfile();
             profile.getHotkeys().removeIf(h -> h.getId().equals(hotkey.getId()));
@@ -433,7 +434,9 @@ public class MainController implements Initializable {
 
         topSection.getChildren().addAll(titleSection, enabledToggle, deleteButton);
 
-        Separator separator = new Separator();
+       Separator separator = new Separator();
+        String color = ThemeManager.loadThemeState() ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)";
+        separator.setStyle("-fx-background: " + color + ";");
 
         HBox bottomSection = new HBox(10);
         bottomSection.setAlignment(javafx.geometry.Pos.CENTER_LEFT);

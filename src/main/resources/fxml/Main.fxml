@@ -150,7 +150,7 @@
                     <VBox fx:id="keyboardMapContent" spacing="20" styleClass="shared-gridPane" visible="false">
                         <!-- Header -->
                         <VBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="Keyboard Heatmap" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                            <Label text="Keyboard Heatmap" style="-fx-font-size: 22; -fx-font-weight: bold;"/>
                             <Label text="This visualization shows which keys are used in your configured hotkeys. Highlighted keys indicate usage, with brighter highlights showing more frequent use."
                                    wrapText="true" maxWidth="800" alignment="CENTER"/>
                         </VBox>

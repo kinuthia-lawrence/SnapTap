@@ -13,7 +13,7 @@
 
 .root {
     -fx-background-color: #212529;
-    -fx-text-fill: white;
+    -fx-text-fill: #ff0000;
     -fx-font-family: "Courier New";
 }
 
@@ -223,9 +223,9 @@
     -fx-background-color: #383e46;
 }
 
-/*----------------------------------------------*/
-/* Center Section - Tab Controls & Content      */
-/*----------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------*/
+/* Center Section - Tab Controls & Content                                                                   */
+/*----------------------------------------------------------------------------------------------------------*/
 .center-container {
     -fx-padding: 10;
     -fx-background-color: #212529;
@@ -281,6 +281,12 @@
 .transparent-textfield {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+    -fx-text-fill: white;
+}
+.card-title{
+    -fx-text-fill: white;
+}
+.card-subtitle{
     -fx-text-fill: white;
 }
 .content-area {

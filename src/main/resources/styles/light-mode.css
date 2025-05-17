@@ -7,9 +7,9 @@
     -fx-font-family: "Courier New";
 }
 
-/*----------------------------------------------*/
-/* Top Section - Window Controls & Title Bar    */
-/*----------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------*/
+/* Top Section - Window Controls & Title Bar                                                                                */
+/*--------------------------------------------------------------------------------------------------------------------------*/
 /* Window bar - first row */
 .window-bar {
     -fx-padding: 10;
@@ -44,7 +44,7 @@
 
 /* Title bar - second row */
 .title-bar {
-    -fx-padding: 20 15 20 40;
+    -fx-padding: 20 15 10 40;
     -fx-background-color: #F0F2F4;
     -fx-text-fill: #212529;
 }
@@ -109,9 +109,9 @@
 }
 
 
-/*----------------------------------------------*/
-/* Left Section - Status Panel                  */
-/*----------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------------------------------*/
+/* Left Section - Status Panel                                                                                                  */
+/*------------------------------------------------------------------------------------------------------------------------------*/
 .status-panel {
     -fx-padding: 10;
     -fx-background-color: #F0F2F4;
@@ -213,9 +213,9 @@
     -fx-background-color: #F9FAFB;
 }
 
-/*----------------------------------------------*/
-/* Center Section - Tab Controls & Content      */
-/*----------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------------*/
+/* Center Section - Tab Controls & Content                                                                                    */
+/*----------------------------------------------------------------------------------------------------------------------------*/
 .center-container {
     -fx-padding: 10;
     -fx-background-color: #F0F2F4;
@@ -230,7 +230,7 @@
 }
 
 .tab-button {
-    -fx-text-fill: #333333;
+    -fx-text-fill: #212529;
     -fx-background-radius: 5;
     -fx-background-color: transparent;
     -fx-border-width: 1 1 1 1;
@@ -242,7 +242,7 @@
 
 .selected-tab {
     -fx-background-color: #ffffff;
-    -fx-text-fill: white;
+    -fx-text-fill: #212529;
 }
 
 /* Dashboard Content */
@@ -269,6 +269,9 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-text-fill: #333333;
+}
+.delete-button{
+    -fx-fill: #ff0000;
 }
 .content-area {
     -fx-border-radius: 5;
