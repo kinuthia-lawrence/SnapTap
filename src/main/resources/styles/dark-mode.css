@@ -55,7 +55,7 @@
 
 /* Title bar - second row */
 .title-bar {
-     -fx-padding: 20 15 20 40;
+     -fx-padding: 20 15 10 40;
      -fx-background-color: #212529;
      -fx-text-fill: white;
 }
@@ -271,3 +271,22 @@
     -fx-text-fill: white;
     -fx-background-color: #4A555E;
 }
+
+.keyboard-key {
+    -fx-background-color: #383e46;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #5D6A76;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+}
+
+.keyboard-key:hover {
+    -fx-background-color: #5D6A76;
+}
+
+.keyboard-key:pressed, .keyboard-key.selected {
+    -fx-background-color: #2A9D8F;
+}
+

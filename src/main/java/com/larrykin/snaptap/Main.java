@@ -184,6 +184,13 @@ public class Main extends Application {
         stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
+        stage.setMaximized(true); // Set maximized state on startup
+
+        // Update maximize button icon to show compress instead of expand
+        FontIcon compressIcon = new FontIcon("fas-compress");
+        compressIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
+        maximizeButton.setGraphic(compressIcon);
+
         stage.show();
 
         // Initialize system tray

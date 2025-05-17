@@ -138,7 +138,7 @@
 
                 <!-- Keyboard Map Content -->
                 <ScrollPane fx:id="keyboardMapContent" fitToHeight="true" fitToWidth="true" visible="false">
-                    <GridPane fx:id="keyboardGrid" hgap="5" styleClass="shared-gridPane" vgap="5">
+                    <GridPane fx:id="keyboardGrid1" hgap="5" styleClass="shared-gridPane" vgap="5">
                         <!-- Keys populated dynamically -->
                     </GridPane>
                 </ScrollPane>
@@ -165,13 +165,80 @@
                     <!-- Key Selection -->
                     <VBox spacing="5">
                         <Label text="Key:"/>
-                        <ComboBox fx:id="keyCombo" prefWidth="300">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <!-- A-Z, 0-9, F1-F12 -->
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
+                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                            <GridPane fx:id="keyboardGrid" hgap="5" vgap="5" alignment="CENTER">
+                                <!-- Function keys row -->
+                                <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="12">
+                                    <ToggleButton styleClass="keyboard-key" text="F1" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F2" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F3" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F4" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F5" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F6" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F7" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F8" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F9" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F10" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F11" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F12" prefWidth="45" prefHeight="40"/>
+                                </HBox>
+
+                                <!-- Number row -->
+                                <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="12">
+                                    <ToggleButton styleClass="keyboard-key" text="1" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="2" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="3" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="4" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="5" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="6" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="7" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="8" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="9" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="0" prefWidth="45" prefHeight="40"/>
+                                </HBox>
+
+                                <!-- QWERTY row -->
+                                <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="12">
+                                    <ToggleButton styleClass="keyboard-key" text="Q" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="W" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="E" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="R" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="T" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="Y" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="U" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="I" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="O" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="P" prefWidth="45" prefHeight="40"/>
+                                </HBox>
+
+                                <!-- ASDF row -->
+                                <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="12">
+                                    <ToggleButton styleClass="keyboard-key" text="A" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="S" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="D" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="F" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="G" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="H" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="J" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="K" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="L" prefWidth="45" prefHeight="40"/>
+                                </HBox>
+
+                                <!-- ZXCV row -->
+                                <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="12">
+                                    <ToggleButton styleClass="keyboard-key" text="Z" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="X" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="C" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="V" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="B" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="N" prefWidth="45" prefHeight="40"/>
+                                    <ToggleButton styleClass="keyboard-key" text="M" prefWidth="45" prefHeight="40"/>
+                                </HBox>
+
+                                <!-- Hidden ComboBox to maintain compatibility with existing code -->
+                                <ComboBox fx:id="keyCombo" visible="false" prefWidth="300" GridPane.rowIndex="5"/>
+                            </GridPane>
+                        </ScrollPane>
                     </VBox>
 
                     <!-- Action Type -->
