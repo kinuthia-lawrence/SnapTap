@@ -16,18 +16,6 @@
     -fx-text-fill: white;
 }
 
-.button {
-    -fx-alignment: center;
-    -fx-background-color: #2A9D8F;
-    -fx-font-weight: bold;
-    -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
-    -fx-text-fill: white;
-}
-
-.stop-button {
-    -fx-background-color: #BF3234;
-}
 
 /*----------------------------------------------*/
 /* Top Section - Window Controls & Title Bar    */
@@ -89,19 +77,91 @@
 
 .status-panel-title {
     -fx-text-fill: white;
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 
 .status-label {
     -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }
 
-.status-active {
-    -fx-text-fill: #00ff00;
+#runToggle {
+    -fx-background-color: #8D8D8D; /* Off state color */
+    -fx-background-radius: 20;
+    -fx-min-width: 60px;
+    -fx-max-width: 60px;
+    -fx-min-height: 25px;
+    -fx-max-height: 25px;
+    -fx-padding: 0 4px;
+    -fx-border-radius: 20;
+    -fx-alignment: center-left;
+}
+
+#runToggle:selected {
+    -fx-background-color: #2A9D8F; /* On state color */
+    -fx-alignment: center-right;
+}
+
+#toggleCircle {
+    -fx-fill: #212529; /* Dark mode circle color */
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+    -fx-radius: 12;
 }
 
 .status-hint {
     -fx-text-fill: #aaaaaa;
+    -fx-font-size: 16px;
+    -fx-font-family: 'sans-serif';
+}
+
+.stop-button {
+    -fx-background-radius: 10;
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+}
+
+.stop-button:hover {
+    -fx-background-color: #c82333;
+}
+
+#statusButton {
+    -fx-background-radius: 20;
+    -fx-background-color: #2A9D8F;
+    -fx-text-fill: white;
+}
+
+#statusButton:hover {
+    -fx-background-color: #8D8D8D;
+}
+
+/*----------------------------------------------*/
+/* Card Styles                                 */
+/*----------------------------------------------*/
+.gridpane {
+    -fx-padding: 10 20;
+    -fx-background-radius: 15;
+    -fx-background-color: #2d3339;
+}
+
+.card {
+    -fx-alignment: center;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-background-color: #2a2e33;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
+}
+
+.card:hover {
+    -fx-background-color: #353a41;
+}
+
+/* Apply this style for the gridpane when inside a hovered card */
+.card:hover .gridpane {
+    -fx-background-color: #2a2e33;
 }
 
 /*----------------------------------------------*/

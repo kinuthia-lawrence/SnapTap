@@ -36,7 +36,7 @@ public class MainController implements Initializable {
     private ToggleButton runToggle;
 
     @FXML
-    private Label statusLabel;
+    private Button statusButton;
 
     @FXML
     private Label uptimeLabel;
@@ -73,6 +73,7 @@ public class MainController implements Initializable {
 
         // Example: Create a test hotkey
         setupSampleData();
+        runToggle.setText(" ");
 
         // TODO: Initialize other controls
         setupUIBindings();
@@ -114,9 +115,9 @@ public class MainController implements Initializable {
         // Configure toggle button
         runToggle.setSelected(true);
         runToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            statusLabel.setText(newVal ? "Running" : "Stopped");
-            statusLabel.getStyleClass().removeAll("status-active", "status-inactive");
-            statusLabel.getStyleClass().add(newVal ? "status-active" : "status-inactive");
+            statusButton.setText(newVal ? "Running" : "Stopped");
+            statusButton.getStyleClass().removeAll("status-active", "status-inactive");
+            statusButton.getStyleClass().add(newVal ? "status-active" : "status-inactive");
         });
 
         // Configure stop button
