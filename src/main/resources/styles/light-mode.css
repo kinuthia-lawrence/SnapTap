@@ -28,7 +28,7 @@
     -fx-padding: 10 15;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-    -fx-background-color: #F9FAFB;
+    -fx-background-color: #F0F2F4;
     -fx-border-color: #A9B7C6;
     -fx-border-width: 0.5px;
 }
@@ -44,7 +44,7 @@
 /* Title bar - second row */
 .title-bar {
     -fx-padding: 20 15 20 40;
-    -fx-background-color: #F9FAFB;
+    -fx-background-color: #F0F2F4;
     -fx-text-fill: #212529;
 }
 
@@ -59,7 +59,7 @@
 /*----------------------------------------------*/
 .status-panel {
     -fx-padding: 10;
-    -fx-background-color: #F9FAFB;
+    -fx-background-color: #F0F2F4;
     -fx-text-fill: #212529;
 }
 
@@ -139,7 +139,7 @@
     -fx-alignment: center;
     -fx-border-radius: 15;
     -fx-background-radius: 15;
-    -fx-background-color: #F9FAFB;
+    -fx-background-color: #F0F2F4;
     -fx-border-color: #8D8D8D;
     -fx-border-width: 1;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
@@ -159,7 +159,7 @@
 /*----------------------------------------------*/
 .center-container {
     -fx-padding: 10;
-    -fx-background-color: #F9FAFB;
+    -fx-background-color: #F0F2F4;
     -fx-text-fill: #212529;
 }
 
@@ -184,15 +184,39 @@
     -fx-text-fill: white;
 }
 
-/* Content area */
+/* Dashboard Content */
 .content-area {
-    -fx-padding: 10;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-border-width: 1;
-    -fx-border-color: rgba(128, 128, 128, 0.3);
+    -fx-border-width: 0;
+    -fx-background-color: #F0F2F4;
+    -fx-border-color: transparent;
 }
 
 .content-pane {
-    -fx-padding: 10;
+    -fx-border-width: 0;
+    -fx-background-color: #F0F2F4;
+    -fx-border-color: transparent;
+}
+.scroll-pane {
+    -fx-background-color: #F0F2F4;
+}
+.scroll-pane .viewport {
+    -fx-background-color: #F0F2F4;
+}
+.scroll-pane .content {
+    -fx-background-color: #F0F2F4;
+}
+.v-box {
+    -fx-background-color: #F0F2F4;
+}
+
+/* Shared Keyboard Map & Hotkey Content */
+.shared-gridPane{
+  -fx-padding: 20;
+  -fx-border-width: 1;
+  -fx-background-radius: 15;
+  -fx-border-radius: 15;
+  -fx-background-color: #ffffff;
+  -fx-border-color: #8D8D8D;
 }

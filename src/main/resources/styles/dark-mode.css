@@ -200,9 +200,12 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-border-width: 1;
-    -fx-border-color: rgba(128, 128, 128, 0.3);
+    -fx-background-color: #383e46;
+    -fx-border-color: transparent;
 }
 
 .content-pane {
     -fx-padding: 10;
+    -fx-background-color: #383e46;
+    -fx-border-color: transparent;
 }
