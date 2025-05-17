@@ -57,6 +57,27 @@
     "actionType" : "URL",
     "actionData" : "https://www.google.com",
     "enabled" : true
+  }, {
+    "id" : "8c58b42c-d084-4da9-b14b-6fdaaa3cae13",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "66cc6e13-7c5c-48a5-91b7-14bb93a3a6f6",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "fdd84906-67c4-43b1-a935-e136c0adeac5",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
   } ],
   "active" : true
 }
