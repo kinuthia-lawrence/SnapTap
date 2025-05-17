@@ -113,6 +113,55 @@
     "actionType" : "URL",
     "actionData" : "https://www.google.com",
     "enabled" : true
+  }, {
+    "id" : "b92946c2-4099-440d-a5db-439cccdfe052",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "5f9f78e3-dff0-4591-b605-fb66c38ec2bb",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "d5ee4ff8-ea28-402c-912d-df9df31167b5",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "550f8763-6cda-4815-9a69-30325e3c68e6",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "811371a5-413b-4e90-bc9b-c5ecb42200a2",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "5b757429-998b-4e96-b668-bb6bfa100dc8",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "5cd089af-9fcb-4d56-8763-9000aec994da",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
   } ],
   "active" : true
 }

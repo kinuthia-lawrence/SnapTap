@@ -73,13 +73,13 @@
                         </ToggleButton>
                     </HBox>
 
-                    <GridPane hgap="5" styleClass="gridpane" vgap="5">
+                    <GridPane hgap="5" styleClass="gridpane" vgap="10">
                         <Label styleClass="status-label" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
                         <Label styleClass="status-label" text="Uptime:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
                         <Label fx:id="uptimeLabel" styleClass="status-label" text="00:00:00" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-                        <Label styleClass="status-label" text="Active hotkeys:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <Label styleClass="status-label" text="Active hotkeys:" GridPane.columnIndex="0" GridPane.rowIndex="2" minWidth="100.0" wrapText="true"/>
                         <Label fx:id="activeHotkeysLabel" styleClass="status-label" text="0/0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                         <Button fx:id="statusButton" mnemonicParsing="false" text="Running" GridPane.columnIndex="1">
                             <padding>
@@ -124,7 +124,7 @@
             <HBox fx:id="tabBar" alignment="CENTER_LEFT" spacing="0" styleClass="custom-tab-bar">
                 <Button fx:id="dashboardTab" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button, selected-tab" text="Dashboard" textAlignment="CENTER"
                         HBox.hgrow="ALWAYS"/>
-                <Button fx:id="keyboardMapTab" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button" text="Keyboard Map" textAlignment="CENTER" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="keyboardMapTab" alignment="CENTER" maxHeight="1.7971348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button" text="Keyboard Map" textAlignment="CENTER" HBox.hgrow="ALWAYS"/>
                 <Button fx:id="addHotkeyTab" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button" text="Add Hotkey" textAlignment="CENTER" HBox.hgrow="ALWAYS"/>
             </HBox>
 
