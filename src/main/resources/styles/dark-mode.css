@@ -203,8 +203,25 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-background-color: transparent;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+.search-icon {
+    -fx-font-size: 18px;
+    -fx-fill: #8D8D8D;
+}
+.search-box {
+    -fx-background-color: #383e46;
     -fx-border-color: #8D8D8D;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+}
+
+.transparent-textfield {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
 }
 .content-area {
     -fx-text-fill: white;

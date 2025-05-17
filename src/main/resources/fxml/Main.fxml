@@ -135,7 +135,10 @@
                     <!--   ======================================================================================================================================-->
                     <!-- Dashboard Content -->
                     <VBox fx:id="dashboardContent" spacing="10" styleClass="content-pane">
-                        <TextField fx:id="searchField" minHeight="40.0" promptText="Search for hotkeys..."/>
+                        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="search-box">
+                            <FontIcon iconLiteral="fas-search" styleClass="search-icon"/>
+                            <TextField fx:id="searchField" minHeight="40.0" promptText="Search for hotkeys..." HBox.hgrow="ALWAYS" styleClass="transparent-textfield"/>
+                        </HBox>
                         <VBox fx:id="hotkeyCardContainer" spacing="15" styleClass="v-box">
                             <!-- Hotkey cards will be dynamically generated here -->
                         </VBox>

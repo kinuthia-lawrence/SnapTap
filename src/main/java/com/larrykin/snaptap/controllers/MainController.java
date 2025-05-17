@@ -85,10 +85,11 @@ public class MainController implements Initializable {
 
         runToggle.setText(" ");
         addProfileBtn.setOnAction(e -> showAddProfileDialog());
+        setupSearchFunctionality();
     }
 
 
-   private void showAddProfileDialog() {
+    private void showAddProfileDialog() {
         // Create a custom dialog
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Add New Profile");
@@ -135,8 +136,8 @@ public class MainController implements Initializable {
         // Style dialog header
         dialogPane.lookupAll(".header-panel").forEach(node ->
                 node.setStyle("-fx-background-color: " + secondaryBgColor + ";" +
-                             "-fx-border-color: " + borderColor + ";" +
-                             "-fx-border-width: 0 0 1 0;"));
+                        "-fx-border-color: " + borderColor + ";" +
+                        "-fx-border-width: 0 0 1 0;"));
 
         dialogPane.lookupAll(".header-panel .label").forEach(node ->
                 node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 18px; -fx-font-weight: bold;"));
@@ -144,9 +145,9 @@ public class MainController implements Initializable {
         // Style text field
         profileName.setStyle(
                 "-fx-background-color: " + secondaryBgColor + ";" +
-                "-fx-text-fill: " + textColor + ";" +
-                "-fx-border-color: " + borderColor + ";" +
-                "-fx-border-radius: 4px;"
+                        "-fx-text-fill: " + textColor + ";" +
+                        "-fx-border-color: " + borderColor + ";" +
+                        "-fx-border-radius: 4px;"
         );
 
         // Style content text including labels
@@ -156,8 +157,8 @@ public class MainController implements Initializable {
         // Style buttons
         dialogPane.lookupAll(".button").forEach(node -> {
             String buttonStyle = "-fx-background-color: " + (isDarkMode ? "#4A555E" : "#F0F2F4") + ";" +
-                               "-fx-text-fill: " + textColor + ";" +
-                               "-fx-background-radius: 5px;";
+                    "-fx-text-fill: " + textColor + ";" +
+                    "-fx-background-radius: 5px;";
             node.setStyle(buttonStyle);
         });
 
@@ -169,10 +170,10 @@ public class MainController implements Initializable {
         Button createButton = (Button) dialogPane.lookupButton(createButtonType);
         createButton.setStyle(
                 "-fx-background-color: #2A9D8F;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-weight: bold;" +
-                "-fx-background-radius: 5px;" +
-                "-fx-padding: 10px 20px;"
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 5px;" +
+                        "-fx-padding: 10px 20px;"
         );
 
         // Set result converter
@@ -374,5 +375,26 @@ public class MainController implements Initializable {
         card.getChildren().addAll(topSection, separator, bottomSection);
 
         return card;
+    }
+
+    private void setupSearchFunctionality() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterHotkeys(newValue);
+        });
+    }
+
+    private void filterHotkeys(String query) {
+        hotkeyCardContainer.getChildren().clear();
+        String lowerCaseQuery = query.toLowerCase();
+
+        Profile activeProfile = profileManager.getActiveProfile();
+        if (activeProfile != null) {
+            activeProfile.getHotkeys().stream()
+                    .filter(hotkey -> hotkey.getName().toLowerCase().contains(lowerCaseQuery) || hotkey.getActionData().toLowerCase().contains(lowerCaseQuery))
+                    .forEach(hotkey -> {
+                        VBox card = createHotkeyCard(hotkey);
+                        hotkeyCardContainer.getChildren().add(card);
+                    });
+        }
     }
 }
