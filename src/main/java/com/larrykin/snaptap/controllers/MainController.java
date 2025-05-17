@@ -115,9 +115,13 @@ public class MainController implements Initializable {
         // Configure toggle button
         runToggle.setSelected(true);
         runToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            // Status button changes
             statusButton.setText(newVal ? "Running" : "Stopped");
-            statusButton.getStyleClass().removeAll("status-active", "status-inactive");
-            statusButton.getStyleClass().add(newVal ? "status-active" : "status-inactive");
+            statusButton.setStyle("-fx-background-color: " + (newVal ? "#2A9D8F" : "#8D8D8D"));
+
+            // Stop/Start button changes
+            stopServiceBtn.setText(newVal ? "Stop Service" : "Start Service");
+            stopServiceBtn.setStyle("-fx-background-color: " + (newVal ? "#dc3545" : "#2A9D8F"));
         });
 
         // Configure stop button
@@ -127,14 +131,6 @@ public class MainController implements Initializable {
         activeHotkeysLabel.setText("1/1");
     }
 
-    private void showHelpDialog() {
-        Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
-        helpAlert.setTitle("SnapTap Help");
-        helpAlert.setHeaderText("SnapTap Keyboard Shortcut Manager");
-        helpAlert.setContentText("This application allows you to create and manage custom keyboard shortcuts.\n\n" +
-                "For more information, visit the documentation website.");
-        helpAlert.showAndWait();
-    }
 
     private void setupSampleData() {
         Hotkey googleHotkey = new Hotkey(

@@ -143,25 +143,25 @@
 .gridpane {
     -fx-padding: 10 20;
     -fx-background-radius: 15;
-    -fx-background-color: #2d3339;
-}
+    -fx-background-color: #5D6A76;
+    }
 
 .card {
     -fx-alignment: center;
     -fx-border-radius: 15;
     -fx-background-radius: 15;
-    -fx-background-color: #2a2e33;
+    -fx-background-color: #383e46;
     -fx-border-color: transparent;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
 }
 
 .card:hover {
-    -fx-background-color: #353a41;
+    -fx-background-color: #5D6A76;
 }
 
 /* Apply this style for the gridpane when inside a hovered card */
 .card:hover .gridpane {
-    -fx-background-color: #2a2e33;
+    -fx-background-color: #383e46;
 }
 
 /*----------------------------------------------*/
