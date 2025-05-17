@@ -29,6 +29,13 @@
     "actionType" : "URL",
     "actionData" : "https://www.google.com",
     "enabled" : true
+  }, {
+    "id" : "bd4a0dc6-3259-4d35-ba58-cffa0c9cadca",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
   } ],
   "active" : true
 }

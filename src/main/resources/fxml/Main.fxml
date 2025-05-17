@@ -132,50 +132,17 @@
             <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
                 <!-- Content area with margin -->
                 <StackPane fx:id="contentArea" styleClass="content-area">
-<!--   ======================================================================================================================================-->
+                    <!--   ======================================================================================================================================-->
                     <!-- Dashboard Content -->
                     <VBox fx:id="dashboardContent" spacing="10" styleClass="content-pane">
                         <TextField fx:id="searchField" minHeight="40.0" promptText="Search for hotkeys..."/>
-                        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
-                            <VBox fx:id="hotkeyCardContainer" spacing="15" styleClass="v-box">
-                                <!-- Hotkey cards will be dynamically generated here -->
-                                <!-- Each card will follow this structure: -->
-
-<!--                                <VBox styleClass="card" spacing="10">-->
-<!--                                    <padding>-->
-<!--                                        <Insets top="15" right="15" bottom="15" left="15"/>-->
-<!--                                    </padding>-->
-<!--                                    <HBox spacing="10" alignment="CENTER_LEFT">-->
-<!--                                        <VBox spacing="5" HBox.hgrow="ALWAYS">-->
-<!--                                            <Label text="Open Google" styleClass="card-title"/>-->
-<!--                                            <HBox spacing="5" alignment="CENTER_LEFT">-->
-<!--                                                <FontIcon iconLiteral="fas-globe" iconSize="12"/>-->
-<!--                                                <Label text="https://www.google.com" styleClass="card-subtitle"/>-->
-<!--                                            </HBox>-->
-<!--                                        </VBox>-->
-<!--                                        <ToggleButton text="Enabled" selected="true" styleClass="enabled-toggle"/>-->
-<!--                                        <Button styleClass="delete-button">-->
-<!--                                            <graphic>-->
-<!--                                                <FontIcon iconLiteral="fas-trash"/>-->
-<!--                                            </graphic>-->
-<!--                                        </Button>-->
-<!--                                    </HBox>-->
-<!--                                    <Separator/>-->
-<!--                                    <HBox spacing="10" alignment="CENTER_LEFT">-->
-<!--                                        <HBox spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">-->
-<!--                                            <Label text="Ctrl" styleClass="key-label"/>-->
-<!--                                            <Label text="G" styleClass="key-label"/>-->
-<!--                                        </HBox>-->
-<!--                                        <Button text="Used 15 times" styleClass="usage-button"/>-->
-<!--                                    </HBox>-->
-<!--                                </VBox>-->
-
-                            </VBox>
-                        </ScrollPane>
+                        <VBox fx:id="hotkeyCardContainer" spacing="15" styleClass="v-box">
+                            <!-- Hotkey cards will be dynamically generated here -->
+                        </VBox>
                     </VBox>
 
 
-<!-- - =============================================================================================================================================  -->
+                    <!-- - =============================================================================================================================================  -->
                     <!-- Keyboard Map Content -->
                     <VBox fx:id="keyboardMapContent" spacing="20" alignment="CENTER" styleClass="shared-gridPane" visible="false">
                         <!-- Header -->
@@ -310,8 +277,7 @@
                     </VBox>
 
 
-
-<!--  =================================================================================================================================================-->
+                    <!--  =================================================================================================================================================-->
                     <!-- Add Hotkey Content -->
                     <VBox fx:id="addHotkeyContent" spacing="15" styleClass="shared-gridPane" visible="false">
                         <!-- Hotkey Name -->
