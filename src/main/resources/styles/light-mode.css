@@ -55,6 +55,60 @@
     -fx-text-fill: #333333;
 }
 
+#profileCombo {
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #212529;
+    -fx-text-fill: white;
+}
+
+#profileCombo .arrow-button {
+    -fx-background-color: transparent;
+}
+
+#profileCombo .arrow {
+    -fx-background-color: #212529;
+}
+
+#profileCombo .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #212529;
+}
+
+#profileCombo .list-view {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+}
+#profileCombo .list-view .list-cell:hover {
+    -fx-background-radius: 5px;
+    -fx-background-color: #2A9D8F;
+}
+
+/* Add Profile Button styling */
+#addProfileBtn {
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-border-color: #212529;
+    -fx-text-fill: #212529;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+#addProfileBtn:hover {
+    -fx-background-color: #2A9D8F;
+    -fx-cursor: hand;
+}
+
+#addProfileBtn .tooltip {
+    -fx-text-fill: #212529;
+}
+
+
 /*----------------------------------------------*/
 /* Left Section - Status Panel                  */
 /*----------------------------------------------*/
