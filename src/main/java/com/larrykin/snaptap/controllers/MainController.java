@@ -6,6 +6,9 @@ import com.larrykin.snaptap.models.Profile;
 import com.larrykin.snaptap.services.HotkeyManager;
 import com.larrykin.snaptap.services.ProfileManager;
 import com.larrykin.snaptap.utils.ThemeManager;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +29,6 @@ import java.util.*;
 public class MainController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-    @FXML
-    private TableView<Hotkey> hotkeyTable;
 
     @FXML
     private VBox hotkeyCardContainer;
@@ -73,11 +75,18 @@ public class MainController implements Initializable {
     private ProfileManager profileManager;
     private Map<String, VBox> hotkeyCards = new HashMap<>();
     private int[] usageCounts = new int[100]; // Simple usage tracking for demo
+    private Timeline uptimeTimeline;
+    private long startTime = 0;
+    private long elapsedTimeMillis = 0;
+    private boolean running = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hotkeyManager = new HotkeyManager();
         profileManager = new ProfileManager();
+
+        //initialize timere
+        setupUptimeTimer();
 
         setupUIBindings();
         setupSampleData();
@@ -217,6 +226,72 @@ public class MainController implements Initializable {
         }
     }
 
+
+    private void setupUptimeTimer() {
+        // Create a timeline that updates every second
+        uptimeTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> updateUptimeLabel()));
+        uptimeTimeline.setCycleCount(Animation.INDEFINITE);
+
+        // Start the timer when application launches
+        startTime = System.currentTimeMillis();
+        uptimeTimeline.play();
+        running = true;
+
+        // Add listeners to toggle and stop button
+        runToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                resumeTimer();
+            } else {
+                pauseTimer();
+            }
+        });
+
+        stopServiceBtn.setOnAction(e -> {
+            if (runToggle.isSelected()) {
+                runToggle.setSelected(false);
+                pauseTimer();
+            } else {
+                runToggle.setSelected(true);
+                resumeTimer();
+            }
+        });
+    }
+
+    private void updateUptimeLabel() {
+        if (running) {
+            long currentTime = System.currentTimeMillis();
+            elapsedTimeMillis = (currentTime - startTime) + elapsedTimeMillis;
+            startTime = currentTime;
+        }
+
+        // Format the time as HH:MM:SS
+        long seconds = elapsedTimeMillis / 1000;
+        long hours = seconds / 3600;
+        seconds %= 3600;
+        long minutes = seconds / 60;
+        seconds %= 60;
+
+        String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        uptimeLabel.setText(timeString);
+    }
+
+    private void pauseTimer() {
+        if (running) {
+            uptimeTimeline.pause();
+            long currentTime = System.currentTimeMillis();
+            elapsedTimeMillis += (currentTime - startTime);
+            running = false;
+        }
+    }
+
+    private void resumeTimer() {
+        if (!running) {
+            startTime = System.currentTimeMillis();
+            uptimeTimeline.play();
+            running = true;
+        }
+    }
+
     private void setupUIBindings() {
         List<Profile> allProfiles = profileManager.getAllProfiles();
         profileCombo.getItems().clear();
@@ -244,7 +319,15 @@ public class MainController implements Initializable {
             stopServiceBtn.setStyle("-fx-background-color: " + (newVal ? "#dc3545" : "#2A9D8F"));
         });
 
-        stopServiceBtn.setOnAction(e -> runToggle.setSelected(false));
+
+        runToggle.setSelected(true);
+        runToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            statusButton.setText(newVal ? "Running" : "Stopped");
+            statusButton.setStyle("-fx-background-color: " + (newVal ? "#2A9D8F" : "#8D8D8D"));
+            stopServiceBtn.setText(newVal ? "Stop Service" : "Start Service");
+            stopServiceBtn.setStyle("-fx-background-color: " + (newVal ? "#dc3545" : "#2A9D8F"));
+            // Timer handling is now in the setupUptimeTimer method
+        });
     }
 
     private void setupSampleData() {
