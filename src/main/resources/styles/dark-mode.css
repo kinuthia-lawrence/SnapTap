@@ -175,7 +175,9 @@
 
 /* Custom tabs */
 .custom-tab-bar {
-    -fx-padding: 5 10 0 10;
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 5;
+    -fx-background-color: #5D6A76;
 }
 
 .tab-button {
@@ -186,9 +188,6 @@
     -fx-padding: 8 15;
 }
 
-.tab-button:hover {
-    -fx-background-color: rgba(128, 128, 128, 0.1);
-}
 
 .selected-tab {
     -fx-background-color: #2A9D8F;

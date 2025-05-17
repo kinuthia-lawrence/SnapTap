@@ -28,18 +28,18 @@
             <!-- First row: App icon and window controls -->
             <HBox fx:id="windowBar" alignment="CENTER_LEFT" spacing="15" styleClass="window-bar">
                 <!-- Logo and title added programmatically -->
-                <Pane HBox.hgrow="ALWAYS"/>
+                <Pane HBox.hgrow="ALWAYS" />
                 <!-- Window controls added in Main.java -->
             </HBox>
 
             <!-- Second row: Navigation controls -->
             <HBox alignment="CENTER" spacing="10" styleClass="title-bar">
-                <Label styleClass="app-title" text="SnapTap"/>
-                <Pane HBox.hgrow="ALWAYS"/>
-                <ComboBox fx:id="profileCombo" minHeight="47.0" minWidth="187.0" prefHeight="47.0" prefWidth="187.0" promptText="Select Profile"/>
+                <Label styleClass="app-title" text="SnapTap" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <ComboBox fx:id="profileCombo" minHeight="47.0" minWidth="187.0" prefHeight="47.0" prefWidth="187.0" promptText="Select Profile" />
                 <Button fx:id="addProfileBtn" minHeight="46.0" minWidth="46.0" prefHeight="46.0" prefWidth="46.0" text="+">
                     <tooltip>
-                        <Tooltip text="Add Profile"/>
+                        <Tooltip text="Add Profile" />
                     </tooltip>
                 </Button>
             </HBox>
@@ -53,64 +53,64 @@
                 <children>
                     <HBox>
                         <children>
-                            <Label minWidth="150.0" styleClass="status-panel-title" text="System Status"/>
-                            <Pane/>
+                            <Label minWidth="150.0" styleClass="status-panel-title" text="System Status" />
+                            <Pane />
                         </children>
                     </HBox>
                     <HBox alignment="CENTER_LEFT">
                         <Label styleClass="status-label" text="Run in background">
                             <font>
-                                <Font size="11.0"/>
+                                <Font size="11.0" />
                             </font>
                         </Label>
-                        <Pane prefHeight="25.0" prefWidth="98.0"/>
+                        <Pane prefHeight="25.0" prefWidth="98.0" />
                         <ToggleButton fx:id="runToggle" prefHeight="25.0" prefWidth="58.0">
                             <graphic>
-                                <Circle fx:id="toggleCircle" radius="11.0" stroke="BLACK" strokeType="INSIDE"/>
+                                <Circle fx:id="toggleCircle" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
                             </graphic>
                         </ToggleButton>
                     </HBox>
 
                     <GridPane hgap="5" styleClass="gridpane" vgap="5">
-                        <Label styleClass="status-label" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Label styleClass="status-label" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-                        <Label styleClass="status-label" text="Uptime:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                        <Label fx:id="uptimeLabel" styleClass="status-label" text="00:00:00" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label styleClass="status-label" text="Uptime:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="uptimeLabel" styleClass="status-label" text="00:00:00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                        <Label styleClass="status-label" text="Active hotkeys:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                        <Label fx:id="activeHotkeysLabel" styleClass="status-label" text="0/0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Label styleClass="status-label" text="Active hotkeys:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label fx:id="activeHotkeysLabel" styleClass="status-label" text="0/0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Button fx:id="statusButton" mnemonicParsing="false" text="Running" GridPane.columnIndex="1">
                             <padding>
-                                <Insets bottom="5.0" left="15.0" right="15.0" top="5.0"/>
+                                <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                             </padding>
                         </Button>
                         <columnConstraints>
-                            <ColumnConstraints maxWidth="142.0" minWidth="63.0" prefWidth="123.0"/>
-                            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="30.0" prefWidth="121.0"/>
+                            <ColumnConstraints maxWidth="142.0" minWidth="63.0" prefWidth="123.0" />
+                            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="30.0" prefWidth="121.0" />
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints/>
-                            <RowConstraints/>
-                            <RowConstraints/>
+                            <RowConstraints />
+                            <RowConstraints />
+                            <RowConstraints />
                         </rowConstraints>
                     </GridPane>
 
                     <Button fx:id="stopServiceBtn" prefHeight="26.0" prefWidth="120.0" styleClass="stop-button" text="Stop Service">
                         <font>
-                            <Font size="18.0"/>
+                            <Font size="18.0" />
                         </font>
                         <padding>
-                            <Insets bottom="7.0" left="10.0" right="10.0" top="7.0"/>
+                            <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
                         </padding>
                     </Button>
-                    <Label styleClass="status-hint" text="Try: Ctrl+G"/>
+                    <Label styleClass="status-hint" text="Try: Ctrl+G" />
                 </children>
                 <padding>
-                    <Insets bottom="30.0" left="20.0" right="20.0" top="30.0"/>
+                    <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
                 </padding>
             </VBox>
             <padding>
-                <Insets left="30.0" right="30.0"/>
+                <Insets left="30.0" right="30.0" />
             </padding>
         </VBox>
     </left>
@@ -120,18 +120,18 @@
         <VBox spacing="20.0" styleClass="center-container">
             <!-- Custom tab bar -->
             <HBox fx:id="tabBar" alignment="CENTER_LEFT" spacing="0" styleClass="custom-tab-bar">
-                <Button fx:id="dashboardTab" onAction="#switchTab" styleClass="tab-button, selected-tab" text="Dashboard"/>
-                <Button fx:id="keyboardMapTab" onAction="#switchTab" styleClass="tab-button" text="Keyboard Map"/>
-                <Button fx:id="addHotkeyTab" onAction="#switchTab" styleClass="tab-button" text="Add Hotkey"/>
+                <Button fx:id="dashboardTab" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button, selected-tab" text="Dashboard" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                <Button fx:id="keyboardMapTab" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button" text="Keyboard Map" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                <Button fx:id="addHotkeyTab" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#switchTab" styleClass="tab-button" text="Add Hotkey" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
             </HBox>
 
             <!-- Content area with margin -->
             <StackPane fx:id="contentArea" styleClass="content-area" VBox.vgrow="ALWAYS">
                 <!-- Dashboard Content -->
                 <VBox fx:id="dashboardContent" spacing="10" styleClass="content-pane">
-                    <TextField fx:id="searchField" minHeight="40.0" promptText="Search for hotkeys..."/>
+                    <TextField fx:id="searchField" minHeight="40.0" promptText="Search for hotkeys..." />
                     <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
-                        <VBox fx:id="hotkeyCardContainer" spacing="10"/>
+                        <VBox fx:id="hotkeyCardContainer" spacing="10" />
                     </ScrollPane>
                 </VBox>
 
@@ -144,13 +144,13 @@
 
                 <!-- Add Hotkey Content -->
                 <GridPane fx:id="addHotkeyContent" hgap="10" styleClass="content-pane" vgap="10" visible="false">
-                    <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                    <Label text="Modifiers:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="modifierField" promptText="e.g. CTRL+ALT+W" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Modifiers:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="modifierField" promptText="e.g. CTRL+ALT+W" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                    <Label text="Key:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label text="Key:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <ComboBox fx:id="keyCombo" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
@@ -159,32 +159,32 @@
                         </items>
                     </ComboBox>
 
-                    <Label text="Action Type:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Label text="Action Type:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                     <ComboBox fx:id="actionTypeCombo" GridPane.columnIndex="1" GridPane.rowIndex="3">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Website"/>
-                                <String fx:value="Application"/>
-                                <String fx:value="File/Folder"/>
+                                <String fx:value="Website" />
+                                <String fx:value="Application" />
+                                <String fx:value="File/Folder" />
                             </FXCollections>
                         </items>
                     </ComboBox>
 
-                    <Label text="Action:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                    <TextField fx:id="actionField" promptText="URL, path, or application name" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                    <Label text="Action:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <TextField fx:id="actionField" promptText="URL, path, or application name" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                    <Button fx:id="saveHotkeyBtn" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                    <Button fx:id="saveHotkeyBtn" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     <columnConstraints>
-                        <ColumnConstraints/>
-                        <ColumnConstraints/>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
                     </rowConstraints>
                 </GridPane>
             </StackPane>

@@ -166,27 +166,18 @@
 /* Custom tabs */
 .custom-tab-bar {
     -fx-padding: 5 10 5 10;
-    -fx-background-color: #ff0000
-}
-
-#dashboardTab {
-    -fx-background-radius: 5 0 0 5;
-}
-
-#addHotkeyTab {
-    -fx-background-radius: 5 5 0 0;
+    -fx-background-radius: 5;
+    -fx-background-color: #e6e6e6;
 }
 
 .tab-button {
+    -fx-background-radius: 5;
     -fx-background-color: transparent;
     -fx-border-width: 1 1 1 1;
     -fx-border-color: transparent;
     -fx-padding: 8 15;
 }
 
-.tab-button:hover {
-    -fx-background-color: rgba(128, 128, 128, 0.1);
-}
 
 .selected-tab {
     -fx-background-color: #2A9D8F;
