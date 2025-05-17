@@ -60,7 +60,7 @@ public class MainController implements Initializable {
     @FXML
     private ScrollPane keyboardMapContent;
     @FXML
-    private GridPane addHotkeyContent;
+    private VBox addHotkeyContent;
 
 
     private HotkeyManager hotkeyManager;

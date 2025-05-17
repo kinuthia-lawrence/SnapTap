@@ -175,37 +175,99 @@
 
 /* Custom tabs */
 .custom-tab-bar {
+    -fx-text-fill: #E0E0E0;
     -fx-padding: 5 10 5 10;
     -fx-background-radius: 5;
-    -fx-background-color: #5D6A76;
+    -fx-background-color: #4A555E;
+    -fx-font-weight: bold;
 }
 
 .tab-button {
-    -fx-background-radius: 5 5 0 0;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
     -fx-background-color: transparent;
-    -fx-border-width: 1 1 0 1;
+    -fx-border-width: 1 1 1 1;
     -fx-border-color: transparent;
     -fx-padding: 8 15;
 }
 
 
 .selected-tab {
-    -fx-background-color: #2A9D8F;
+    -fx-background-color: #212529;
     -fx-text-fill: white;
 }
 
-/* Content area */
-.content-area {
-    -fx-padding: 10;
+/* Dashboard Content */
+#searchField{
+    -fx-text-fill: white;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-background-color: transparent;
     -fx-border-width: 1;
-    -fx-background-color: #383e46;
+    -fx-border-color: #8D8D8D;
+}
+.content-area {
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-width: 0;
+    -fx-background-color: #212529;
     -fx-border-color: transparent;
 }
 
 .content-pane {
-    -fx-padding: 10;
-    -fx-background-color: #383e46;
+    -fx-border-width: 0;
+    -fx-background-color: #212529;
     -fx-border-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: #212529;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #212529;
+}
+
+.scroll-pane .content {
+    -fx-background-color: #212529;
+}
+
+.v-box {
+    -fx-background-color: #212529;
+}
+
+/* Shared Keyboard Map & Hotkey Content */
+.shared-gridPane {
+    -fx-text-fill: white;
+    -fx-padding: 20;
+    -fx-border-width: 1;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-background-color: #2d333b;
+    -fx-border-color: #5D6A76;
+}
+/* Labels inside the shared-gridPane */
+.shared-gridPane .label {
+    -fx-text-fill: white;
+}
+
+/* Text fields inside the shared-gridPane */
+.shared-gridPane .text-field {
+    -fx-text-fill: white;
+    -fx-background-color: #383e46;
+    -fx-border-color: #5D6A76;
+}
+
+/* ComboBox styles inside the shared-gridPane */
+.shared-gridPane .combo-box {
+    -fx-text-fill: white;
+    -fx-background-color: #383e46;
+    -fx-border-color: #5D6A76;
+}
+
+/* Button styles inside the shared-gridPane */
+.shared-gridPane .button {
+    -fx-text-fill: white;
+    -fx-background-color: #4A555E;
 }

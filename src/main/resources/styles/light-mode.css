@@ -171,20 +171,29 @@
 }
 
 .tab-button {
+    -fx-text-fill: #333333;
     -fx-background-radius: 5;
     -fx-background-color: transparent;
     -fx-border-width: 1 1 1 1;
     -fx-border-color: transparent;
     -fx-padding: 8 15;
+    -fx-font-weight: bold;
 }
 
 
 .selected-tab {
-    -fx-background-color: #2A9D8F;
+    -fx-background-color: #ffffff;
     -fx-text-fill: white;
 }
 
 /* Dashboard Content */
+#searchField{
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-color: #8D8D8D;
+}
 .content-area {
     -fx-border-radius: 5;
     -fx-background-radius: 5;

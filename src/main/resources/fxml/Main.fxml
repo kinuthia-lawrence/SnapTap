@@ -144,50 +144,62 @@
                 </ScrollPane>
 
                 <!-- Add Hotkey Content -->
-                <GridPane fx:id="addHotkeyContent" hgap="10" styleClass="shared-gridPane" vgap="10" visible="false">
-                    <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <VBox fx:id="addHotkeyContent" spacing="15" styleClass="shared-gridPane" visible="false">
+                    <!-- Hotkey Name -->
+                    <VBox spacing="5">
+                        <Label text="Hotkey Name"/>
+                        <TextField fx:id="nameField" promptText="e.g., Open Google"/>
+                    </VBox>
 
-                    <Label text="Modifiers:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="modifierField" promptText="e.g. CTRL+ALT+W" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <!-- Modifier Keys -->
+                    <VBox spacing="5">
+                        <Label text="Modifier Keys"/>
+                        <HBox spacing="10">
+                            <ToggleButton text="Ctrl"/>
+                            <ToggleButton text="Alt"/>
+                            <ToggleButton text="Shift"/>
+                            <ToggleButton text="Win"/>
+                        </HBox>
+                    </VBox>
 
-                    <Label text="Key:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                    <ComboBox fx:id="keyCombo" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <!-- A-Z, 0-9, F1-F12 -->
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
+                    <!-- Key Selection -->
+                    <VBox spacing="5">
+                        <Label text="Key:"/>
+                        <ComboBox fx:id="keyCombo" prefWidth="300">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <!-- A-Z, 0-9, F1-F12 -->
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </VBox>
 
-                    <Label text="Action Type:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                    <ComboBox fx:id="actionTypeCombo" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Website"/>
-                                <String fx:value="Application"/>
-                                <String fx:value="File/Folder"/>
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
+                    <!-- Action Type -->
+                    <VBox spacing="5">
+                        <Label text="Action Type"/>
+                        <ComboBox fx:id="actionTypeCombo" prefWidth="300">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Website"/>
+                                    <String fx:value="Application"/>
+                                    <String fx:value="File or Folder"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </VBox>
 
-                    <Label text="Action:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                    <TextField fx:id="actionField" promptText="URL, path, or application name" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                    <!-- Action -->
+                    <VBox spacing="5">
+                        <Label text="Action"/>
+                        <TextField fx:id="actionField" promptText="/path/to/file/or/folder"/>
+                    </VBox>
 
-                    <Button fx:id="saveHotkeyBtn" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                    <columnConstraints>
-                        <ColumnConstraints/>
-                        <ColumnConstraints/>
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                    </rowConstraints>
-                </GridPane>
+                    <HBox alignment="CENTER">
+                        <Label text="Hotkey: Ctrl+Alt+Shift+Win+X" style="-fx-text-fill: #00ffcc;"/>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="saveHotkeyBtn" text="Add Hotkey"/>
+                    </HBox>
+                </VBox>
             </StackPane>
         </VBox>
     </center>
