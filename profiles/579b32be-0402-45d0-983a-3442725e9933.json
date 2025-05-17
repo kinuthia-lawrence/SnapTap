@@ -1,0 +1,34 @@
+{
+  "id" : "579b32be-0402-45d0-983a-3442725e9933",
+  "name" : "Default",
+  "hotkeys" : [ {
+    "id" : "f5dac281-4a11-4b6e-b7b5-16e2da8bbbc9",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "e90b73d6-254e-464a-92db-610782dbfb4d",
+    "name" : "Open Notepad",
+    "keyCombo" : "Ctrl+N",
+    "actionType" : "APPLICATION",
+    "actionData" : "notepad.exe",
+    "enabled" : true
+  }, {
+    "id" : "0d4b5036-40e6-4f10-9364-495262056519",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "3d5593c8-9523-404e-950e-de282616b176",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  } ],
+  "active" : true
+}

@@ -12,6 +12,11 @@ public class Hotkey implements Serializable {
     private String actionData;
     private boolean enabled;
 
+    // default constructor required for deserialization
+    public Hotkey() {
+        this.enabled = true;
+    }
+
     // Constructor
     public Hotkey(String id, String name, String keyCombo, ActionType actionType, String actionData) {
         this.id = id;

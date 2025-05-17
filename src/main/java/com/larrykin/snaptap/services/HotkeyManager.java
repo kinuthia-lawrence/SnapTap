@@ -30,6 +30,24 @@ public class HotkeyManager {
         }
     }
 
+    public void unregisterHotkey(String hotkeyId) {
+        if (registeredHotkeys.containsKey(hotkeyId)) {
+            // Unregister from system
+            Hotkey hotkey = registeredHotkeys.remove(hotkeyId);
+            logger.info("Unregistered hotkey: {}", hotkey.getName());
+        }
+    }
+
+    public void unregisterAllHotkeys() {
+        // Unregister all hotkeys from system
+        registeredHotkeys.clear();
+        logger.info("Unregistered all hotkeys");
+    }
+
+    public Map<String, Hotkey> getRegisteredHotkeys() {
+        return new HashMap<>(registeredHotkeys);
+    }
+
     // Implementation methods
     private void openUrl(String url) {
         //todo: Implementation

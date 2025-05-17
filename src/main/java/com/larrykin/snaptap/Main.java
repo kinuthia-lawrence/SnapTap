@@ -352,7 +352,6 @@ public class Main extends Application {
                         stage.setHeight(newHeight);
                     }
                 }
-                // Other cases for NE, SE, SW handle similarly
             }
         });
 
