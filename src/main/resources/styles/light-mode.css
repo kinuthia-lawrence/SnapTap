@@ -83,23 +83,27 @@
     -fx-max-width: 60px;
     -fx-min-height: 25px;
     -fx-max-height: 25px;
-    -fx-padding: 0 4px;
     -fx-border-radius: 20;
-    -fx-alignment: center-left;
+    -fx-padding: 0; /* Remove padding */
+    -fx-alignment: center-left; /* Align circle to the left */
 }
 
 #runToggle:selected {
     -fx-background-color: #2A9D8F; /* On state color */
-    -fx-alignment: center-right;
+    -fx-alignment: center-left; /* Keep alignment consistent */
 }
 
 #toggleCircle {
-    -fx-fill: white; /* Dark mode circle color */
+    -fx-fill: white; /* Circle color */
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
-    -fx-radius: 11;
+    -fx-radius: 10; /* Adjust radius if needed */
+    -fx-translate-x: 0; /* Default position */
 }
 
+#runToggle:selected #toggleCircle {
+    -fx-translate-x: 35;
+}
 
 .status-hint {
     -fx-text-fill: #6c757d;

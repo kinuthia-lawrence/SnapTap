@@ -162,6 +162,69 @@
     "actionType" : "URL",
     "actionData" : "https://www.google.com",
     "enabled" : true
+  }, {
+    "id" : "914f3663-1b5f-44b1-be4f-de5480c2b69c",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "4e9e0e99-1be5-4769-86cb-61b5fe43ae7e",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "70ae12de-4eb5-4daa-9748-c4b24a002f95",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "8af164c2-1419-48e6-8d50-577374d5e839",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "1d9058c1-0804-4238-8b8d-1a7327a01c49",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "74c63a95-8442-4b4c-aacd-315365547815",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "7b82a944-7fa1-4d33-a187-0f18331d6542",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "09434560-7185-4bef-b535-b65768616b66",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
+  }, {
+    "id" : "5916fe8f-9e37-461c-b414-29b3efadeb32",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true
   } ],
   "active" : true
 }
