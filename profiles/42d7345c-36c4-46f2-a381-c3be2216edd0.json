@@ -8,7 +8,7 @@
     "actionType" : "APPLICATION",
     "actionData" : "notepad",
     "enabled" : true,
-    "usageCount" : 1
+    "usageCount" : 2
   }, {
     "id" : "5c012156-0f4f-40ce-8605-9b790445d5bb",
     "name" : "Excel",

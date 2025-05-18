@@ -4,6 +4,12 @@ import com.larrykin.snaptap.enums.ActionType;
 
 import java.io.Serializable;
 
+
+/**
+ * Represents a hotkey configuration, including its unique identifier, name,
+ * key combination, action type, associated action data, and usage details.
+ * This class is serializable to allow saving and loading hotkey configurations.
+ */
 public class Hotkey implements Serializable {
     private String id;
     private String name;
@@ -13,12 +19,27 @@ public class Hotkey implements Serializable {
     private boolean enabled;
     private int usageCount;
 
-    // default constructor required for deserialization
+    //
+
+    /**
+     * Default constructor for the Hotkey class.
+     * Initializes the hotkey as enabled by default.
+     * default constructor required for deserialization
+     */
     public Hotkey() {
         this.enabled = true;
     }
 
-    // Constructor
+
+    /**
+     * Constructor for the Hotkey class.
+     *
+     * @param id         Unique identifier for the hotkey.
+     * @param name       Name of the hotkey.
+     * @param keyCombo   Key combination associated with the hotkey.
+     * @param actionType Type of action to be performed when the hotkey is triggered.
+     * @param actionData Additional data associated with the action.
+     */
     public Hotkey(String id, String name, String keyCombo, ActionType actionType, String actionData) {
         this.id = id;
         this.name = name;
@@ -28,7 +49,9 @@ public class Hotkey implements Serializable {
         this.enabled = true;
     }
 
-    // getters and setters
+    /**
+     * Getters and Setters for the Hotkey class.
+     */
     public String getId() {
         return id;
     }
@@ -76,7 +99,6 @@ public class Hotkey implements Serializable {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
 
 
     public int getUsageCount() {

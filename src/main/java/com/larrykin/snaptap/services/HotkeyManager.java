@@ -14,23 +14,46 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * HotkeyManager is a singleton class responsible for managing hotkeys in the application.
+ * It handles the registration, execution, and validation of hotkeys.
+ */
 public class HotkeyManager {
+    // Logger for logging messages
     private static final Logger logger = LoggerFactory.getLogger(HotkeyManager.class);
-    private static HotkeyManager instance; // Singleton instance
+
+    // Singleton instance of HotkeyManager
+    private static HotkeyManager instance;
+
+    // Map to store registered hotkeys with their IDs
     private final Map<String, Hotkey> registeredHotkeys = new HashMap<>();
-    private boolean masterSwitch = true; // Reflects the active profile status
-    private boolean systemRunning = true; // Indicates if the system is running in the background
+
+    // Reflects the active profile status
+    private boolean masterSwitch = true;
+
+    // Indicates if the system is running in the background
+    private boolean systemRunning = true;
+
+    // MainController instance for UI updates
     private MainController mainController;
+
 
     // Private constructor to prevent instantiation
     private HotkeyManager() {
     }
 
+
+    /**
+     * Returns the singleton instance of HotkeyManager.
+     */
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
-    // Public method to get the singleton instance
+
+    /**
+     * Sets the MainController instance for UI updates.
+     */
     public static synchronized HotkeyManager getInstance() {
         if (instance == null) {
             instance = new HotkeyManager();
@@ -38,16 +61,31 @@ public class HotkeyManager {
         return instance;
     }
 
+    /**
+     * Updates the master switch status.
+     *
+     * @param isActive Whether the master switch is active.
+     */
     public void setMasterSwitch(boolean isActive) {
         this.masterSwitch = isActive;
         logger.info("Master switch set to: {}", isActive ? "Active" : "Inactive");
     }
 
+    /**
+     * Updates the system running status.
+     *
+     * @param isRunning Whether the system is running.
+     */
     public void setSystemRunning(boolean isRunning) {
         this.systemRunning = isRunning;
         logger.info("System running status set to: {}", isRunning ? "Running" : "Stopped");
     }
 
+    /**
+     * Registers a hotkey if it is valid and not a duplicate.
+     *
+     * @param hotkey The hotkey to register.
+     */
     public void registerHotkey(Hotkey hotkey) {
         if (hotkey.getKeyCombo().split("\\+").length < 2) {
             logger.error("Hotkey '{}' is invalid. A hotkey must consist of at least two keys.", hotkey.getName());
@@ -64,10 +102,18 @@ public class HotkeyManager {
         logger.info("Registered hotkey: {} with combination: {}", hotkey.getName(), hotkey.getKeyCombo());
     }
 
+    /**
+     * Returns the map of registered hotkeys.
+     */
     public Map<String, Hotkey> getRegisteredHotkeys() {
         return registeredHotkeys;
     }
 
+    /**
+     * Executes the action associated with a hotkey.
+     *
+     * @param hotkey The hotkey to execute.
+     */
     public void executeAction(Hotkey hotkey) {
         logger.info("Executing action for hotkey: {}", hotkey.getName());
         if (!masterSwitch || !systemRunning || !hotkey.isEnabled()) {
@@ -105,6 +151,11 @@ public class HotkeyManager {
         }
     }
 
+    /**
+     * Opens a URL in the default browser.
+     *
+     * @param url The URL to open.
+     */
     private boolean openUrl(String url) {
         try {
             Desktop.getDesktop().browse(new URI(url));
@@ -116,6 +167,11 @@ public class HotkeyManager {
         }
     }
 
+    /**
+     * Launches an application using the provided path.
+     *
+     * @param application The path to the application.
+     */
     private boolean launchApplication(String application) {
         try {
             logger.info("Launching application: {}", application);
@@ -128,6 +184,11 @@ public class HotkeyManager {
         }
     }
 
+    /**
+     * Opens a file or folder using the default file manager.
+     *
+     * @param path The path to the file or folder.
+     */
     private boolean openFileOrFolder(String path) {
         try {
             logger.info("Opening file/folder: {}", path);

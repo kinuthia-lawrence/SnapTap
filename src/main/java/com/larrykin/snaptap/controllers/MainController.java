@@ -29,20 +29,17 @@ import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controller class for managing the main application UI and its interactions.
+ * Implements the `Initializable` interface to set up the UI components and bindings.
+ */
 public class MainController implements Initializable {
+    /**
+     * Logger for logging events and errors
+     */
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-    public Label hotkeyPreview;
-    public Button saveHotkeyBtn;
-    public TextField actionField;
-    public ComboBox actionTypeCombo;
-    public GridPane keyboardGrid;
-    public TextField nameField;
-    public ToggleButton ctrlToggle;
-    public ToggleButton altToggle;
-    public ToggleButton shiftToggle;
-    public ToggleButton winToggle;
 
-
+    //* FXML components    */
     @FXML
     private VBox hotkeyCardContainer;
 
@@ -86,17 +83,32 @@ public class MainController implements Initializable {
     @FXML
     private FontIcon actionIcon;
 
+    public Label hotkeyPreview;
+    public Button saveHotkeyBtn;
+    public TextField actionField;
+    public ComboBox actionTypeCombo;
+    public GridPane keyboardGrid;
+    public TextField nameField;
+    public ToggleButton ctrlToggle;
+    public ToggleButton altToggle;
+    public ToggleButton shiftToggle;
+    public ToggleButton winToggle;
     private HotkeyManager hotkeyManager;
     private final ProfileManager profileManager = new ProfileManager();
     private Map<String, VBox> hotkeyCards = new HashMap<>();
-    private int[] usageCounts = new int[100]; // Simple usage tracking for demo
     private Timeline uptimeTimeline;
     private long startTime = 0;
     private long elapsedTimeMillis = 0;
     private boolean running = false;
     private ToggleGroup keyboardToggleGroup = new ToggleGroup();
 
-
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * Sets up the UI components, binds data, and prepares the application for user interaction.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or null if not known.
+     * @param resources The resources used to localize the root object, or null if not available.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hotkeyManager = HotkeyManager.getInstance();
@@ -123,6 +135,10 @@ public class MainController implements Initializable {
         setupSaveButtonValidation();
     }
 
+    /**
+     * Sets up listeners for various UI components, including buttons, toggle buttons,
+     * and combo boxes, to handle user interactions and update the application state accordingly.
+     */
     private void setListeners() {
 
         //* Profile btn listener
@@ -224,6 +240,10 @@ public class MainController implements Initializable {
     }
 
 
+    /**
+     * Displays a dialog for adding a new profile.
+     * The dialog includes a text field for entering the profile name and buttons for creating or canceling the profile.
+     */
     private void showAddProfileDialog() {
         // Create a custom dialog
         Dialog<String> dialog = new Dialog<>();
@@ -311,6 +331,12 @@ public class MainController implements Initializable {
         });
     }
 
+    /**
+     * Switches between different tabs in the application.
+     * Updates the visibility of content sections based on the selected tab.
+     *
+     * @param event The action event triggered by clicking a tab button.
+     */
     @FXML
     private void switchTab(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
@@ -337,6 +363,10 @@ public class MainController implements Initializable {
     }
 
 
+    /**
+     * Sets up a timer to track the application's uptime.
+     * The timer updates the uptime label every second and handles start/pause/resume functionality.
+     */
     private void setupUptimeTimer() {
         // Create a timeline that updates every second
         uptimeTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> updateUptimeLabel()));
@@ -367,6 +397,10 @@ public class MainController implements Initializable {
         });
     }
 
+    /**
+     * Updates the uptime label with the formatted elapsed time.
+     * The time is displayed in HH:MM:SS format.
+     */
     private void updateUptimeLabel() {
         if (running) {
             long currentTime = System.currentTimeMillis();
@@ -385,6 +419,9 @@ public class MainController implements Initializable {
         uptimeLabel.setText(timeString);
     }
 
+    /**
+     * Pauses the uptime timer and updates the elapsed time.
+     */
     private void pauseTimer() {
         if (running) {
             uptimeTimeline.pause();
@@ -394,6 +431,9 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Resumes the uptime timer and updates the start time.
+     */
     private void resumeTimer() {
         if (!running) {
             startTime = System.currentTimeMillis();
@@ -402,6 +442,11 @@ public class MainController implements Initializable {
         }
     }
 
+
+    /**
+     * Sets up the UI bindings for various components, including profile selection,
+     * toggle buttons, and action type combo box.
+     */
     private void setupUIBindings() {
         List<Profile> allProfiles = profileManager.getAllProfiles();
         profileCombo.getItems().clear();
@@ -430,6 +475,10 @@ public class MainController implements Initializable {
         });
     }
 
+    /**
+     * Sets up sample data for the application.
+     * This includes creating a default profile and adding sample hotkeys if no profiles exist.
+     */
     private void setupSampleData() {
         // Check if there are no other profiles
         List<Profile> allProfiles = profileManager.getAllProfiles();
@@ -464,6 +513,10 @@ public class MainController implements Initializable {
         logger.info("Sample hotkeys created and added to profile: {}, {}", googleHotkey.getName(), intellijHotkey.getName());
     }
 
+    /**
+     * Loads hotkeys from the currently active profile and displays them in the UI.
+     * Clears existing hotkey cards and creates new ones based on the active profile's hotkeys.
+     */
     private void loadHotkeysFromCurrentProfile() {
         hotkeyCardContainer.getChildren().clear();
         hotkeyCards.clear();
@@ -493,6 +546,13 @@ public class MainController implements Initializable {
         updateKeyboardHeatmap();
     }
 
+    /**
+     * Creates a card UI element for a hotkey.
+     * The card displays the hotkey's name, action type, key combination, and usage count.
+     *
+     * @param hotkey The hotkey object to be displayed in the card.
+     * @return A VBox containing the hotkey card UI elements.
+     */
     private VBox createHotkeyCard(Hotkey hotkey) {
         VBox card = new VBox(10);
         card.getStyleClass().add("card");
@@ -577,12 +637,22 @@ public class MainController implements Initializable {
         return card;
     }
 
+    /**
+     * Sets up the search functionality for filtering hotkeys based on user input.
+     * Listens for changes in the search field and updates the displayed hotkeys accordingly.
+     */
     private void setupSearchFunctionality() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filterHotkeys(newValue);
         });
     }
 
+    /**
+     * Filters the displayed hotkeys based on the user's search query.
+     * Clears existing hotkey cards and creates new ones that match the query.
+     *
+     * @param query The search query entered by the user.
+     */
     private void filterHotkeys(String query) {
         hotkeyCardContainer.getChildren().clear();
         String lowerCaseQuery = query.toLowerCase();
@@ -596,6 +666,10 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Updates the keyboard heatmap by applying styles to keys based on their usage count.
+     * Keys are highlighted based on how frequently they are used in hotkeys.
+     */
     private void updateKeyboardHeatmap() {
         // Find all keyboard keys in the keyboardMapContent
         if (keyboardMapContent != null) {
@@ -620,6 +694,13 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Gets the usage count of a specific key across all hotkeys in the active profile.
+     * This is used to determine how frequently a key is used in hotkey combinations.
+     *
+     * @param keyName The name of the key to check (e.g., "Ctrl", "Alt").
+     * @return The total usage count of the specified key.
+     */
     private int getKeyUsageCount(String keyName) {
         int count = 0;
         Profile activeProfile = profileManager.getActiveProfile();
@@ -634,6 +715,10 @@ public class MainController implements Initializable {
     }
 
 
+    /**
+     * Sets up the keyboard toggle group for managing key combinations.
+     * Each key button is added to a toggle group to allow for single selection.
+     */
     public void setupKeyboardToggleGroup() {
         // Find all ToggleButtons in the keyboardGrid
         keyboardGrid.lookupAll(".toggle-button").forEach(node -> {
@@ -648,7 +733,11 @@ public class MainController implements Initializable {
     }
 
 
-    // Method to update the hotkey preview
+    /**
+     * Updates the hotkey preview label based on the selected modifiers and key.
+     * This method constructs a string representation of the hotkey combination
+     * and updates the preview label accordingly.
+     */
     private void updateHotkeyPreview() {
         StringBuilder hotkeyText = new StringBuilder();
 
@@ -673,7 +762,13 @@ public class MainController implements Initializable {
         hotkeyPreview.setText(hotkeyText.toString());
     }
 
-    // Helper method to get the currently selected key
+
+    /**
+     * Gets the currently selected key from the keyboard grid.
+     * This method iterates through the grid to find the selected key button.
+     *
+     * @return The text of the selected key button, or an empty string if none is selected.
+     */
     private String getSelectedKey() {
         // Find the selected key button in the keyboard grid
         for (Node row : keyboardGrid.getChildren()) {
@@ -688,6 +783,10 @@ public class MainController implements Initializable {
         return "";
     }
 
+    /**
+     * Sets up validation for the save button based on user input in the hotkey creation form.
+     * The button is enabled only when all required fields are filled correctly.
+     */
     private void setupSaveButtonValidation() {
         saveHotkeyBtn.setDisable(true); // Initially disabled
 
@@ -700,7 +799,10 @@ public class MainController implements Initializable {
         keyboardToggleGroup.selectedToggleProperty().addListener(validationListener);
     }
 
-    // Method to validate the save button
+    /**
+     * Validates the save button based on the current state of the input fields.
+     * The button is enabled only when all required fields are filled correctly.
+     */
     private void validateSaveButton() {
         boolean isNameEmpty = nameField.getText() == null || nameField.getText().trim().isEmpty();
         boolean isActionEmpty = actionField.getText() == null || actionField.getText().trim().isEmpty();
@@ -710,6 +812,10 @@ public class MainController implements Initializable {
         saveHotkeyBtn.setDisable(isNameEmpty || isActionEmpty || isActionTypeUnchanged || isHotkeyInvalid);
     }
 
+    /**
+     * Saves the hotkey created by the user in the hotkey creation form.
+     * This method validates the input, creates a new hotkey object, and adds it to the active profile.
+     */
     @FXML
     private void saveHotkey() {
         // Create a new hotkey
@@ -773,6 +879,12 @@ public class MainController implements Initializable {
     }
 
 
+    /**
+     * Updates the UI components based on the current profile's state.
+     * This includes updating the active hotkeys label and the run toggle button.
+     *
+     * @param profile The current profile to update the UI for.
+     */
     private void updateUI(Profile profile) {
         if (profile != null) {
             Platform.runLater(() -> {
@@ -782,6 +894,10 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Reloads the data in the MainController.
+     * This method updates the active profile, reloads hotkeys, and refreshes the UI components.
+     */
     public void reloadData() {
         Profile activeProfile = profileManager.getActiveProfile();
         if (activeProfile != null) {

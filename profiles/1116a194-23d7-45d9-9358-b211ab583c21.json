@@ -2,21 +2,13 @@
   "id" : "1116a194-23d7-45d9-9358-b211ab583c21",
   "name" : "Default",
   "hotkeys" : [ {
-    "id" : "98947fac-0ef5-4a81-affb-61803b0cc91f",
-    "name" : "Open Google",
-    "keyCombo" : "Ctrl+G",
-    "actionType" : "URL",
-    "actionData" : "https://www.google.com",
-    "enabled" : true,
-    "usageCount" : 4
-  }, {
     "id" : "e43d57b0-9ec6-4550-ab69-03f84b11c26a",
     "name" : "Command Prompt",
     "keyCombo" : "Ctrl+Shift+C",
     "actionType" : "APPLICATION",
     "actionData" : "cmd",
     "enabled" : true,
-    "usageCount" : 5
+    "usageCount" : 6
   } ],
   "active" : false
 }

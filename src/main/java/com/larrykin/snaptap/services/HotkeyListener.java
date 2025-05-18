@@ -11,23 +11,40 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Listens for global keyboard events and triggers actions for registered hotkeys.
+ * Implements the `NativeKeyListener` interface to handle key press and release events.
+ */
 public class HotkeyListener implements NativeKeyListener {
+    // Logger for logging events and errors
     private static final Logger logger = LoggerFactory.getLogger(HotkeyListener.class);
+    // Instance of HotkeyManager to manage hotkeys
     private final HotkeyManager hotkeyManager;
     private final Set<String> pressedKeys = new HashSet<>(); // Track currently pressed keys
 
+    /**
+     * Constructor for HotkeyListener.
+     *
+     * @param hotkeyManager Instance of HotkeyManager to manage hotkeys.
+     */
     public HotkeyListener(HotkeyManager hotkeyManager) {
         this.hotkeyManager = hotkeyManager;
     }
 
+    /**
+     * Handles key press events.
+     * Checks if any registered hotkey is triggered and executes the corresponding action.
+     *
+     * @param e The NativeKeyEvent containing information about the key event.
+     */
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
         String keyText = NativeKeyEvent.getKeyText(e.getKeyCode());
         pressedKeys.add(keyText); // Add the pressed key to the set
-        logger.info("Key pressed: {}", keyText);
+//        logger.info("Key pressed: {}", keyText);
 
         Map<String, Hotkey> registeredHotkeys = hotkeyManager.getRegisteredHotkeys();
-        logger.info("Registered hotkeys: {}", registeredHotkeys);
+//        logger.info("Registered hotkeys: {}", registeredHotkeys);
 
         for (Hotkey hotkey : registeredHotkeys.values()) {
             if (isHotkeyTriggered(hotkey)) {
@@ -38,18 +55,35 @@ public class HotkeyListener implements NativeKeyListener {
         }
     }
 
+    /**
+     * Handles key release events.
+     * Updates the set of pressed keys.
+     *
+     * @param e The NativeKeyEvent containing information about the key event.
+     */
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
         String keyText = NativeKeyEvent.getKeyText(e.getKeyCode());
         pressedKeys.remove(keyText); // Remove the released key from the set
-        logger.info("Key released: {}", keyText);
+//        logger.info("Key released: {}", keyText);
     }
 
+    /**
+     * Handles key typed events.
+     *
+     * @param e The NativeKeyEvent containing information about the key event.
+     */
     @Override
     public void nativeKeyTyped(NativeKeyEvent e) {
         // No action needed on key typed
     }
 
+    /**
+     * Checks if a hotkey is triggered based on the currently pressed keys.
+     *
+     * @param hotkey The Hotkey object to check.
+     * @return true if the hotkey is triggered, false otherwise.
+     */
     private boolean isHotkeyTriggered(Hotkey hotkey) {
         // Split the hotkey combination into individual keys
         String[] hotkeyKeys = hotkey.getKeyCombo().split("\\+");
@@ -61,6 +95,10 @@ public class HotkeyListener implements NativeKeyListener {
         return true; // All keys in the combination are pressed
     }
 
+    /**
+     * Starts listening for global keyboard events.
+     * Registers the listener with the GlobalScreen.
+     */
     public void startListening() {
         try {
             GlobalScreen.registerNativeHook();

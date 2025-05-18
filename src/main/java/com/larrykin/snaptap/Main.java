@@ -25,11 +25,24 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+/**
+ * The main entry point for the SnapTap application.
+ * This class initializes the JavaFX application, sets up the main stage,
+ * and starts the hotkey listener for managing global hotkeys.
+ */
 public class Main extends Application {
     private TrayManager trayManager;
     private double xOffset = 0;
     private double yOffset = 0;
 
+    /**
+         * The main entry point for the JavaFX application.
+         * This method sets up the primary stage, initializes the hotkey listener,
+         * and loads the main user interface from the FXML file.
+         *
+         * @param stage The primary stage for this application.
+         * @throws Exception If an error occurs during application startup.
+         */
     @Override
     public void start(Stage stage) throws Exception {
         //* Set Listener
@@ -199,12 +212,12 @@ public class Main extends Application {
         stage.setMinWidth(920);
         stage.setMinHeight(520);
         addResizeListener(root, stage);
-//        stage.setMaximized(true); // Set maximized state on startup
-//
-//        // Update maximize button icon to show compress instead of expand
-//        FontIcon compressIcon = new FontIcon("fas-compress");
-//        compressIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
-//        maximizeButton.setGraphic(compressIcon);
+        stage.setMaximized(true); // Set maximized state on startup
+
+        // Update maximize button icon to show compress instead of expand
+        FontIcon compressIcon = new FontIcon("fas-compress");
+        compressIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
+        maximizeButton.setGraphic(compressIcon);
 
         stage.show();
 
@@ -212,6 +225,10 @@ public class Main extends Application {
         trayManager = new TrayManager(stage);
     }
 
+    /**
+     * This method is called when the application is stopped.
+     * It unregisters the hotkey listener and cleans up resources.
+     */
     @Override
     public void stop() {
         try {
@@ -225,10 +242,22 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * The main method to launch the JavaFX application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Adds a resize listener to the main window.
+     * This allows the user to resize the window by dragging its edges or corners.
+     *
+     * @param root The root pane of the application.
+     * @param stage The main stage of the application.
+     */
     private void addResizeListener(BorderPane root, Stage stage) {
         final int RESIZE_MARGIN = 5;
         final boolean[] dragging = {false};
@@ -341,6 +370,10 @@ public class Main extends Application {
         root.setOnMouseReleased(event -> dragging[0] = false);
     }
 
+    /**
+     * Displays a help dialog with information about the application.
+     * The dialog is styled according to the current theme (dark or light).
+     */
     private void showHelpDialog() {
         boolean isDarkMode = ThemeManager.loadThemeState();
         String backgroundColor = isDarkMode ? "#212529" : "#F9FAFB";
