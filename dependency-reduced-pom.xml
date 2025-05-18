@@ -61,6 +61,7 @@
                 <transformer>
                   <mainClass>com.larrykin.snaptap.Main</mainClass>
                 </transformer>
+                <transformer />
               </transformers>
             </configuration>
           </execution>
