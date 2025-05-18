@@ -497,3 +497,16 @@
     -fx-text-fill: #2A9D8F;
     -fx-font-weight: bold;
 }
+
+#saveHotkeyBtn {
+    -fx-background-color: #2A9D8F;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+}
+
+#saveHotkeyBtn:disabled {
+    -fx-background-color: #8D8D8D;
+    -fx-text-fill: #D3D3D3;
+}

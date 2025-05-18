@@ -9,6 +9,7 @@ import com.larrykin.snaptap.utils.ThemeManager;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -110,6 +111,7 @@ public class MainController implements Initializable {
         setListeners();
         setupSearchFunctionality();
         setupKeyboardToggleGroup();
+        setupSaveButtonValidation();
     }
 
     private void setListeners() {
@@ -683,5 +685,76 @@ public class MainController implements Initializable {
             }
         }
         return "";
+    }
+
+    private void setupSaveButtonValidation() {
+        saveHotkeyBtn.setDisable(true); // Initially disabled
+
+        // Add listeners to validate fields
+        ChangeListener<Object> validationListener = (observable, oldValue, newValue) -> validateSaveButton();
+
+        nameField.textProperty().addListener(validationListener);
+        actionField.textProperty().addListener(validationListener);
+        actionTypeCombo.getSelectionModel().selectedItemProperty().addListener(validationListener);
+        keyboardToggleGroup.selectedToggleProperty().addListener(validationListener);
+    }
+
+    // Method to validate the save button
+    private void validateSaveButton() {
+        boolean isNameEmpty = nameField.getText() == null || nameField.getText().trim().isEmpty();
+        boolean isActionEmpty = actionField.getText() == null || actionField.getText().trim().isEmpty();
+        boolean isActionTypeUnchanged = actionTypeCombo.getSelectionModel().getSelectedIndex() == 0;
+        boolean isHotkeyInvalid = getSelectedKey().isEmpty() || (!ctrlToggle.isSelected() && !altToggle.isSelected() && !shiftToggle.isSelected() && !winToggle.isSelected());
+
+        saveHotkeyBtn.setDisable(isNameEmpty || isActionEmpty || isActionTypeUnchanged || isHotkeyInvalid);
+    }
+
+    @FXML
+    private void saveHotkey() {
+        // Create a new hotkey
+        String name = nameField.getText().trim();
+        String action = actionField.getText().trim();
+        String actionType = actionTypeCombo.getSelectionModel().getSelectedItem().toString();
+        String hotkeyCombo = hotkeyPreview.getText();
+
+        Hotkey newHotkey = new Hotkey(UUID.randomUUID().toString(), name, hotkeyCombo, ActionType.valueOf(actionType.toUpperCase()), action);
+
+        // Save the hotkey to the current profile
+        Profile activeProfile = profileManager.getActiveProfile();
+        if (activeProfile != null) {
+            try {
+                activeProfile.addHotkey(newHotkey);
+                profileManager.saveProfile(activeProfile);
+
+                // Show success alert
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Hotkey Saved");
+                alert.setContentText("The hotkey has been successfully saved.");
+                alert.showAndWait();
+            } catch (Exception e) {
+                logger.error("An error occurred while saving the hotkey: {}", e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Failed to Save Hotkey");
+                alert.setContentText("An error occurred while saving the hotkey. Please try again.");
+                alert.showAndWait();
+                return;
+            }
+
+
+            // Clear fields and preview
+            nameField.clear();
+            actionField.clear();
+            actionTypeCombo.getSelectionModel().selectFirst();
+            hotkeyPreview.setText("");
+            keyboardToggleGroup.getToggles().forEach(toggle -> toggle.setSelected(false));
+            ctrlToggle.setSelected(false);
+            altToggle.setSelected(false);
+            shiftToggle.setSelected(false);
+            winToggle.setSelected(false);
+
+            validateSaveButton(); // Revalidate the button
+        }
     }
 }

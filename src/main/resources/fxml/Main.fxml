@@ -410,7 +410,7 @@
                                 <Label fx:id="hotkeyPreview" text="Ctrl+Alt+Shift+Win+X" styleClass="hotkeyPreview"/>
                             </HBox>
                             <Pane HBox.hgrow="ALWAYS"/>
-                            <Button fx:id="saveHotkeyBtn" text="Add Hotkey"/>
+                            <Button fx:id="saveHotkeyBtn" text="Add Hotkey" onAction="#saveHotkey"/>
                         </HBox>
                     </VBox>
                 </StackPane>

@@ -489,6 +489,38 @@
     "actionData" : "https://www.google.com",
     "enabled" : true,
     "usageCount" : 0
+  }, {
+    "id" : "cad2084e-a9d6-4b0b-85d1-2d20effd405f",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "1389c685-7d13-46dc-a72c-0c9397826199",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "3715e31c-6875-440f-b538-077e4349abf3",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "3e98b92b-75ae-4214-9301-880322c56c24",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+Alt+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true,
+    "usageCount" : 0
   } ],
-  "active" : true
+  "active" : false
 }

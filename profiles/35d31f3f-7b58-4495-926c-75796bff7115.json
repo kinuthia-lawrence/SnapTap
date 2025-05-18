@@ -1,6 +1,14 @@
 {
   "id" : "35d31f3f-7b58-4495-926c-75796bff7115",
   "name" : "coding",
-  "hotkeys" : [ ],
-  "active" : false
+  "hotkeys" : [ {
+    "id" : "4ceb5570-f69a-4110-be4b-94a4c6422176",
+    "name" : "Open Intellij",
+    "keyCombo" : "Ctrl+Shift+I",
+    "actionType" : "APPLICATION",
+    "actionData" : "idea",
+    "enabled" : true,
+    "usageCount" : 0
+  } ],
+  "active" : true
 }
