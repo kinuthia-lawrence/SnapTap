@@ -114,7 +114,6 @@ public class MainController implements Initializable {
 
         Profile activeProfile = profileManager.getActiveProfile();
         if (activeProfile != null) {
-            hotkeyManager.setMasterSwitch(activeProfile.isActive());
             profileManager.registerProfileHotkeys(activeProfile);
         }
         updateUI(profileManager.getActiveProfile());
@@ -144,12 +143,18 @@ public class MainController implements Initializable {
 
         //* Background service toggle button listener
         runToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            Profile activeProfile = profileManager.getActiveProfile();
+            if (newVal) {
+                startBackgroundService();
+
+            } else {
+                stopBackgroundService();
+            }
+          /*  Profile activeProfile = profileManager.getActiveProfile();
             if (activeProfile != null) {
                 activeProfile.setActive(newVal);
                 profileManager.saveProfile(activeProfile);
                 updateUI(activeProfile);
-            }
+            }*/
         });
 
 
@@ -892,6 +897,8 @@ public class MainController implements Initializable {
     }
 
 
+    /*    */
+
     /**
      * Updates the UI components based on the current profile's state.
      * This includes updating the active hotkeys label and the run toggle button.
@@ -914,9 +921,6 @@ public class MainController implements Initializable {
     public void reloadData() {
         Profile activeProfile = profileManager.getActiveProfile();
         if (activeProfile != null) {
-            // Update the master switch in HotkeyManager
-            hotkeyManager.setMasterSwitch(activeProfile.isActive());
-
             // Unregister all existing hotkeys
             hotkeyManager.getRegisteredHotkeys().clear();
 
@@ -930,6 +934,53 @@ public class MainController implements Initializable {
             logger.info("Reloaded data in MainController for profile: {}", activeProfile.getName());
         } else {
             logger.warn("No active profile found during reload");
+        }
+    }
+
+    private void startBackgroundService() {
+        try {
+            if (hotkeyManager == null) {
+                hotkeyManager = HotkeyManager.getInstance();
+                hotkeyManager.setMainController(this);
+            }
+
+            // Set system as running
+            hotkeyManager.setSystemRunning(true);
+
+            // Update UI
+            statusButton.setText("Running");
+            statusButton.getStyleClass().removeAll("stop-button");
+            statusButton.getStyleClass().add("run-button");
+
+            // Start tracking uptime
+            resumeTimer();
+            running = true;
+
+            logger.info("Background service started");
+        } catch (Exception e) {
+            logger.error("Failed to start background service", e);
+        }
+    }
+
+    private void stopBackgroundService() {
+        try {
+            // Mark system as not running, but don't unregister the hook
+            if (hotkeyManager != null) {
+                hotkeyManager.setSystemRunning(false);
+            }
+
+            // Update UI
+            statusButton.setText("Stopped");
+            statusButton.getStyleClass().removeAll("run-button");
+            statusButton.getStyleClass().add("stop-button");
+
+            // Stop uptime counter
+            pauseTimer();
+            running = false;
+
+            logger.info("Background service stopped");
+        } catch (Exception e) {
+            logger.error("Failed to stop background service", e);
         }
     }
 }

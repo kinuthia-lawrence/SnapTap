@@ -28,8 +28,6 @@ public class HotkeyManager {
     // Map to store registered hotkeys with their IDs
     private final Map<String, Hotkey> registeredHotkeys = new HashMap<>();
 
-    // Reflects the active profile status
-    private boolean masterSwitch = true;
 
     // Indicates if the system is running in the background
     private boolean systemRunning = true;
@@ -59,16 +57,6 @@ public class HotkeyManager {
             instance = new HotkeyManager();
         }
         return instance;
-    }
-
-    /**
-     * Updates the master switch status.
-     *
-     * @param isActive Whether the master switch is active.
-     */
-    public void setMasterSwitch(boolean isActive) {
-        this.masterSwitch = isActive;
-        logger.info("Master switch set to: {}", isActive ? "Active" : "Inactive");
     }
 
     /**
@@ -116,9 +104,8 @@ public class HotkeyManager {
      */
     public void executeAction(Hotkey hotkey) {
         logger.info("Executing action for hotkey: {}", hotkey.getName());
-        if (!masterSwitch || !systemRunning || !hotkey.isEnabled()) {
-            logger.warn("Action execution skipped. Master switch: {}, System running: {}, Hotkey enabled: {}",
-                    masterSwitch, systemRunning, hotkey.isEnabled());
+        if (!systemRunning || !hotkey.isEnabled()) {
+            logger.warn("Action execution skipped, System running: {}, Hotkey enabled: {}", systemRunning, hotkey.isEnabled());
             return;
         }
 
