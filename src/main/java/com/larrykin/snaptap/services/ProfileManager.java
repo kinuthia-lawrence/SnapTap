@@ -25,7 +25,7 @@ public class ProfileManager {
     private final HotkeyManager hotkeyManager;
 
     public ProfileManager() {
-        this(new HotkeyManager());
+        this(HotkeyManager.getInstance());
     }
 
     public ProfileManager(HotkeyManager hotkeyManager) {
@@ -53,50 +53,7 @@ public class ProfileManager {
         // Create default profile
         Profile defaultProfile = createProfile("Default");
         setActiveProfile(defaultProfile.getId());
-
-        // Add some sample hotkeys
-        Hotkey googleHotkey = new Hotkey(
-                UUID.randomUUID().toString(),
-                "Open Google",
-                "Ctrl+G",
-                ActionType.URL,
-                "https://www.google.com"
-        );
-        defaultProfile.addHotkey(googleHotkey);
-
-        Hotkey notepadHotkey = new Hotkey(
-                UUID.randomUUID().toString(),
-                "Open Notepad",
-                "Ctrl+N",
-                ActionType.APPLICATION,
-                "notepad.exe"
-        );
-        defaultProfile.addHotkey(notepadHotkey);
-
-        // Create work profile
-        Profile workProfile = createProfile("Work");
-        Hotkey githubHotkey = new Hotkey(
-                UUID.randomUUID().toString(),
-                "Open GitHub",
-                "Ctrl+Shift+G",
-                ActionType.URL,
-                "https://github.com"
-        );
-        workProfile.addHotkey(githubHotkey);
-
-        // Create gaming profile
-        Profile gamingProfile = createProfile("Gaming");
-        Hotkey steamHotkey = new Hotkey(
-                UUID.randomUUID().toString(),
-                "Launch Steam",
-                "Ctrl+Alt+S",
-                ActionType.APPLICATION,
-                "C:\\Program Files (x86)\\Steam\\steam.exe"
-        );
-        gamingProfile.addHotkey(steamHotkey);
-
-        // Save all profiles
-        saveAllProfiles();
+        saveProfile(defaultProfile);
     }
 
     public Profile createProfile(String name) {
@@ -211,6 +168,7 @@ public class ProfileManager {
 
                 // Unregister all hotkeys from the current profile
                 unregisterProfileHotkeys(currentActive);
+                logger.info("Deactivated profile: {}", currentActive.getName());
             }
 
             // Activate new profile
@@ -221,10 +179,11 @@ public class ProfileManager {
 
             // Register all hotkeys from the new active profile
             registerProfileHotkeys(newActive);
+            logger.info("Active profile set to: {}", newActive.getName());
         }
     }
 
-    private void registerProfileHotkeys(Profile profile) {
+    public void registerProfileHotkeys(Profile profile) {
         for (Hotkey hotkey : profile.getHotkeys()) {
             hotkeyManager.registerHotkey(hotkey);
         }

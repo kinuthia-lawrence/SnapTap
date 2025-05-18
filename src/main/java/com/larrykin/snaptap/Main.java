@@ -33,7 +33,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //* Set Listener
-        HotkeyManager hotkeyManager = new HotkeyManager();
+        HotkeyManager hotkeyManager = HotkeyManager.getInstance();
         HotkeyListener hotkeyListener = new HotkeyListener(hotkeyManager);
         hotkeyListener.startListening();
 

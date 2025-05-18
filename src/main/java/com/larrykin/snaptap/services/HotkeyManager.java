@@ -13,9 +13,22 @@ import java.util.Map;
 
 public class HotkeyManager {
     private static final Logger logger = LoggerFactory.getLogger(HotkeyManager.class);
-    private Map<String, Hotkey> registeredHotkeys = new HashMap<>();
+    private static HotkeyManager instance; // Singleton instance
+    private final Map<String, Hotkey> registeredHotkeys = new HashMap<>();
     private boolean masterSwitch = true; // Reflects the active profile status
     private boolean systemRunning = true; // Indicates if the system is running in the background
+
+    // Private constructor to prevent instantiation
+    private HotkeyManager() {
+    }
+
+    // Public method to get the singleton instance
+    public static synchronized HotkeyManager getInstance() {
+        if (instance == null) {
+            instance = new HotkeyManager();
+        }
+        return instance;
+    }
 
     public void setMasterSwitch(boolean isActive) {
         this.masterSwitch = isActive;
@@ -27,10 +40,10 @@ public class HotkeyManager {
         logger.info("System running status set to: {}", isRunning ? "Running" : "Stopped");
     }
 
-   public void registerHotkey(Hotkey hotkey) {
-       registeredHotkeys.put(hotkey.getId(), hotkey);
-       logger.info("Registered hotkey: {} with combination: {}", hotkey.getName(), hotkey.getKeyCombo());
-   }
+    public void registerHotkey(Hotkey hotkey) {
+        registeredHotkeys.put(hotkey.getId(), hotkey);
+        logger.info("Registered hotkey: {} with combination: {}", hotkey.getName(), hotkey.getKeyCombo());
+    }
 
     public void executeAction(Hotkey hotkey) {
         logger.info("Executing action for hotkey: {}", hotkey.getName());
@@ -47,12 +60,10 @@ public class HotkeyManager {
         }
     }
 
-
     public Map<String, Hotkey> getRegisteredHotkeys() {
         return new HashMap<>(registeredHotkeys);
     }
 
-    // Implementation methods
     private void openUrl(String url) {
         try {
             Desktop.getDesktop().browse(new URI(url));

@@ -1,20 +1,20 @@
 {
-  "id" : "a0c271bb-60b0-4b62-9d25-df09c269b0d7",
+  "id" : "179e0800-1e06-4a52-b7e4-25a6d7372be6",
   "name" : "Default",
   "hotkeys" : [ {
-    "id" : "12d43072-513b-435e-98df-e7ce2953f619",
+    "id" : "90149f31-c21d-41e8-8dec-3a5dd6a8f691",
     "name" : "Open Google",
-    "keyCombo" : "Ctrl+G",
+    "keyCombo" : "Ctrl+Alt+G",
     "actionType" : "URL",
     "actionData" : "https://www.google.com",
     "enabled" : true,
     "usageCount" : 0
   }, {
-    "id" : "294bf737-d1f8-405e-816c-2f4bba308c32",
-    "name" : "Open Notepad",
-    "keyCombo" : "Ctrl+N",
+    "id" : "2ae74878-58ff-42bd-ad6c-febca015315c",
+    "name" : "Open IntelliJ",
+    "keyCombo" : "Ctrl+Shift+I",
     "actionType" : "APPLICATION",
-    "actionData" : "notepad.exe",
+    "actionData" : "idea",
     "enabled" : true,
     "usageCount" : 0
   } ],

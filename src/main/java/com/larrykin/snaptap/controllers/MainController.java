@@ -99,13 +99,17 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        hotkeyManager = new HotkeyManager();
+        hotkeyManager = HotkeyManager.getInstance();
+        Profile activeProfile = profileManager.getActiveProfile();
+        if (activeProfile != null) {
+            hotkeyManager.setMasterSwitch(activeProfile.isActive());
+            profileManager.registerProfileHotkeys(activeProfile);
+        }
         updateUI(profileManager.getActiveProfile());
 
 
-        //initialize timer
+        // initialize timer
         setupUptimeTimer();
-
         setupUIBindings();
         setupSampleData();
         loadHotkeysFromCurrentProfile();

@@ -14,7 +14,7 @@ public class HotkeyListener implements NativeKeyListener {
     private final HotkeyManager hotkeyManager;
 
     public HotkeyListener(HotkeyManager hotkeyManager) {
-        this.hotkeyManager = hotkeyManager;
+        this.hotkeyManager = HotkeyManager.getInstance();
     }
 
     @Override
