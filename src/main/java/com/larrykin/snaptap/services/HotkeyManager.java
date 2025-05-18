@@ -1,7 +1,9 @@
 package com.larrykin.snaptap.services;
 
+import com.larrykin.snaptap.controllers.MainController;
 import com.larrykin.snaptap.models.Hotkey;
 import com.larrykin.snaptap.models.Profile;
+import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,9 +20,14 @@ public class HotkeyManager {
     private final Map<String, Hotkey> registeredHotkeys = new HashMap<>();
     private boolean masterSwitch = true; // Reflects the active profile status
     private boolean systemRunning = true; // Indicates if the system is running in the background
+    private MainController mainController;
 
     // Private constructor to prevent instantiation
     private HotkeyManager() {
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     // Public method to get the singleton instance
@@ -86,6 +93,14 @@ public class HotkeyManager {
             Profile activeProfile = profileManager.getActiveProfile();
             if (activeProfile != null) {
                 profileManager.updateHotkey(activeProfile.getId(), hotkey);
+                if (mainController != null) {
+                    Platform.runLater(() -> {
+                        mainController.reloadData();
+                        logger.info("Reloaded data in MainController after hotkey action.");
+                    });
+                } else {
+                    logger.warn("MainController instance is not set. Unable to reload data.");
+                }
             }
         }
     }
@@ -103,6 +118,7 @@ public class HotkeyManager {
 
     private boolean launchApplication(String application) {
         try {
+            logger.info("Launching application: {}", application);
             Runtime.getRuntime().exec(application);
             logger.info("Launched application: {}", application);
             return true;
@@ -114,6 +130,7 @@ public class HotkeyManager {
 
     private boolean openFileOrFolder(String path) {
         try {
+            logger.info("Opening file/folder: {}", path);
             Desktop.getDesktop().open(new File(path));
             logger.info("Opened file/folder: {}", path);
             return true;

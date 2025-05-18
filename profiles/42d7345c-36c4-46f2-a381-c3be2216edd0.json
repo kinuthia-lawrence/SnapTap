@@ -1,0 +1,22 @@
+{
+  "id" : "42d7345c-36c4-46f2-a381-c3be2216edd0",
+  "name" : "COde",
+  "hotkeys" : [ {
+    "id" : "aa411a10-c48c-4521-96b9-b260bc14c798",
+    "name" : "Notepad",
+    "keyCombo" : "Ctrl+Shift+N",
+    "actionType" : "APPLICATION",
+    "actionData" : "notepad",
+    "enabled" : true,
+    "usageCount" : 1
+  }, {
+    "id" : "5c012156-0f4f-40ce-8605-9b790445d5bb",
+    "name" : "Excel",
+    "keyCombo" : "Ctrl+Shift+E",
+    "actionType" : "APPLICATION",
+    "actionData" : "excel",
+    "enabled" : true,
+    "usageCount" : 0
+  } ],
+  "active" : true
+}

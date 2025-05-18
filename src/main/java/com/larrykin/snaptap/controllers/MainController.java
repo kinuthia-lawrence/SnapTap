@@ -100,6 +100,8 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hotkeyManager = HotkeyManager.getInstance();
+        hotkeyManager.setMainController(this);
+
         Profile activeProfile = profileManager.getActiveProfile();
         if (activeProfile != null) {
             hotkeyManager.setMasterSwitch(activeProfile.isActive());
@@ -303,6 +305,8 @@ public class MainController implements Initializable {
                 Profile newProfile = profileManager.createProfile(name.trim());
                 profileCombo.getItems().add(newProfile.getName());
                 profileCombo.setValue(newProfile.getName());
+                profileManager.setActiveProfile(newProfile.getId());
+                reloadData();
             }
         });
     }
@@ -410,7 +414,7 @@ public class MainController implements Initializable {
                 for (Profile profile : allProfiles) {
                     if (profile.getName().equals(newValue)) {
                         profileManager.setActiveProfile(profile.getId());
-                        loadHotkeysFromCurrentProfile();
+                        reloadData();
                         break;
                     }
                 }
@@ -735,6 +739,7 @@ public class MainController implements Initializable {
             try {
                 activeProfile.addHotkey(newHotkey);
                 profileManager.saveProfile(activeProfile);
+                reloadData();
 
                 // Show success alert
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -774,6 +779,28 @@ public class MainController implements Initializable {
                 activeHotkeysLabel.setText(profile.getHotkeys().size() + "/" + profile.getHotkeys().size());
                 runToggle.setSelected(profile.isActive());
             });
+        }
+    }
+
+    public void reloadData() {
+        Profile activeProfile = profileManager.getActiveProfile();
+        if (activeProfile != null) {
+            // Update the master switch in HotkeyManager
+            hotkeyManager.setMasterSwitch(activeProfile.isActive());
+
+            // Unregister all existing hotkeys
+            hotkeyManager.getRegisteredHotkeys().clear();
+
+            // Re-register all hotkeys from the active profile
+            profileManager.registerProfileHotkeys(activeProfile);
+
+            // Update the UI components
+            updateUI(activeProfile);
+            loadHotkeysFromCurrentProfile();
+            updateKeyboardHeatmap();
+            logger.info("Reloaded data in MainController for profile: {}", activeProfile.getName());
+        } else {
+            logger.warn("No active profile found during reload");
         }
     }
 }
