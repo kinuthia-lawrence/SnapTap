@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,6 +29,16 @@ import java.util.*;
 
 public class MainController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+    public Label hotkeyPreview;
+    public Button saveHotkeyBtn;
+    public TextField actionField;
+    public ComboBox actionTypeCombo;
+    public GridPane keyboardGrid;
+    public TextField nameField;
+    public ToggleButton ctrlToggle;
+    public ToggleButton altToggle;
+    public ToggleButton shiftToggle;
+    public ToggleButton winToggle;
 
 
     @FXML
@@ -70,6 +81,8 @@ public class MainController implements Initializable {
 
     @FXML
     private VBox keyboardMapContent;
+    @FXML
+    private FontIcon actionIcon;
 
     private HotkeyManager hotkeyManager;
     private ProfileManager profileManager;
@@ -79,6 +92,7 @@ public class MainController implements Initializable {
     private long startTime = 0;
     private long elapsedTimeMillis = 0;
     private boolean running = false;
+    private ToggleGroup keyboardToggleGroup = new ToggleGroup();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,8 +107,99 @@ public class MainController implements Initializable {
         loadHotkeysFromCurrentProfile();
 
         runToggle.setText(" ");
-        addProfileBtn.setOnAction(e -> showAddProfileDialog());
+        setListeners();
         setupSearchFunctionality();
+        setupKeyboardToggleGroup();
+    }
+
+    private void setListeners() {
+
+        //* Profile btn listener
+        addProfileBtn.setOnAction(e -> showAddProfileDialog());
+
+
+        //* Modifiers Toggle button listeners
+        ctrlToggle.selectedProperty().addListener((observable, oldValue, newValue) -> updateHotkeyPreview());
+        altToggle.selectedProperty().addListener((observable, oldValue, newValue) -> updateHotkeyPreview());
+        shiftToggle.selectedProperty().addListener((observable, oldValue, newValue) -> updateHotkeyPreview());
+        winToggle.selectedProperty().addListener((observable, oldValue, newValue) -> updateHotkeyPreview());
+
+
+        //* Action Type ComboBox Listener
+        // Set up dynamic prompt text and icons for action field
+        actionTypeCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                switch (newVal.toString()) {
+                    case "Website" -> {
+                        actionField.setPromptText("https://example.com");
+                        actionIcon.setIconLiteral("fas-globe");
+                    }
+                    case "Application" -> {
+                        actionField.setPromptText("Notepad");
+                        actionIcon.setIconLiteral("fas-laptop");
+                    }
+                    case "File or Folder" -> {
+                        actionField.setPromptText("/path/to/file/or/folder");
+                        actionIcon.setIconLiteral("fas-folder");
+                    }
+                }
+            }
+        });
+
+        // Initialize combobox with cell factory for icons
+        actionTypeCombo.setCellFactory(param -> new ListCell<String>() {
+            private final FontIcon icon = new FontIcon();
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item);
+                    icon.setIconSize(16);
+
+                    switch (item) {
+                        case "Website" -> icon.setIconLiteral("fas-globe");
+                        case "Application" -> icon.setIconLiteral("fas-laptop");
+                        case "File or Folder" -> icon.setIconLiteral("fas-folder");
+                    }
+
+                    setGraphic(icon);
+                }
+            }
+        });
+
+        // Also customize the button cell to show selected icon
+        actionTypeCombo.setButtonCell(new ListCell<String>() {
+            private final FontIcon icon = new FontIcon();
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item);
+                    icon.setIconSize(16);
+
+                    switch (item) {
+                        case "Website" -> icon.setIconLiteral("fas-globe");
+                        case "Application" -> icon.setIconLiteral("fas-laptop");
+                        case "File or Folder" -> icon.setIconLiteral("fas-folder");
+                    }
+
+                    setGraphic(icon);
+                }
+            }
+        });
+
+        // Set default selection
+        actionTypeCombo.getSelectionModel().selectFirst();
     }
 
 
@@ -423,11 +528,11 @@ public class MainController implements Initializable {
             profileManager.updateHotkey(profileManager.getActiveProfile().getId(), hotkey);
         });
 
-       Button deleteButton = new Button();
-       deleteButton.getStyleClass().add("delete-button");
-       FontIcon deleteIcon = new FontIcon("fas-trash");
-       deleteIcon.setIconColor(javafx.scene.paint.Color.RED); // Set icon color to red
-       deleteButton.setGraphic(deleteIcon);
+        Button deleteButton = new Button();
+        deleteButton.getStyleClass().add("delete-button");
+        FontIcon deleteIcon = new FontIcon("fas-trash");
+        deleteIcon.setIconColor(javafx.scene.paint.Color.RED); // Set icon color to red
+        deleteButton.setGraphic(deleteIcon);
         deleteButton.setOnAction(e -> {
             Profile profile = profileManager.getActiveProfile();
             profile.getHotkeys().removeIf(h -> h.getId().equals(hotkey.getId()));
@@ -438,7 +543,7 @@ public class MainController implements Initializable {
 
         topSection.getChildren().addAll(titleSection, enabledToggle, deleteButton);
 
-       Separator separator = new Separator();
+        Separator separator = new Separator();
         String color = ThemeManager.loadThemeState() ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)";
         separator.setStyle("-fx-background: " + color + ";");
 
@@ -487,6 +592,7 @@ public class MainController implements Initializable {
                     });
         }
     }
+
     private void updateKeyboardHeatmap() {
         // Find all keyboard keys in the keyboardMapContent
         if (keyboardMapContent != null) {
@@ -522,5 +628,60 @@ public class MainController implements Initializable {
             }
         }
         return count;
+    }
+
+
+    public void setupKeyboardToggleGroup() {
+        // Find all ToggleButtons in the keyboardGrid
+        keyboardGrid.lookupAll(".toggle-button").forEach(node -> {
+            if (node instanceof ToggleButton toggleButton) {
+                // Add each button to the toggle group
+                toggleButton.setToggleGroup(keyboardToggleGroup);
+
+                // Add listener for selections
+                toggleButton.setOnAction(e -> updateHotkeyPreview());
+            }
+        });
+    }
+
+
+    // Method to update the hotkey preview
+    private void updateHotkeyPreview() {
+        StringBuilder hotkeyText = new StringBuilder();
+
+        // Check which modifiers are selected
+        if (ctrlToggle.isSelected()) hotkeyText.append("Ctrl+");
+        if (altToggle.isSelected()) hotkeyText.append("Alt+");
+        if (shiftToggle.isSelected()) hotkeyText.append("Shift+");
+        if (winToggle.isSelected()) hotkeyText.append("Win+");
+
+        // Add the currently selected key (if any)
+        String selectedKey = getSelectedKey();
+        if (selectedKey != null && !selectedKey.isEmpty()) {
+            hotkeyText.append(selectedKey);
+        } else {
+            // Remove the trailing "+" if no key is selected
+            if (hotkeyText.length() > 0 && hotkeyText.charAt(hotkeyText.length() - 1) == '+') {
+                hotkeyText.deleteCharAt(hotkeyText.length() - 1);
+            }
+        }
+
+        // Update the preview label
+        hotkeyPreview.setText(hotkeyText.toString());
+    }
+
+    // Helper method to get the currently selected key
+    private String getSelectedKey() {
+        // Find the selected key button in the keyboard grid
+        for (Node row : keyboardGrid.getChildren()) {
+            if (row instanceof HBox) {
+                for (Node node : ((HBox) row).getChildren()) {
+                    if (node instanceof ToggleButton && ((ToggleButton) node).isSelected()) {
+                        return ((ToggleButton) node).getText();
+                    }
+                }
+            }
+        }
+        return "";
     }
 }

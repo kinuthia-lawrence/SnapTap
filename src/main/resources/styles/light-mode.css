@@ -319,6 +319,16 @@
     -fx-font-weight: bold;
 }
 
+.keyboard-key:hover {
+    -fx-background-color: #2A9D8F;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.keyboard-key:selected {
+    -fx-background-color: #969191;
+    -fx-text-fill: white;
+}
 .used-key {
     -fx-background-color: #2A9D8F;
 }
@@ -369,3 +379,77 @@
     -fx-text-fill: white;
     -fx-background-radius: 4px;
 }
+
+/* Add hotkey section*/
+.add-hotkey-label{
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.input-fields  {
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-background-color: transparent;
+    -fx-border-color: #5D6A76;
+    -fx-padding: 10 10;
+}
+
+/* ComboBox styling */
+.combo-box-base {
+    -fx-background-color: transparent;
+    -fx-border-color: #5D6A76;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+/* Text in the ComboBox display area */
+.combo-box .list-cell {
+    -fx-text-fill: #1F2937;
+    -fx-background-color: transparent;
+}
+
+/* Dropdown list cells */
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #5D6A76;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #1F2937;
+    -fx-background-color: #ffffff;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #2A9D8F;
+}
+
+/* Arrow button */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #1F2937;
+}
+
+.modifiers-toggle-button{
+    -fx-padding: 10;
+    -fx-text-fill: #1F2937;
+    -fx-background-radius: 4px;
+    -fx-background-color: transparent;
+    -fx-border-radius: 4px;
+    -fx-border-color: #5D6A76;
+}
+.modifiers-toggle-button:hover {
+    -fx-background-color: #2A9D8F;
+}
+.modifiers-toggle-button:selected {
+    -fx-text-fill: white;
+    -fx-background-color: #2A9D8F;
+}
+.hotkeyPreview{
+    -fx-text-fill: #1F2937;
+    -fx-font-weight: bold;
+}
+
+

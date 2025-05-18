@@ -263,16 +263,16 @@
                         <!-- Legend -->
                         <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10 0 15 0;">
                             <HBox alignment="CENTER" spacing="5">
-                                <StackPane styleClass="keyboard-key" minWidth="30" minHeight="30" maxWidth="30" maxHeight="30" />
-                                <Label text="Unused key" />
+                                <StackPane styleClass="keyboard-key" minWidth="30" minHeight="30" maxWidth="30" maxHeight="30"/>
+                                <Label text="Unused key"/>
                             </HBox>
                             <HBox alignment="CENTER" spacing="5">
-                                <StackPane styleClass="keyboard-key, used-key" minWidth="30" minHeight="30" maxWidth="30" maxHeight="30" />
-                                <Label text="Used key" />
+                                <StackPane styleClass="keyboard-key, used-key" minWidth="30" minHeight="30" maxWidth="30" maxHeight="30"/>
+                                <Label text="Used key"/>
                             </HBox>
                             <HBox alignment="CENTER" spacing="5">
-                                <StackPane styleClass="keyboard-key, frequently-used-key" minWidth="30" minHeight="30" maxWidth="30" maxHeight="30" />
-                                <Label text="Frequently used" />
+                                <StackPane styleClass="keyboard-key, frequently-used-key" minWidth="30" minHeight="30" maxWidth="30" maxHeight="30"/>
+                                <Label text="Frequently used"/>
                             </HBox>
                         </HBox>
 
@@ -286,24 +286,24 @@
                     <VBox fx:id="addHotkeyContent" spacing="15" styleClass="shared-gridPane" visible="false">
                         <!-- Hotkey Name -->
                         <VBox spacing="5">
-                            <Label text="Hotkey Name"/>
-                            <TextField fx:id="nameField" promptText="e.g., Open Google"/>
+                            <Label text="Hotkey Name" styleClass="add-hotkey-label"/>
+                            <TextField fx:id="nameField" promptText="e.g., Open Google" styleClass="input-fields"/>
                         </VBox>
 
                         <!-- Modifier Keys -->
                         <VBox spacing="5">
-                            <Label text="Modifier Keys"/>
+                            <Label text="Modifier Keys" styleClass="add-hotkey-label"/>
                             <HBox spacing="10">
-                                <ToggleButton text="Ctrl"/>
-                                <ToggleButton text="Alt"/>
-                                <ToggleButton text="Shift"/>
-                                <ToggleButton text="Win"/>
+                                <ToggleButton fx:id="ctrlToggle" text="Ctrl" styleClass="modifiers-toggle-button"/>
+                                <ToggleButton fx:id="altToggle" text="Alt" styleClass="modifiers-toggle-button"/>
+                                <ToggleButton fx:id="shiftToggle" text="Shift" styleClass="modifiers-toggle-button"/>
+                                <ToggleButton fx:id="winToggle" text="Win" styleClass="modifiers-toggle-button"/>
                             </HBox>
                         </VBox>
 
                         <!-- Key Selection -->
                         <VBox spacing="5">
-                            <Label text="Key:"/>
+                            <Label text="Key" styleClass="add-hotkey-label"/>
                             <GridPane fx:id="keyboardGrid" hgap="5" vgap="5" alignment="CENTER">
                                 <!-- Function keys row -->
                                 <HBox spacing="3" alignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="12">
@@ -383,8 +383,8 @@
 
                         <!-- Action Type -->
                         <VBox spacing="5">
-                            <Label text="Action Type"/>
-                            <ComboBox fx:id="actionTypeCombo" prefWidth="300">
+                            <Label text="Action Type" styleClass="add-hotkey-label"/>
+                            <ComboBox fx:id="actionTypeCombo" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="input-fields">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
                                         <String fx:value="Website"/>
@@ -397,12 +397,18 @@
 
                         <!-- Action -->
                         <VBox spacing="5">
-                            <Label text="Action"/>
-                            <TextField fx:id="actionField" promptText="/path/to/file/or/folder"/>
+                            <Label text="Action" styleClass="add-hotkey-label"/>
+                            <HBox styleClass="input-fields" spacing="10" alignment="CENTER_LEFT">
+                                <FontIcon fx:id="actionIcon" iconLiteral="fas-globe" iconSize="17"/>
+                                <TextField fx:id="actionField" promptText="https://example.com" HBox.hgrow="ALWAYS" style="-fx-border-color: transparent;  -fx-background-color: transparent; -fx-padding: 0;"/>
+                            </HBox>
                         </VBox>
 
                         <HBox alignment="CENTER">
-                            <Label text="Hotkey: Ctrl+Alt+Shift+Win+X" style="-fx-text-fill: #00ffcc;"/>
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Hotkey : " styleClass="add-hotkey-label"/>
+                                <Label fx:id="hotkeyPreview" text="Ctrl+Alt+Shift+Win+X" styleClass="hotkeyPreview"/>
+                            </HBox>
                             <Pane HBox.hgrow="ALWAYS"/>
                             <Button fx:id="saveHotkeyBtn" text="Add Hotkey"/>
                         </HBox>
