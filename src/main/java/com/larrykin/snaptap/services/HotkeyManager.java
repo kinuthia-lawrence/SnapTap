@@ -1,6 +1,7 @@
 package com.larrykin.snaptap.services;
 
 import com.larrykin.snaptap.models.Hotkey;
+import com.larrykin.snaptap.models.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,53 +42,84 @@ public class HotkeyManager {
     }
 
     public void registerHotkey(Hotkey hotkey) {
+        if (hotkey.getKeyCombo().split("\\+").length < 2) {
+            logger.error("Hotkey '{}' is invalid. A hotkey must consist of at least two keys.", hotkey.getName());
+            return;
+        }
+
+        if (registeredHotkeys.values().stream()
+                .anyMatch(existingHotkey -> existingHotkey.getKeyCombo().equals(hotkey.getKeyCombo()))) {
+            logger.error("Hotkey '{}' is invalid. Duplicate key combination: {}", hotkey.getName(), hotkey.getKeyCombo());
+            return;
+        }
+
         registeredHotkeys.put(hotkey.getId(), hotkey);
         logger.info("Registered hotkey: {} with combination: {}", hotkey.getName(), hotkey.getKeyCombo());
+    }
+
+    public Map<String, Hotkey> getRegisteredHotkeys() {
+        return registeredHotkeys;
     }
 
     public void executeAction(Hotkey hotkey) {
         logger.info("Executing action for hotkey: {}", hotkey.getName());
         if (!masterSwitch || !systemRunning || !hotkey.isEnabled()) {
-            logger.warn("Action not executed. Conditions not met: masterSwitch={}, systemRunning={}, hotkeyEnabled={}",
+            logger.warn("Action execution skipped. Master switch: {}, System running: {}, Hotkey enabled: {}",
                     masterSwitch, systemRunning, hotkey.isEnabled());
             return;
         }
 
+        boolean actionSuccess = false;
+
         switch (hotkey.getActionType()) {
-            case URL -> openUrl(hotkey.getActionData());
-            case APPLICATION -> launchApplication(hotkey.getActionData());
-            case FILE_FOLDER -> openFileOrFolder(hotkey.getActionData());
+            case URL -> actionSuccess = openUrl(hotkey.getActionData());
+            case APPLICATION -> actionSuccess = launchApplication(hotkey.getActionData());
+            case FILE_FOLDER -> actionSuccess = openFileOrFolder(hotkey.getActionData());
+        }
+
+        if (actionSuccess) {
+            hotkey.incrementUsageCount();
+            logger.info("Hotkey '{}' usage count incremented to {}", hotkey.getName(), hotkey.getUsageCount());
+
+            // Save the updated profile
+            ProfileManager profileManager = new ProfileManager();
+            Profile activeProfile = profileManager.getActiveProfile();
+            if (activeProfile != null) {
+                profileManager.updateHotkey(activeProfile.getId(), hotkey);
+            }
         }
     }
 
-    public Map<String, Hotkey> getRegisteredHotkeys() {
-        return new HashMap<>(registeredHotkeys);
-    }
-
-    private void openUrl(String url) {
+    private boolean openUrl(String url) {
         try {
             Desktop.getDesktop().browse(new URI(url));
             logger.info("Opened URL: {}", url);
+            return true;
         } catch (Exception e) {
             logger.error("Failed to open URL: {}", url, e);
+            return false;
         }
     }
 
-    private void launchApplication(String path) {
+    private boolean launchApplication(String application) {
         try {
-            new ProcessBuilder(path).start();
-            logger.info("Launched application: {}", path);
+            Runtime.getRuntime().exec(application);
+            logger.info("Launched application: {}", application);
+            return true;
         } catch (IOException e) {
-            logger.error("Failed to launch application: {}", path, e);
+            logger.error("Failed to launch application: {}", application, e);
+            return false;
         }
     }
 
-    private void openFileOrFolder(String path) {
+    private boolean openFileOrFolder(String path) {
         try {
             Desktop.getDesktop().open(new File(path));
             logger.info("Opened file/folder: {}", path);
+            return true;
         } catch (IOException e) {
             logger.error("Failed to open file/folder: {}", path, e);
+            return false;
         }
     }
 }

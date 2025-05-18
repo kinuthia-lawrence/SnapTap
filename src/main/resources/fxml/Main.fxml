@@ -407,7 +407,7 @@
                         <HBox alignment="CENTER">
                             <HBox alignment="CENTER_LEFT">
                                 <Label text="Hotkey : " styleClass="add-hotkey-label"/>
-                                <Label fx:id="hotkeyPreview" text="Ctrl+Alt+Shift+Win+X" styleClass="hotkeyPreview"/>
+                                <Label fx:id="hotkeyPreview" text=" " styleClass="hotkeyPreview"/>
                             </HBox>
                             <Pane HBox.hgrow="ALWAYS"/>
                             <Button fx:id="saveHotkeyBtn" text="Add Hotkey" onAction="#saveHotkey"/>

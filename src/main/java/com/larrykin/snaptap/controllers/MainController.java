@@ -154,7 +154,7 @@ public class MainController implements Initializable {
                         actionIcon.setIconLiteral("fas-globe");
                     }
                     case "Application" -> {
-                        actionField.setPromptText("Notepad");
+                        actionField.setPromptText("notepad or `C:\\Windows\\System32\\notepad.exe` ");
                         actionIcon.setIconLiteral("fas-laptop");
                     }
                     case "File or Folder" -> {
@@ -191,7 +191,7 @@ public class MainController implements Initializable {
             }
         });
 
-        // Also customize the button cell to show selected icon
+        //  show selected icon
         actionTypeCombo.setButtonCell(new ListCell<String>() {
             private final FontIcon icon = new FontIcon();
 
@@ -262,36 +262,22 @@ public class MainController implements Initializable {
         String borderColor = isDarkMode ? "#5D6A76" : "#E0E0E0";
 
         // Apply style to dialog
-        dialogPane.setStyle(
-                "-fx-background-color: " + backgroundColor + ";"
-        );
+        dialogPane.setStyle("-fx-background-color: " + backgroundColor + ";");
 
         // Style dialog header
-        dialogPane.lookupAll(".header-panel").forEach(node ->
-                node.setStyle("-fx-background-color: " + secondaryBgColor + ";" +
-                        "-fx-border-color: " + borderColor + ";" +
-                        "-fx-border-width: 0 0 1 0;"));
+        dialogPane.lookupAll(".header-panel").forEach(node -> node.setStyle("-fx-background-color: " + secondaryBgColor + ";" + "-fx-border-color: " + borderColor + ";" + "-fx-border-width: 0 0 1 0;"));
 
-        dialogPane.lookupAll(".header-panel .label").forEach(node ->
-                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 18px; -fx-font-weight: bold;"));
+        dialogPane.lookupAll(".header-panel .label").forEach(node -> node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 18px; -fx-font-weight: bold;"));
 
         // Style text field
-        profileName.setStyle(
-                "-fx-background-color: " + secondaryBgColor + ";" +
-                        "-fx-text-fill: " + textColor + ";" +
-                        "-fx-border-color: " + borderColor + ";" +
-                        "-fx-border-radius: 4px;"
-        );
+        profileName.setStyle("-fx-background-color: " + secondaryBgColor + ";" + "-fx-text-fill: " + textColor + ";" + "-fx-border-color: " + borderColor + ";" + "-fx-border-radius: 4px;");
 
         // Style content text including labels
-        dialogPane.lookupAll(".content .label").forEach(node ->
-                node.setStyle("-fx-text-fill: " + textColor + ";"));
+        dialogPane.lookupAll(".content .label").forEach(node -> node.setStyle("-fx-text-fill: " + textColor + ";"));
 
         // Style buttons
         dialogPane.lookupAll(".button").forEach(node -> {
-            String buttonStyle = "-fx-background-color: " + (isDarkMode ? "#4A555E" : "#F0F2F4") + ";" +
-                    "-fx-text-fill: " + textColor + ";" +
-                    "-fx-background-radius: 5px;";
+            String buttonStyle = "-fx-background-color: " + (isDarkMode ? "#4A555E" : "#F0F2F4") + ";" + "-fx-text-fill: " + textColor + ";" + "-fx-background-radius: 5px;";
             node.setStyle(buttonStyle);
         });
 
@@ -301,13 +287,7 @@ public class MainController implements Initializable {
 
         // Style create button specially
         Button createButton = (Button) dialogPane.lookupButton(createButtonType);
-        createButton.setStyle(
-                "-fx-background-color: #2A9D8F;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-background-radius: 5px;" +
-                        "-fx-padding: 10px 20px;"
-        );
+        createButton.setStyle("-fx-background-color: #2A9D8F;" + "-fx-text-fill: white;" + "-fx-font-weight: bold;" + "-fx-background-radius: 5px;" + "-fx-padding: 10px 20px;");
 
         // Set result converter
         dialog.setResultConverter(buttonType -> {
@@ -465,22 +445,10 @@ public class MainController implements Initializable {
         }
 
         // Create the "Open Google" hotkey
-        Hotkey googleHotkey = new Hotkey(
-                UUID.randomUUID().toString(),
-                "Open Google",
-                "Ctrl+Alt+G",
-                ActionType.URL,
-                "https://www.google.com"
-        );
+        Hotkey googleHotkey = new Hotkey(UUID.randomUUID().toString(), "Open Google", "Ctrl+G", ActionType.URL, "https://www.google.com");
 
         // Create the "Open IntelliJ" hotkey
-        Hotkey intellijHotkey = new Hotkey(
-                UUID.randomUUID().toString(),
-                "Open IntelliJ",
-                "Ctrl+Shift+I",
-                ActionType.APPLICATION,
-                "idea"
-        );
+        Hotkey intellijHotkey = new Hotkey(UUID.randomUUID().toString(), "Command Prompt", "Ctrl+Shift+C", ActionType.APPLICATION, "cmd");
 
         // Add hotkeys to the profile and register them
         activeProfile.addHotkey(googleHotkey);
@@ -489,8 +457,7 @@ public class MainController implements Initializable {
         hotkeyManager.registerHotkey(googleHotkey);
         hotkeyManager.registerHotkey(intellijHotkey);
 
-        logger.info("Sample hotkeys created and added to profile: {}, {}",
-                googleHotkey.getName(), intellijHotkey.getName());
+        logger.info("Sample hotkeys created and added to profile: {}, {}", googleHotkey.getName(), intellijHotkey.getName());
     }
 
     private void loadHotkeysFromCurrentProfile() {
@@ -618,12 +585,10 @@ public class MainController implements Initializable {
 
         Profile activeProfile = profileManager.getActiveProfile();
         if (activeProfile != null) {
-            activeProfile.getHotkeys().stream()
-                    .filter(hotkey -> hotkey.getName().toLowerCase().contains(lowerCaseQuery) || hotkey.getActionData().toLowerCase().contains(lowerCaseQuery))
-                    .forEach(hotkey -> {
-                        VBox card = createHotkeyCard(hotkey);
-                        hotkeyCardContainer.getChildren().add(card);
-                    });
+            activeProfile.getHotkeys().stream().filter(hotkey -> hotkey.getName().toLowerCase().contains(lowerCaseQuery) || hotkey.getActionData().toLowerCase().contains(lowerCaseQuery)).forEach(hotkey -> {
+                VBox card = createHotkeyCard(hotkey);
+                hotkeyCardContainer.getChildren().add(card);
+            });
         }
     }
 
@@ -754,6 +719,19 @@ public class MainController implements Initializable {
         // Save the hotkey to the current profile
         Profile activeProfile = profileManager.getActiveProfile();
         if (activeProfile != null) {
+            // Check if the hotkey already exists
+            boolean hotkeyExists = activeProfile.getHotkeys().stream().anyMatch(hotkey -> hotkey.getKeyCombo().equalsIgnoreCase(newHotkey.getKeyCombo()));
+
+            if (hotkeyExists) {
+                // Show error alert if the hotkey already exists
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Duplicate Hotkey");
+                alert.setContentText("A hotkey with the same key combination already exists in the active profile.");
+                alert.showAndWait();
+                return;
+            }
+
             try {
                 activeProfile.addHotkey(newHotkey);
                 profileManager.saveProfile(activeProfile);
@@ -773,7 +751,6 @@ public class MainController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-
 
             // Clear fields and preview
             nameField.clear();
