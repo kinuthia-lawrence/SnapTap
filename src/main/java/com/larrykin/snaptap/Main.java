@@ -1,6 +1,10 @@
 package com.larrykin.snaptap;
 
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
 import com.larrykin.snaptap.controllers.MainController;
+import com.larrykin.snaptap.services.HotkeyListener;
+import com.larrykin.snaptap.services.HotkeyManager;
 import com.larrykin.snaptap.utils.ThemeManager;
 import com.larrykin.snaptap.utils.TrayManager;
 import javafx.application.Application;
@@ -28,6 +32,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        //* Set Listener
+        HotkeyManager hotkeyManager = new HotkeyManager();
+        HotkeyListener hotkeyListener = new HotkeyListener(hotkeyManager);
+        hotkeyListener.startListening();
+
+
+        //* Load FXML
+
         FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("/fxml/Main.fxml"));
         BorderPane root = fxmlLoader.load();
 
@@ -187,12 +199,12 @@ public class Main extends Application {
         stage.setMinWidth(920);
         stage.setMinHeight(520);
         addResizeListener(root, stage);
-/*        stage.setMaximized(true); // Set maximized state on startup
-
-        // Update maximize button icon to show compress instead of expand
-        FontIcon compressIcon = new FontIcon("fas-compress");
-        compressIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
-        maximizeButton.setGraphic(compressIcon);*/
+//        stage.setMaximized(true); // Set maximized state on startup
+//
+//        // Update maximize button icon to show compress instead of expand
+//        FontIcon compressIcon = new FontIcon("fas-compress");
+//        compressIcon.setIconColor(isDarkMode ? javafx.scene.paint.Color.WHITE : javafx.scene.paint.Color.BLACK);
+//        maximizeButton.setGraphic(compressIcon);
 
         stage.show();
 
@@ -200,46 +212,17 @@ public class Main extends Application {
         trayManager = new TrayManager(stage);
     }
 
-    private void showHelpDialog() {
-        boolean isDarkMode = ThemeManager.loadThemeState();
-        String backgroundColor = isDarkMode ? "#212529" : "#F9FAFB";
-        String textColor = isDarkMode ? "#ffffff" : "#333333";
-
-        Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
-        helpAlert.setTitle("About SnapTap");
-        helpAlert.setHeaderText("About SnapTap");
-        helpAlert.setContentText("SnapTap is a hotkey manager that allows you to assign custom keyboard shortcuts " +
-                "to perform various actions such as launching websites, opening applications, and executing files or folders.\n\n" +
-                "How to use:\n" +
-                "1. Create a new hotkey from the \"Add Hotkey\" tab\n" +
-                "2. Define your key combination (e.g., Ctrl+G)\n" +
-                "3. Select the action type (website, application, file)\n" +
-                "4. Enter the action details\n" +
-                "5. Save your hotkey\n\n" +
-                "SnapTap will listen for your hotkeys in the background");
-
-        // Apply theme-consistent styling to dialog pane
-        helpAlert.getDialogPane().setStyle(
-                "-fx-background-color: " + backgroundColor + ";"
-        );
-
-        // Style the dialog content properly
-        helpAlert.getDialogPane().lookupAll(".content").forEach(node ->
-                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 14px;"));
-
-        // Style header text
-        helpAlert.getDialogPane().lookupAll(".header-panel .label").forEach(node ->
-                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 16px; -fx-font-weight: bold;"));
-
-        // Style content text
-        helpAlert.getDialogPane().lookupAll(".content-panel .label").forEach(node ->
-                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 14px;"));
-
-        // Style buttons
-        helpAlert.getDialogPane().lookupAll(".button").forEach(node ->
-                node.setStyle("-fx-text-fill: " + textColor + ";"));
-
-        helpAlert.showAndWait();
+    @Override
+    public void stop() {
+        try {
+            // Stop the hotkey listener when the application exits
+            if (GlobalScreen.isNativeHookRegistered()) {
+                GlobalScreen.unregisterNativeHook();
+            }
+        } catch (NativeHookException e) {
+            System.err.println("Error while unregistering native hook: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -356,5 +339,47 @@ public class Main extends Application {
         });
 
         root.setOnMouseReleased(event -> dragging[0] = false);
+    }
+
+    private void showHelpDialog() {
+        boolean isDarkMode = ThemeManager.loadThemeState();
+        String backgroundColor = isDarkMode ? "#212529" : "#F9FAFB";
+        String textColor = isDarkMode ? "#ffffff" : "#333333";
+
+        Alert helpAlert = new Alert(Alert.AlertType.INFORMATION);
+        helpAlert.setTitle("About SnapTap");
+        helpAlert.setHeaderText("About SnapTap");
+        helpAlert.setContentText("SnapTap is a hotkey manager that allows you to assign custom keyboard shortcuts " +
+                "to perform various actions such as launching websites, opening applications, and executing files or folders.\n\n" +
+                "How to use:\n" +
+                "1. Create a new hotkey from the \"Add Hotkey\" tab\n" +
+                "2. Define your key combination (e.g., Ctrl+G)\n" +
+                "3. Select the action type (website, application, file)\n" +
+                "4. Enter the action details\n" +
+                "5. Save your hotkey\n\n" +
+                "SnapTap will listen for your hotkeys in the background");
+
+        // Apply theme-consistent styling to dialog pane
+        helpAlert.getDialogPane().setStyle(
+                "-fx-background-color: " + backgroundColor + ";"
+        );
+
+        // Style the dialog content properly
+        helpAlert.getDialogPane().lookupAll(".content").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 14px;"));
+
+        // Style header text
+        helpAlert.getDialogPane().lookupAll(".header-panel .label").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 16px; -fx-font-weight: bold;"));
+
+        // Style content text
+        helpAlert.getDialogPane().lookupAll(".content-panel .label").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: 14px;"));
+
+        // Style buttons
+        helpAlert.getDialogPane().lookupAll(".button").forEach(node ->
+                node.setStyle("-fx-text-fill: " + textColor + ";"));
+
+        helpAlert.showAndWait();
     }
 }

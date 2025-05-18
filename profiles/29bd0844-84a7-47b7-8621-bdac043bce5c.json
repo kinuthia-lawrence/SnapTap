@@ -1,0 +1,14 @@
+{
+  "id" : "29bd0844-84a7-47b7-8621-bdac043bce5c",
+  "name" : "Gaming",
+  "hotkeys" : [ {
+    "id" : "74c53f99-d573-47c6-af27-7c6388a5e6d3",
+    "name" : "Launch Steam",
+    "keyCombo" : "Ctrl+Alt+S",
+    "actionType" : "APPLICATION",
+    "actionData" : "C:\\Program Files (x86)\\Steam\\steam.exe",
+    "enabled" : true,
+    "usageCount" : 0
+  } ],
+  "active" : false
+}

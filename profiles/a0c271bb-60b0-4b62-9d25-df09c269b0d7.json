@@ -1,0 +1,22 @@
+{
+  "id" : "a0c271bb-60b0-4b62-9d25-df09c269b0d7",
+  "name" : "Default",
+  "hotkeys" : [ {
+    "id" : "12d43072-513b-435e-98df-e7ce2953f619",
+    "name" : "Open Google",
+    "keyCombo" : "Ctrl+G",
+    "actionType" : "URL",
+    "actionData" : "https://www.google.com",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "294bf737-d1f8-405e-816c-2f4bba308c32",
+    "name" : "Open Notepad",
+    "keyCombo" : "Ctrl+N",
+    "actionType" : "APPLICATION",
+    "actionData" : "notepad.exe",
+    "enabled" : true,
+    "usageCount" : 0
+  } ],
+  "active" : true
+}

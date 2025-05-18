@@ -4,22 +4,39 @@ import com.larrykin.snaptap.models.Hotkey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HotkeyManager {
     private static final Logger logger = LoggerFactory.getLogger(HotkeyManager.class);
     private Map<String, Hotkey> registeredHotkeys = new HashMap<>();
-    private boolean masterSwitch = true;
+    private boolean masterSwitch = true; // Reflects the active profile status
+    private boolean systemRunning = true; // Indicates if the system is running in the background
 
-    public void registerHotkey(Hotkey hotkey) {
-        // Register hotkey with system
-        registeredHotkeys.put(hotkey.getId(), hotkey);
-        logger.info("Registered hotkey: {}", hotkey.getName());
+    public void setMasterSwitch(boolean isActive) {
+        this.masterSwitch = isActive;
+        logger.info("Master switch set to: {}", isActive ? "Active" : "Inactive");
     }
 
+    public void setSystemRunning(boolean isRunning) {
+        this.systemRunning = isRunning;
+        logger.info("System running status set to: {}", isRunning ? "Running" : "Stopped");
+    }
+
+   public void registerHotkey(Hotkey hotkey) {
+       registeredHotkeys.put(hotkey.getId(), hotkey);
+       logger.info("Registered hotkey: {} with combination: {}", hotkey.getName(), hotkey.getKeyCombo());
+   }
+
     public void executeAction(Hotkey hotkey) {
-        if (!masterSwitch || !hotkey.isEnabled()) {
+        logger.info("Executing action for hotkey: {}", hotkey.getName());
+        if (!masterSwitch || !systemRunning || !hotkey.isEnabled()) {
+            logger.warn("Action not executed. Conditions not met: masterSwitch={}, systemRunning={}, hotkeyEnabled={}",
+                    masterSwitch, systemRunning, hotkey.isEnabled());
             return;
         }
 
@@ -30,19 +47,6 @@ public class HotkeyManager {
         }
     }
 
-    public void unregisterHotkey(String hotkeyId) {
-        if (registeredHotkeys.containsKey(hotkeyId)) {
-            // Unregister from system
-            Hotkey hotkey = registeredHotkeys.remove(hotkeyId);
-            logger.info("Unregistered hotkey: {}", hotkey.getName());
-        }
-    }
-
-    public void unregisterAllHotkeys() {
-        // Unregister all hotkeys from system
-        registeredHotkeys.clear();
-        logger.info("Unregistered all hotkeys");
-    }
 
     public Map<String, Hotkey> getRegisteredHotkeys() {
         return new HashMap<>(registeredHotkeys);
@@ -50,14 +54,29 @@ public class HotkeyManager {
 
     // Implementation methods
     private void openUrl(String url) {
-        //todo: Implementation
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+            logger.info("Opened URL: {}", url);
+        } catch (Exception e) {
+            logger.error("Failed to open URL: {}", url, e);
+        }
     }
 
     private void launchApplication(String path) {
-        //TODO: Implementation
+        try {
+            new ProcessBuilder(path).start();
+            logger.info("Launched application: {}", path);
+        } catch (IOException e) {
+            logger.error("Failed to launch application: {}", path, e);
+        }
     }
 
     private void openFileOrFolder(String path) {
-        //TODO: Implementation
+        try {
+            Desktop.getDesktop().open(new File(path));
+            logger.info("Opened file/folder: {}", path);
+        } catch (IOException e) {
+            logger.error("Failed to open file/folder: {}", path, e);
+        }
     }
 }

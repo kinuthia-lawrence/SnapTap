@@ -9,6 +9,7 @@ import com.larrykin.snaptap.utils.ThemeManager;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,7 +87,7 @@ public class MainController implements Initializable {
     private FontIcon actionIcon;
 
     private HotkeyManager hotkeyManager;
-    private ProfileManager profileManager;
+    private final ProfileManager profileManager = new ProfileManager();
     private Map<String, VBox> hotkeyCards = new HashMap<>();
     private int[] usageCounts = new int[100]; // Simple usage tracking for demo
     private Timeline uptimeTimeline;
@@ -95,12 +96,14 @@ public class MainController implements Initializable {
     private boolean running = false;
     private ToggleGroup keyboardToggleGroup = new ToggleGroup();
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         hotkeyManager = new HotkeyManager();
-        profileManager = new ProfileManager();
+        updateUI(profileManager.getActiveProfile());
 
-        //initialize timere
+
+        //initialize timer
         setupUptimeTimer();
 
         setupUIBindings();
@@ -118,6 +121,16 @@ public class MainController implements Initializable {
 
         //* Profile btn listener
         addProfileBtn.setOnAction(e -> showAddProfileDialog());
+
+        //* Background service toggle button listener
+        runToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            Profile activeProfile = profileManager.getActiveProfile();
+            if (activeProfile != null) {
+                activeProfile.setActive(newVal);
+                profileManager.saveProfile(activeProfile);
+                updateUI(activeProfile);
+            }
+        });
 
 
         //* Modifiers Toggle button listeners
@@ -427,26 +440,27 @@ public class MainController implements Initializable {
             stopServiceBtn.setText(newVal ? "Stop Service" : "Start Service");
             stopServiceBtn.setStyle("-fx-background-color: " + (newVal ? "#dc3545" : "#2A9D8F"));
         });
-
-
-        runToggle.setSelected(true);
-        runToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            statusButton.setText(newVal ? "Running" : "Stopped");
-            statusButton.setStyle("-fx-background-color: " + (newVal ? "#2A9D8F" : "#8D8D8D"));
-            stopServiceBtn.setText(newVal ? "Stop Service" : "Start Service");
-            stopServiceBtn.setStyle("-fx-background-color: " + (newVal ? "#dc3545" : "#2A9D8F"));
-            // Timer handling is now in the setupUptimeTimer method
-        });
     }
 
     private void setupSampleData() {
-        Profile activeProfile = profileManager.getActiveProfile();
-
-        // If no active profile exists yet, wait until after profile setup
-        if (activeProfile == null) {
+        // Check if there are no other profiles
+        List<Profile> allProfiles = profileManager.getAllProfiles();
+        if (allProfiles.size() > 1) {
             return;
         }
 
+        // Get the active profile (Default profile)
+        Profile activeProfile = profileManager.getActiveProfile();
+        if (activeProfile == null || !activeProfile.getName().equals("Default")) {
+            return;
+        }
+
+        // Check if the Default profile is empty
+        if (!activeProfile.getHotkeys().isEmpty()) {
+            return;
+        }
+
+        // Create the "Open Google" hotkey
         Hotkey googleHotkey = new Hotkey(
                 UUID.randomUUID().toString(),
                 "Open Google",
@@ -455,12 +469,24 @@ public class MainController implements Initializable {
                 "https://www.google.com"
         );
 
-        // Add to profile and register with hotkey manager
+        // Create the "Open IntelliJ" hotkey
+        Hotkey intellijHotkey = new Hotkey(
+                UUID.randomUUID().toString(),
+                "Open IntelliJ",
+                "Ctrl+Shift+I",
+                ActionType.APPLICATION,
+                "idea"
+        );
+
+        // Add hotkeys to the profile and register them
         activeProfile.addHotkey(googleHotkey);
+        activeProfile.addHotkey(intellijHotkey);
         profileManager.saveProfile(activeProfile);
         hotkeyManager.registerHotkey(googleHotkey);
+        hotkeyManager.registerHotkey(intellijHotkey);
 
-        logger.info("Sample hotkey created and added to profile: {}", googleHotkey.getName());
+        logger.info("Sample hotkeys created and added to profile: {}, {}",
+                googleHotkey.getName(), intellijHotkey.getName());
     }
 
     private void loadHotkeysFromCurrentProfile() {
@@ -757,6 +783,16 @@ public class MainController implements Initializable {
             winToggle.setSelected(false);
 
             validateSaveButton(); // Revalidate the button
+        }
+    }
+
+
+    private void updateUI(Profile profile) {
+        if (profile != null) {
+            Platform.runLater(() -> {
+                activeHotkeysLabel.setText(profile.getHotkeys().size() + "/" + profile.getHotkeys().size());
+                runToggle.setSelected(profile.isActive());
+            });
         }
     }
 }
