@@ -387,6 +387,7 @@
                             <ComboBox fx:id="actionTypeCombo" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="input-fields">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
+
                                         <String fx:value="Website"/>
                                         <String fx:value="Application"/>
                                         <String fx:value="File or Folder"/>

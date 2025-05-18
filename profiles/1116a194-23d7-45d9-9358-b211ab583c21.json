@@ -9,6 +9,54 @@
     "actionData" : "cmd",
     "enabled" : true,
     "usageCount" : 6
+  }, {
+    "id" : "5e79ef60-966f-4a5d-a2cd-b53377b4f7cf",
+    "name" : "Open google",
+    "keyCombo" : "Shift+F1",
+    "actionType" : "URL",
+    "actionData" : "www.google.com",
+    "enabled" : true,
+    "usageCount" : 1
+  }, {
+    "id" : "7ceb95d9-c7da-4549-be0c-3755f5bacd26",
+    "name" : "ghjkl",
+    "keyCombo" : "Win+E",
+    "actionType" : "URL",
+    "actionData" : "jkm,",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "bf5d14f3-68aa-4cdd-a162-dcb453f7c0ec",
+    "name" : "ghjbjnm",
+    "keyCombo" : "Shift+3",
+    "actionType" : "URL",
+    "actionData" : "ghjknm",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "696c0b2e-4aa5-48a1-a5c1-10d2c3ac71e1",
+    "name" : "h",
+    "keyCombo" : "Win+F1",
+    "actionType" : "URL",
+    "actionData" : "ghbn",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "81c47c94-c2ff-45a8-beca-91b492320757",
+    "name" : "hjkm",
+    "keyCombo" : "Win+F3",
+    "actionType" : "URL",
+    "actionData" : "bhnm,",
+    "enabled" : true,
+    "usageCount" : 0
+  }, {
+    "id" : "37b23332-a50a-4a74-adc9-3c792130195c",
+    "name" : "nm,",
+    "keyCombo" : "Shift+4",
+    "actionType" : "URL",
+    "actionData" : "bjnm,",
+    "enabled" : true,
+    "usageCount" : 0
   } ],
   "active" : false
 }

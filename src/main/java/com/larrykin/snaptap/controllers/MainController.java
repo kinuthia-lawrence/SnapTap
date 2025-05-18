@@ -6,6 +6,7 @@ import com.larrykin.snaptap.models.Profile;
 import com.larrykin.snaptap.services.HotkeyManager;
 import com.larrykin.snaptap.services.ProfileManager;
 import com.larrykin.snaptap.utils.ThemeManager;
+import com.larrykin.snaptap.utils.Utilities;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,10 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.slf4j.Logger;
@@ -261,17 +259,24 @@ public class MainController implements Initializable {
         grid.setPadding(new Insets(30, 25, 20, 25));
         grid.setMaxWidth(Double.MAX_VALUE);
 
-        TextField profileName = new TextField();
-        profileName.setPrefHeight(40);
-        profileName.setPromptText("e.g., Gaming, Office, Coding");
+        // Set column constraints to allow expansion
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setHgrow(Priority.ALWAYS);
+        col1.setFillWidth(true);
+        grid.getColumnConstraints().addAll(col1);
 
         Label nameLabel = new Label("Profile Name:");
         nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
 
+        TextField profileName = new TextField();
+        profileName.setPrefHeight(40);
+        profileName.setPromptText("e.g., Gaming, Office, Coding");
+        profileName.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setHgrow(profileName, Priority.ALWAYS);
+        GridPane.setFillWidth(profileName, true);
+
         grid.add(nameLabel, 0, 0);
         grid.add(profileName, 0, 1);
-        GridPane.setColumnSpan(profileName, 2);
-        GridPane.setFillWidth(profileName, true);
 
         // Set content
         dialogPane.setContent(grid);
@@ -806,7 +811,7 @@ public class MainController implements Initializable {
     private void validateSaveButton() {
         boolean isNameEmpty = nameField.getText() == null || nameField.getText().trim().isEmpty();
         boolean isActionEmpty = actionField.getText() == null || actionField.getText().trim().isEmpty();
-        boolean isActionTypeUnchanged = actionTypeCombo.getSelectionModel().getSelectedIndex() == 0;
+        boolean isActionTypeUnchanged = actionTypeCombo.getSelectionModel().getSelectedItem() == null;
         boolean isHotkeyInvalid = getSelectedKey().isEmpty() || (!ctrlToggle.isSelected() && !altToggle.isSelected() && !shiftToggle.isSelected() && !winToggle.isSelected());
 
         saveHotkeyBtn.setDisable(isNameEmpty || isActionEmpty || isActionTypeUnchanged || isHotkeyInvalid);
@@ -821,10 +826,17 @@ public class MainController implements Initializable {
         // Create a new hotkey
         String name = nameField.getText().trim();
         String action = actionField.getText().trim();
-        String actionType = actionTypeCombo.getSelectionModel().getSelectedItem().toString();
         String hotkeyCombo = hotkeyPreview.getText();
+        String actionType = actionTypeCombo.getSelectionModel().getSelectedItem().toString();
+        ActionType type;
+        switch (actionType) {
+            case "Website" -> type = ActionType.URL;
+            case "Application" -> type = ActionType.APPLICATION;
+            case "File or Folder" -> type = ActionType.FILE_FOLDER;
+            default -> throw new IllegalArgumentException("Unknown action type: " + actionType);
+        }
 
-        Hotkey newHotkey = new Hotkey(UUID.randomUUID().toString(), name, hotkeyCombo, ActionType.valueOf(actionType.toUpperCase()), action);
+        Hotkey newHotkey = new Hotkey(UUID.randomUUID().toString(), name, hotkeyCombo, type, action);
 
         // Save the hotkey to the current profile
         Profile activeProfile = profileManager.getActiveProfile();
@@ -834,11 +846,7 @@ public class MainController implements Initializable {
 
             if (hotkeyExists) {
                 // Show error alert if the hotkey already exists
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Duplicate Hotkey");
-                alert.setContentText("A hotkey with the same key combination already exists in the active profile.");
-                alert.showAndWait();
+                Utilities.showCustomAlert(Alert.AlertType.ERROR, "Error", "Duplicate Hotkey", "A hotkey with the same key combination already exists in the active profile.");
                 return;
             }
 
@@ -848,18 +856,20 @@ public class MainController implements Initializable {
                 reloadData();
 
                 // Show success alert
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Hotkey Saved");
-                alert.setContentText("The hotkey has been successfully saved.");
-                alert.showAndWait();
+                Utilities.showCustomAlert(
+                        Alert.AlertType.INFORMATION,
+                        "Success",
+                        "Hotkey Saved",
+                        "The hotkey has been successfully saved."
+                );
             } catch (Exception e) {
                 logger.error("An error occurred while saving the hotkey: {}", e.getMessage());
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Failed to Save Hotkey");
-                alert.setContentText("An error occurred while saving the hotkey. Please try again.");
-                alert.showAndWait();
+                Utilities.showCustomAlert(
+                        Alert.AlertType.ERROR,
+                        "Error",
+                        "Failed to Save Hotkey",
+                        "An error occurred while saving the hotkey. Please try again."
+                );
                 return;
             }
 
