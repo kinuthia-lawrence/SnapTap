@@ -604,6 +604,7 @@ public class MainController implements Initializable {
             hotkey.setEnabled(newVal);
             profileManager.updateHotkey(profileManager.getActiveProfile().getId(), hotkey);
             enabledToggle.setText(newVal ? "Enabled" : "Disabled"); // Update text based on state
+            reloadData();
         });
 
         Button deleteButton = new Button();
@@ -617,6 +618,7 @@ public class MainController implements Initializable {
             profileManager.saveProfile(profile);
             hotkeyCardContainer.getChildren().remove(card);
             hotkeyCards.remove(hotkey.getId());
+            reloadData();
         });
 
         topSection.getChildren().addAll(titleSection, enabledToggle, deleteButton);
@@ -897,8 +899,6 @@ public class MainController implements Initializable {
     }
 
 
-    /*    */
-
     /**
      * Updates the UI components based on the current profile's state.
      * This includes updating the active hotkeys label and the run toggle button.
@@ -908,8 +908,8 @@ public class MainController implements Initializable {
     private void updateUI(Profile profile) {
         if (profile != null) {
             Platform.runLater(() -> {
-                activeHotkeysLabel.setText(profile.getHotkeys().size() + "/" + profile.getHotkeys().size());
-                runToggle.setSelected(profile.isActive());
+                long enabledHotkeys = profile.getHotkeys().stream().filter(Hotkey::isEnabled).count();
+                activeHotkeysLabel.setText(enabledHotkeys + "/" + profile.getHotkeys().size());
             });
         }
     }
@@ -937,6 +937,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Starts the background service for managing hotkeys.
+     * This method initializes the hotkey manager, sets the system as running,
+     * and updates the UI components accordingly.
+     */
     private void startBackgroundService() {
         try {
             if (hotkeyManager == null) {
@@ -962,6 +967,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Stops the background service for managing hotkeys.
+     * This method marks the system as not running, unregisters the hotkeys,
+     * and updates the UI components accordingly.
+     */
     private void stopBackgroundService() {
         try {
             // Mark system as not running, but don't unregister the hook

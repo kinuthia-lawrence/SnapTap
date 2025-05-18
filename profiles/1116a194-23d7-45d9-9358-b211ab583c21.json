@@ -7,7 +7,7 @@
     "keyCombo" : "Ctrl+Shift+C",
     "actionType" : "APPLICATION",
     "actionData" : "cmd",
-    "enabled" : true,
+    "enabled" : false,
     "usageCount" : 6
   }, {
     "id" : "5e79ef60-966f-4a5d-a2cd-b53377b4f7cf",
@@ -16,7 +16,7 @@
     "actionType" : "URL",
     "actionData" : "www.google.com",
     "enabled" : true,
-    "usageCount" : 2
+    "usageCount" : 4
   }, {
     "id" : "7ceb95d9-c7da-4549-be0c-3755f5bacd26",
     "name" : "ghjkl",
@@ -58,5 +58,5 @@
     "enabled" : true,
     "usageCount" : 0
   } ],
-  "active" : false
+  "active" : true
 }
