@@ -457,7 +457,10 @@ public class MainController implements Initializable {
         profileCombo.getItems().clear();
         allProfiles.forEach(profile -> profileCombo.getItems().add(profile.getName()));
 
-        profileCombo.setValue("Default");
+        Profile activeProfile = profileManager.getActiveProfile();
+        if (activeProfile != null) {
+            profileCombo.setValue(activeProfile.getName());
+        }
 
         profileCombo.valueProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue != null && !newValue.equals(oldValue)) {

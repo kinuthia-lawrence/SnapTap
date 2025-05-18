@@ -16,7 +16,7 @@
     "actionType" : "URL",
     "actionData" : "www.google.com",
     "enabled" : true,
-    "usageCount" : 1
+    "usageCount" : 2
   }, {
     "id" : "7ceb95d9-c7da-4549-be0c-3755f5bacd26",
     "name" : "ghjkl",
@@ -58,5 +58,5 @@
     "enabled" : true,
     "usageCount" : 0
   } ],
-  "active" : false
+  "active" : true
 }
