@@ -525,9 +525,11 @@ public class MainController implements Initializable {
         ToggleButton enabledToggle = new ToggleButton("Enabled");
         enabledToggle.getStyleClass().add("enabled-toggle");
         enabledToggle.setSelected(hotkey.isEnabled());
+        enabledToggle.setText(hotkey.isEnabled() ? "Enabled" : "Disabled"); // Set initial text based on state
         enabledToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
             hotkey.setEnabled(newVal);
             profileManager.updateHotkey(profileManager.getActiveProfile().getId(), hotkey);
+            enabledToggle.setText(newVal ? "Enabled" : "Disabled"); // Update text based on state
         });
 
         Button deleteButton = new Button();
@@ -563,8 +565,8 @@ public class MainController implements Initializable {
             keysBox.getChildren().add(keyLabel);
         }
 
-        int index = Math.abs(hotkey.getId().hashCode() % 100);
-        Button usageButton = new Button("Used " + usageCounts[index] + " times");
+
+        Button usageButton = new Button("Used " + hotkey.getUsageCount() + " times");
         usageButton.getStyleClass().add("usage-button");
 
         bottomSection.getChildren().addAll(keysBox, usageButton);

@@ -356,13 +356,13 @@
 }
 
 .enabled-toggle {
-    -fx-background-color: #2A9D8F;
+    -fx-background-color: #8D8D8D;
     -fx-text-fill: white;
     -fx-background-radius: 4px;
 }
 
-.enabled-toggle:!selected {
-    -fx-background-color: #8D8D8D;
+.enabled-toggle:selected {
+    -fx-background-color: #2A9D8F;
 }
 
 .delete-button {
