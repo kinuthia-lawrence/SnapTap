@@ -87,12 +87,20 @@ public class HotkeyListener implements NativeKeyListener {
     private boolean isHotkeyTriggered(Hotkey hotkey) {
         // Split the hotkey combination into individual keys
         String[] hotkeyKeys = hotkey.getKeyCombo().split("\\+");
+
+        // Check if number of pressed keys matches exactly the hotkey combination
+        if (pressedKeys.size() != hotkeyKeys.length) {
+            return false; // Different number of keys pressed, not an exact match
+        }
+
+        // Check if all keys in the combination are pressed
         for (String key : hotkeyKeys) {
             if (!pressedKeys.contains(key.trim())) {
                 return false; // If any key in the combination is not pressed, return false
             }
         }
-        return true; // All keys in the combination are pressed
+
+        return true; // Exact match - all hotkey keys are pressed and no additional keys
     }
 
     /**
